@@ -121,3 +121,5 @@ Multiple interfaces can (but don't have to) be bundled together as children of *
     </interfaces>
 </schema> 
 ```
+All the nodes described above are allowed to appear in any order.
+

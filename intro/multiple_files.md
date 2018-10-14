@@ -1,0 +1,53 @@
+# Multiple Files
+For big protocols it is possible and even recommended to split schema definition
+into multiple files. The code generator **must** accept a list of schema files to
+process and **must** process them in requested order.
+
+Every subsequently processed schema file must **NOT** change any properties 
+specified by the first processed schema file. It is allowed to omit any properties
+that have already been defined. For example:
+
+First processed file:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big" version="2">
+    ...
+</schema>
+```
+Second processed file:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    ...
+</schema>
+```
+It must be accepted by the code generator because it does **NOT** change previously
+defined **name**, **endian**, and **version**. The second file doesn't mention
+**version** at all.
+
+However, the following third file must cause an error due to changing the
+**endian** value:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="little">
+    ...
+</schema>
+```
+Also note, that all the properties have some default value and cannot be
+defined in second or later processed file while been omitted in the first one.
+
+For example, the first file doesn't specify version number (which defaults to **0**)
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    ...
+</schema>
+```
+The following second file must cause an error due to an attempt to override
+**version** property with different value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" version="2">
+    ...
+</schema>
+```
