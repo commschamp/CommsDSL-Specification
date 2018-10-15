@@ -31,11 +31,13 @@ was introduced in version 3, but deprecated and removed in version 4.
 
 All these version numbers in the schema definition allow generation of proper version checks
 and correct code for protocols that communication their version in their 
-[framing](frames/frames.md) or selected messages. Please refer to
+[framing](../frames/frames.md) or selected messages. Please refer to
 [Protocol Versioning](../versioning/versioning.md) chapter for more details on
 the subject.
 
 For all other protocols that don't report their version and/or don't care about
 backward compatibility, the version information in the schema just serves as 
 documentation. The code generator must ignore the version information when
-generating code for such protocols.
+generating code for such protocols. The code generator may also allow generation
+of the code for a specific version and take provided version information on
+determining whether specific field exists for a particular version.

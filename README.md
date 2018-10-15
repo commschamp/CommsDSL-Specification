@@ -5,6 +5,3 @@ used to define custom binary protocols. The defined schema files are intended
 to be parsed and used by [commsdsl](https://github.com/arobenko/commsdsl) library and code
 generation application(s).
 
-
-## Numeric Values
-Any numeric value can be hex or decimal

@@ -15,4 +15,7 @@
 * [Messages](messages/messages.md)
 * [Interfaces](interfaces/interfaces.md)
 * [Frames](frames/frames.md)
+* [Protocol Versioning](versioning/versioning.md)
+* [Appendix](appendix/appendix.md)
+    * [Properties of schema](appendix/schema.md)
 
