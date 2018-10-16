@@ -1,4 +1,4 @@
-# Protocol Versioning
+## Protocol Versioning
 The **CommsDSL** allows provides a way to specify version of the binary
 protocol by using **version** property of the [schema](../schema/schema.md)
 element.

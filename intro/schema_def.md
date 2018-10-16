@@ -1,4 +1,4 @@
-# Schema Definition
+## Schema Definition
 The **CommsDSL** schema files use [XML](https://en.wikipedia.org/wiki/XML) to
 define all the messages, their fields, and framing.
 

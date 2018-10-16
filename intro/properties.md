@@ -1,4 +1,4 @@
-# Properties
+## Properties
 Almost every element in **CommsDSL** has one or more properties, such as **name**.
 Any property can be defined using multiple ways. In can be useful when an
 element has too many properties to specify in a single line for a convenient
@@ -38,3 +38,5 @@ if provided **type** value is not changed).
     <type value="uint8" />
 </int>
 ```
+
+**NOTE**, that properties can be defined in **any** order.

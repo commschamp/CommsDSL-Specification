@@ -1,4 +1,4 @@
-# Numeric Values
+## Numeric Values
 **Any** integral numeric value in the schema may be defined as decimal value or
 hexadecimal with "0x" prefix. For example, numeric IDs of the messages below
 are specified using decimal (for first) and hexadecimal (for second).

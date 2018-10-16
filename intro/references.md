@@ -1,4 +1,4 @@
-# References
+## References
 The **CommsDSL** allows references to fields or other definitions in order not
 to duplicate information and avoid various copy/paste errors. The referenced
 element **must** be defined (if in the same file) or processed (if in 

@@ -1,4 +1,4 @@
-# Multiple Files
+## Multiple Files
 For big protocols it is possible and even recommended to split schema definition
 into multiple files. The code generator **must** accept a list of schema files to
 process and **must** process them in requested order.

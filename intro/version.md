@@ -1,4 +1,4 @@
-# Version
+## Version
 Current version of this document is **1.0**
 
 This document is versioned using [Semantic Versioning](https://semver.org/) 

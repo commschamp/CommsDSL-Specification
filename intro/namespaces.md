@@ -1,4 +1,4 @@
-# Namespaces
+## Namespaces
 In addition to splitting into [multiple files](multiple_files.md), **CommsDSL**
 provides namespaces to help in definition of big protocols. It is possible to
 define [fields](../fields/fields.md), [messages](../fields/messages.md), 

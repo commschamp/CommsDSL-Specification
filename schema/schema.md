@@ -1,8 +1,8 @@
-# Schema
+## Schema
 Schema definition may contain various global (protocol-wide) 
 [properties](../intro/properties.md).
 
-## Protocol Name
+#### Protocol Name
 The protocol name is defined using **name** property. It may contain any
 alphanumeric character, but mustn't start with a number. 
 ```
@@ -18,7 +18,7 @@ The code generator is expected to use the specified name as main namespace
 for the protocol definition, unless new name is provided via command line
 parameters.
 
-## Endian
+#### Endian
 Default endian for the protocol can be defined using **endian** property. Supported
 values are either **big** or **little** (case insensitive). Defaults to **little**.
 ```
@@ -31,7 +31,7 @@ The **endian** property of any subsequently defined [field](../fields/fields.md)
 will default to the specified value, but can be overridden using
 its own **endian** property. 
 
-## Description
+#### Description
 It is possible to provide a human readable description of the protocol definition
 just for documentation purposes. The description is provided using **description**
 property of the **&lt;schema&gt;** node. Just like any [property](../intro/properties.md)
@@ -49,7 +49,7 @@ long multiline description it is recommended to define it as a text child elemen
 </schema>
 ```
 
-## Protocol (Schema) Version
+#### Protocol (Schema) Version
 As was mentioned in [Protocol Versioning](../intro/protocol_versioning.md) section
 **CommsDSL** supports (but doesn't enforce) versioning of the schema / protocol.
 In order to specify the version use **version** property with unsigned integral
@@ -71,7 +71,7 @@ For example version **1.5** can be defined and used throughout the schema as **0
 </schema>
 ```
 
-## DSL Version
+#### DSL Version
 As this specification evolves over time it can introduce new properties or
 other elements. It is possible to specify the version of the **DSL** as the schema's
 property. If code generator expects earlier version of the schema it is expected
@@ -88,7 +88,7 @@ property or other construct.
 </schema>
 ```
 
-## Allowing Non-Unique Message IDs
+#### Allowing Non-Unique Message IDs
 By default every defined [message](../messages/messages.md) must have unqiue 
 numeric message ID. If this is not the case, the code generator must report an
 error in case message definition with repeating ID number is encountered.
@@ -113,3 +113,4 @@ different messages with the same numeric ID.
 </schema>
 ```
 
+Use [appended table](../appendix/schema.md) for future references.
