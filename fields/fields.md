@@ -45,4 +45,3 @@ All this fields have [common](common.md) as well as their own specific set of
 properties.
 
 
-

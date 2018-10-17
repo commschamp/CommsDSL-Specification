@@ -113,4 +113,4 @@ different messages with the same numeric ID.
 </schema>
 ```
 
-Use [appended table](../appendix/schema.md) for future references.
+Use [properties table](../appendix/schema.md) for future references.
