@@ -1,4 +1,6 @@
 ## Common Properties for Fields
+Refer to [&lt;int&gt; Field](../fields/common.md) chapter for detailed description. 
+
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**name**|[name](../intro/names.md) string|1|yes||Name of the field.|

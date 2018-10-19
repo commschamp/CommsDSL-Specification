@@ -1,7 +1,7 @@
 ## &lt;enum&gt; Field
 This field stores and abstracts away value of integral 
 [enumerated type](https://en.wikipedia.org/wiki/Enumerated_type), where every
-valid value has its name. **&lt;enum&gt;** field has all the [common](common.md) properties
+valid value has its name. The **&lt;enum&gt;** field has all the [common](common.md) properties
 as well as extra properties and elements described below.
 
 #### Underlying Type
@@ -16,6 +16,8 @@ values are:
 - **uint32** - 4 bytes unsigned integer.
 - **int64** - 8 bytes signed integer.
 - **uint64** - 8 bytes unsigned integer.
+- **intvar** - up to 8 bytes variable length signed integer
+- **uintvar** - up to 8 bytes variable length unsigned integer
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -27,6 +29,9 @@ values are:
     </fields>
 </schema>
 ```
+The variable length types are encoded using **Base-128** form, such as
+[LEB128](https://en.wikipedia.org/wiki/LEB128) for *little* endian or similar for
+big endian.
 
 #### Valid Values
 All the valid values must be listed as **&lt;validValue&gt;** child of the 
@@ -52,7 +57,7 @@ in any order, not necessarily sorted.
 
 Every **&lt;validValue&gt;** supports extra properties:
 - **description** - Extra description and documentation on how to use the value.
-- **displayName** - String specifying how to name the field in various analysis tools.
+- **displayName** - String specifying how to name the value in various analysis tools.
 - **sinceVersion** - Version of the protocol when the value was introduced.
 - **deprecated** - Version of the protocol when the value was deprecated.
 
@@ -123,6 +128,9 @@ use **length** property to specify custom serialization length.
     </fields>
 </schema>
 ```
+<span style="color:red">**IMPORTANT**</span>: When **length** property is used with variable length 
+[underlying types](#underlying-type) (**intvar** and **uintvar**), 
+it means **maximum** allowed length.
 
 #### Length in Bits
 **&lt;enum&gt;** field can be a member of [&lt;bitfield&gt;](bitfield.md) field.

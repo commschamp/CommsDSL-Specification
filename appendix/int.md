@@ -1,6 +1,6 @@
-## Properties of &lt;enum&gt; Field
-The **&lt;enum&gt;** field has all the [common](fields.md) properties as
-well as ones listed below. Refer to [&lt;enum&gt; Field](../fields/enum.md) chapter
+## Properties of &lt;int&gt; Field
+The **&lt;int&gt;** field has all the [common](fields.md) properties as
+well as ones listed below. Refer to [&lt;int&gt; Field](../fields/int.md) chapter
 for detailed description. 
 
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
@@ -10,11 +10,19 @@ for detailed description.
 |**endian**|"big" or "little"|1|no|endian of [schema](../schema/schema.md)|Endian of the field.|
 |**length**|[unsigned](../intro/numeric.md)|1|no|length of **type**|Forced serialization length.|
 |**bitLength**|[unsigned](../intro/numeric.md)|1|no|length of **type** in bits|Serialization length in bits, applicable only to a member of [&lt;bitfield&gt;](../fields/bitfield.md).|
-|**hexAssign**|[bool](../intro/boolean.md)|1|no|false|Assign generated enum values using hexadecimal numbers.|
-|**nonUniqueAllowed**|[bool](../intro/boolean.md)|1|no|false|Allow non unique **&lt;validValue&gt;**-es.|
+|**serOffset**|[numeric](../intro/numeric.md)|1|no|0|Extra value that needs to be added to the field's value when the latter is being serialized.|
+|**signExt**|[bool](../intro/boolean.md)|1|no|true|Enable / Disable sign extension of the signed value when **length** property is used to reduce the default serialization length.|
+|**scaling**|"[numeric](../intro/numeric.md) / [numeric](../intro/numeric.md)"|1|no|"1/1"|Scaling ratio.|
+|**units**|[units](units.md)|1|no||Units of the value.|
+|**validRange**|"[ [numeric](../intro/numeric.md), [numeric](../intro/numeric.md) ]"|1|no||Range of valid values.|
+|**validValue**|[numeric](../intro/numeric.md)|1|no||Valid value.|
+|**validMin**|[numeric](../intro/numeric.md)|1|no||Valid minimal value. All the numbers above it are considered to be valid.|
+|**validMax**|[numeric](../intro/numeric.md)|1|no||Valid maximal value. All the numbers below it are considered to be valid.|
 |**validCheckVersion**|[bool](../intro/boolean.md)|1|no|false|Take into account protocol version when generating code for field's value validity check.|
+|**displayDecimals**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis tools to display this field as floating point value with specified number of digits after the fraction point.|
+|**displayOffset**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis tools to add specified offset value to a field's value when displaying it.|
 
-#### Properties of &lt;validValue&gt; Child Element of &lt;enum&gt; Field
+#### Properties of &lt;special&gt; Child Element of &lt;int&gt; Field
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**name**|[name](../intro/names.md) string|1|yes||Name of the value.|
