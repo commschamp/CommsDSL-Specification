@@ -16,6 +16,7 @@
     * [Common Properties of Fields](fields/common.md)
     * [enum Field](fields/enum.md)
     * [int Field](fields/int.md)
+    * [set Field](fields/set.md)
     * [bitfield Field](fields/bitfield.md)
     * [bundle Field](fields/bundle.md)
 * [Messages](messages/messages.md)
@@ -27,5 +28,6 @@
     * [Common Properties of Fields](appendix/fields.md)
     * [Properties for enum Field](appendix/enum.md)
     * [Properties for int Field](appendix/int.md)
+    * [Properties for set Field](appendix/set.md)    
     * [Units](appendix/units.md)
 

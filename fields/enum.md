@@ -61,7 +61,7 @@ Every **&lt;validValue&gt;** supports extra properties:
 - **sinceVersion** - Version of the protocol when the value was introduced.
 - **deprecated** - Version of the protocol when the value was deprecated.
 
-All these extra properties are described in detail as 
+All these extra properties are described in detail in 
 [Common Properties of Fields](common.md).
 
 #### Default Value

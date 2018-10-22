@@ -61,7 +61,7 @@ Every **&lt;special&gt;** supports extra properties:
 - **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 - **deprecated** - Version of the protocol when the special name / meaning was deprecated.
 
-All these extra properties are described in detail as 
+All these extra properties are described in detail in 
 [Common Properties of Fields](common.md).
 
 #### Default Value

@@ -20,6 +20,7 @@ for detailed description.
 |**name**|[name](../intro/names.md) string|1|yes||Name of the value.|
 |**val**|[numeric](../intro/numeric.md)|1|yes||Numeric value.|
 |**description**|string|1|no||Human readable description of the value.|
+|**displayName**|string|1|no||Human readable name of the value to display in various analysis tools.|
 |**sinceVersion**|[unsigned](../intro/numeric.md)|1|no|0|Version of the protocol in which value was introduced.|
 |**deprecated**|[unsigned](../intro/numeric.md)|1|no|max unsigned|Version of the protocol in which value was deprecated.<br />Must be greater than value of **sinceVersion**.|
 
