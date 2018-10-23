@@ -28,6 +28,7 @@
     * [Common Properties of Fields](appendix/fields.md)
     * [Properties for enum Field](appendix/enum.md)
     * [Properties for int Field](appendix/int.md)
-    * [Properties for set Field](appendix/set.md)    
+    * [Properties for set Field](appendix/set.md)
+    * [Properties for bitfield Field](appendix/bitfield.md)
     * [Units](appendix/units.md)
 
