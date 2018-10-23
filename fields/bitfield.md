@@ -23,7 +23,7 @@ is calculated automatically as length **in bytes** multiplied by **8**.
             <set name="SomeSetMember" bitLength="3">
                 ...
             </set>
-            <enum name="SomeEnumMember" bitLength="2">
+            <enum name="SomeEnumMember" type="uint8" bitLength="2">
                 ...
             </enum>
         </bitfield>
@@ -53,7 +53,7 @@ of the **&lt;bitfield&gt;**, then all the members must be wrapped in
                 <set name="SomeSetMember" bitLength="3">
                     ...
                 </set>
-                <enum name="SomeEnumMember" bitLength="2">
+                <enum name="SomeEnumMember" type="uint8" bitLength="2">
                     ...
                 </enum>
             </members>

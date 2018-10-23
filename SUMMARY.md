@@ -30,5 +30,6 @@
     * [Properties for int Field](appendix/int.md)
     * [Properties for set Field](appendix/set.md)
     * [Properties for bitfield Field](appendix/bitfield.md)
+    * [Properties for bundle Field](appendix/bitfield.md)    
     * [Units](appendix/units.md)
 
