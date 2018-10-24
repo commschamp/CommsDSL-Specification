@@ -2,7 +2,6 @@
 This field stores and abstracts away value of a text string. 
 The **&lt;string&gt;** field has all the [common](common.md) properties
 as well as extra properties and elements described below.
-
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

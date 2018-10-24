@@ -38,5 +38,6 @@
     * [Properties for bitfield Field](appendix/bitfield.md)
     * [Properties for bundle Field](appendix/bitfield.md)
     * [Properties for string Field](appendix/string.md)
+    * [Properties for data Field](appendix/data.md)
     * [Units](appendix/units.md)
 
