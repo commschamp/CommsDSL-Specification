@@ -7,7 +7,7 @@ for detailed description.
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**defaultValue**|string|1|no||Default value.|
 |**length**|[unsigned](../intro/numeric.md)|1|no|0|Fixed serialization length. **0** means no length limit. Cannot be used tegether with **lengthPrefix** or **zeroTermSuffix**.|
-|**lengthPrefix**|[name](../intro/names.md) string|1|no||Prefix field containing length of the string.Cannot be used tegether with **length** or **zeroTermSuffix**.|
+|**lengthPrefix**|[field](../fields/fields.md) or [reference](../intro/references.md)|1|no||Prefix field containing length of the string. Cannot be used tegether with **length** or **zeroTermSuffix**.|
 |**zeroTermSuffix**|[bool](../intro/boolean.md)|1|no|false|Terminate string with **0**. Cannot be used tegether with **length** or **lengthPrefix**.|
 
 

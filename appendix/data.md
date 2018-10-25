@@ -7,7 +7,7 @@ for detailed description.
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**defaultValue**|string|1|no||Default value. Case-insensitive hexadecimal string.|
 |**length**|[unsigned](../intro/numeric.md)|1|no|0|Fixed serialization length. **0** means no length limit. Cannot be used tegether with **lengthPrefix**.|
-|**lengthPrefix**|[name](../intro/names.md) data|1|no||Prefix field containing length of the data.Cannot be used tegether with **length**.|
+|**lengthPrefix**|[field](../fields/fields.md) or [reference](../intro/references.md)|1|no||Prefix field containing length of the data. Cannot be used tegether with **length**.|
 
 
 

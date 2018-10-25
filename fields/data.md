@@ -73,7 +73,7 @@ which contains name of the referenced field.
     </fields>
 </schema>
 ```
-The **CommsDSL** also supports **detached** length prefix, when there is
+The **CommsDSL** also supports **detached** length prefix, when there are
 several other fields in the [&lt;message&gt;](../messages/messages.md) or in the
 [&lt;bundle&gt;](bundle.md) between the length field and the **&lt;data&gt;**.
 ```
