@@ -84,7 +84,7 @@ The default value can also be specified using the name of one of the
         <int name="SomeIntField" type="uint8" defaultValue="Special2">
             <special name="Special1" val="0" />
             <special name="Special2" val="0xff" />
-        </enum>
+        </int>
     </fields>
 </schema>
 ```
@@ -248,7 +248,7 @@ In the example above it is equivalent to having **scaling="4/1"** defined.
 Protocols quite often specify what units are being transfered. The **CommsDSL**
 provides **units** [property](../intro/properties.md) to specify this information.
 The code generator may use this information to generate a functionality that allows 
-retrieval of prover value for requested units, while doing all the conversion 
+retrieval of proper value for requested units, while doing all the conversion 
 math internally. Such behavior will allow developers, that use generated
 protocol code, to focus on their business logic without getting into details
 on how value was transfered.
@@ -354,7 +354,7 @@ XML child element.
     <fields>
         <int name="SomeIntField" type="uint8">
              <validRange value="[0, 10]" />
-             <validValue value="[25]" sinceVersion="2" deprecated="5" />
+             <validValue value="25" sinceVersion="2" deprecated="5" />
              <validRange value="[55, 80]" sinceVersion="7" />
         </int>
     </fields>
@@ -379,7 +379,7 @@ is set to **true**.
     <fields>
         <int name="SomeIntField" type="uint8" validCheckVersion="true">
              <validRange value="[0, 10]" />
-             <validValue value="[25]" sinceVersion="2" deprecated="5" />
+             <validValue value="25" sinceVersion="2" deprecated="5" />
              <validRange value="[55, 80]" sinceVersion="7" />
         </int>
     </fields>

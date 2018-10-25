@@ -25,6 +25,7 @@
     * [float Field](fields/float.md)
     * [ref Field](fields/ref.md)
     * [optional Field](fields/optional.md)
+    * [variant Field](fields/variant.md)
 * [Messages](messages/messages.md)
 * [Interfaces](interfaces/interfaces.md)
 * [Frames](frames/frames.md)
@@ -40,5 +41,6 @@
     * [Properties for string Field](appendix/string.md)
     * [Properties for data Field](appendix/data.md)
     * [Properties for list Field](appendix/list.md)
+    * [Properties for float Field](appendix/float.md)
     * [Units](appendix/units.md)
 

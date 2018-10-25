@@ -50,6 +50,7 @@ The available fields are described in details in the sections to follow. They ar
 - [&lt;float&gt;](float.md) - Floating point value field.
 - [&lt;ref&gt;](ref.md) - Reference to (alias of) other field.
 - [&lt;optional&gt;](optional.md)- Optional field.
+- [&lt;variant&gt;](variant.md)- Variant field.
 
 
 All this fields have [common](common.md) as well as their own specific set of 
