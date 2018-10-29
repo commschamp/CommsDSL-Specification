@@ -43,5 +43,6 @@
     * [Properties for list Field](appendix/list.md)
     * [Properties for float Field](appendix/float.md)
     * [Properties for ref Field](appendix/ref.md)
+    * [Properties for optional Field](appendix/optional.md)
     * [Units](appendix/units.md)
 
