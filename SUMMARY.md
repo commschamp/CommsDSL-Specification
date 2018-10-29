@@ -44,5 +44,6 @@
     * [Properties for float Field](appendix/float.md)
     * [Properties for ref Field](appendix/ref.md)
     * [Properties for optional Field](appendix/optional.md)
+    * [Properties for variant Field](appendix/variant.md)
     * [Units](appendix/units.md)
 
