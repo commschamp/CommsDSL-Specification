@@ -89,7 +89,7 @@ property or other construct.
 ```
 
 #### Allowing Non-Unique Message IDs
-By default every defined [message](../messages/messages.md) must have unqiue 
+By default every defined [message](../messages/messages.md) must have unique 
 numeric message ID. If this is not the case, the code generator must report an
 error in case message definition with repeating ID number is encountered.
 It is done as protection against various copy/paste or typo errors. 

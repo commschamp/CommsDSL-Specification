@@ -1,0 +1,26 @@
+## Platforms
+The same protocol may be used by multiple *platforms* with a couple of platform
+specific messages. The **CommsDSL** allows listing of available platforms using
+optional **&lt;platform&gt;** node. Every [message](../messages/messages.md)
+definition may specify a list of supported platforms. A code generator may
+use this information and generate some platform specific code.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+</schema>
+```
+
+Multiple platforms can (but don't have to) be bundled together as children of **&lt;platforms&gt;** node.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <platforms>
+        <platform name="Plat1" />
+        <platform name="Plat2" />
+        <platform name="Plat3" />
+    </platforms>
+</schema> 
+```
+
+
+

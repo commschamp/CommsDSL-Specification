@@ -5,6 +5,7 @@
     * [Schema Definition](intro/schema_def.md)
     * [Multiple Files](intro/multiple_files.md)
     * [Namespaces](intro/namespaces.md)
+    * [Platforms](intro/platforms.md)
     * [References](intro/references.md)
     * [Properties](intro/properties.md)
     * [Numeric Values](intro/numeric.md)
@@ -45,5 +46,6 @@
     * [Properties for ref Field](appendix/ref.md)
     * [Properties for optional Field](appendix/optional.md)
     * [Properties for variant Field](appendix/variant.md)
+    * [Properties for message](appendix/message.md)
     * [Units](appendix/units.md)
 

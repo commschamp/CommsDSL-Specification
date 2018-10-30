@@ -18,6 +18,8 @@ The schema node may define its properties (described in detail in
     ...
 </schema>
 ```
+
+#### Common Fields
 It can also contain definition of various common fields that can be referenced
 by multiple messages. Such fields are defined as children of **&lt;fields&gt;** node.
 ```
@@ -32,6 +34,7 @@ by multiple messages. Such fields are defined as children of **&lt;fields&gt;** 
 There can be multiple **&lt;fields&gt;** elements in the same schema definition file.
 The fields are described in detail in [Fields](../fields/fields.md) section.
 
+#### Messages
 The definition of a single message is done using **&lt;message&gt;** node (described
 in detail in [Messages](../messages/messages.md) section).
 ```
@@ -61,6 +64,8 @@ Multiple messages can (but don't have to) be bundled together as children of **&
     </messages>
 </schema>
 ```
+
+#### Framing
 Transport framing is defined using **&lt;frame&gt;** node (described in detail in
 [Frames](../frames/frames.md) section).
 ```
@@ -88,6 +93,8 @@ Multiple frames can (but don't have to) be bundled together as children of **&lt
     </frames>
 </schema> 
 ```
+
+#### Interface
 There are protocols that put some information, common to all the messages, such as 
 protocol version and/or extra flags, into the framing information instead of message payload.
 This information needs to be accessible when message payload is being read or
@@ -121,5 +128,6 @@ Multiple interfaces can (but don't have to) be bundled together as children of *
     </interfaces>
 </schema> 
 ```
+
 All the nodes described above are allowed to appear in any order.
 

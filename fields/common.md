@@ -17,10 +17,10 @@ using **name** [property](../intro/properties.md).
 ```
 
 #### Description
-It is possible to provide a description to the field of what it is and
+It is possible to provide a description off the field about what it is and
 how it is expected to be used. This description is only for documentation
 purposes and may find it's way into the generated code as a comment for the
-generated class. The property is **description**.
+generated class. The [property](../intro/properties.md) is **description**.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -62,7 +62,7 @@ it is **NOT** allowed for [&lt;enum&gt;](enum.md) field to reuse definition of
 [&lt;int&gt;](int.md), only other [&lt;enum&gt;](enum.md).
 
 #### Display Properties
-**CommsDSL** allows also generation of not only field's serialization and
+**CommsDSL** supports generation of not only field's serialization and
 value access functionality, but also of various GUI protocol visualization, debugging and
 analysis tools. There are some allowed properties, that indicate how the 
 field is expected to be displayed by such tools.
@@ -107,7 +107,7 @@ it was removed from being serialized after deprecation.
 
 To specify the version in which field was introduced, use **sinceVersion**
 property. To specify the version in which the field was deprecated, use
-**deprecated** property. To specify whether the field was removed after deprecated
+**deprecated** property. To specify whether the field was removed after being deprecated
 use **removed** property in addition to **deprecated**.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -127,7 +127,7 @@ removed from being serialized.
 - **F3** was introduced in version **2** and hasn't been deprecated yet.
 - **F4** was introduced in version **3**, deprecated in removed in version **4**.
 
-**NOTE**, that all the specified version mustn't be greater that the version
+**NOTE**, that all the specified versions mustn't be greater that the version
 of the [schema](../schema/schema.md). Also value of **sinceVersion** must be
 **less** than value of **deprecated**.
 
@@ -197,7 +197,7 @@ some runtime logic. The code generator is also expected to provide command line
 options to choose required level of customization. Sometimes it may be required
 to allow generated field abstraction to be customizable regardless of the customization
 level requested from the code generator. **CommsDSL** provides **customizable**
-option with [boolean](../intro/boolean.md) value to force any field being
+property with [boolean](../intro/boolean.md) value to force any field being
 customizable at compile time.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
