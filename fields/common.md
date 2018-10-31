@@ -1,7 +1,7 @@
 ## Common Properties of Fields
 Every field is different, and defines its own properties and/or other aspects.
 However, there are common properties, that are applicable to every field. 
-The are summarized below.
+They are summarized below.
 
 #### Name 
 Every field must define it's [name](../intro/names.md), which is expected to be 
@@ -17,7 +17,7 @@ using **name** [property](../intro/properties.md).
 ```
 
 #### Description
-It is possible to provide a description off the field about what it is and
+It is possible to provide a description of the field about what it is and
 how it is expected to be used. This description is only for documentation
 purposes and may find it's way into the generated code as a comment for the
 generated class. The [property](../intro/properties.md) is **description**.
