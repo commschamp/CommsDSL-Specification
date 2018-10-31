@@ -12,7 +12,7 @@ using **name** [property](../intro/properties.md).
 <schema ...>
     <frame name="ProtocolFrame">
         <id name="Id" ... />
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```
@@ -33,7 +33,7 @@ generated class. The [property](../intro/properties.md) is **description**.
                 description
             </description>        
         </id>
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```
@@ -49,7 +49,7 @@ as XML child element.
         <id name="Id">
             <int name="IdField" type="uint8" />  
         </id>
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```
@@ -66,7 +66,7 @@ of the layer, then the inner field must be wrapped in
                 <int name="IdField" type="uint8" />  
             </field>
         </id>
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```
@@ -84,7 +84,7 @@ be referenced using **field** property.
     
     <frame name="ProtocolFrame">
         <id name="Id" field="MsgId" />
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```

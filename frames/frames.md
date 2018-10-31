@@ -60,7 +60,7 @@ has a specific purpose. For example:
     
     <frame name="ProtocolFrame">
         <id name="Id" field="MsgId" />
-        <payload name="Data">
+        <payload name="Data" />
     </frame>
 </schema>
 ```
@@ -90,7 +90,7 @@ of the **&lt;frame&gt;**, then all the layers must be wrapped in
         <name value="ProtocolFrame" />
         <layers>
             <id name="Id" field="MsgId" />
-            <payload name="Data">
+            <payload name="Data" />
         </layers>
     </frame>
 </schema>
