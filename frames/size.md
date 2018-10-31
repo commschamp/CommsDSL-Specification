@@ -36,7 +36,8 @@ such case by adding usage of **serOffset** property to the field of the
 ```
 
 The example below implements `ID (2 bytes) | SIZE (2 bytes) | PAYLOAD` framing
-where `SIZE` value includes length of the header (`ID` + `SIZE`) as well.
+where `SIZE` value includes length of the header (`ID` + `SIZE`) in addition to
+the length of `PAYLOAD`.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
