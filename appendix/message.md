@@ -1,12 +1,12 @@
 ## Properties of &lt;message&gt;
-Refer to [&lt;Messages&gt;](../messages/messages.md) chapter
+Refer to [Messages](../messages/messages.md) chapter
 for detailed description. 
 
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**name**|[name](../intro/names.md) string|1|yes||Name of the message.|
 |**id**|[numeric](../intro/numeric.md)|1|yes||Numeric ID of the message.|
-|**description**|string|1|no||Human readable description of the field.|
+|**description**|string|1|no||Human readable description of the interface.|
 |**displayName**|string|1|no||Name of the message to display. If empty, the code generator must use value of property **name** instead.|
 |**copyFieldsFrom**|[reference](../intro/references.md) string|1|no||Message definition from which fields need to be copied.|
 |**order**|[numeric](../intro/numeric.md)|1|no|0|Relative order of the messages with the same **id**.|

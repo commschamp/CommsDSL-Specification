@@ -118,7 +118,7 @@ of the **&lt;message&gt;**, then all the fields must be wrapped in
 ```
 
 Sometimes different messages have the same fields. In order to avoid duplication,
-use **copyFieldsFrom** property to specify origininal message.
+use **copyFieldsFrom** property to specify original message.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

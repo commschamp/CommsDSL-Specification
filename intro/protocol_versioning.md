@@ -12,7 +12,7 @@ developers that the element should not be used any more. The code generator may
 introduce this information as a comment in the generated code. However, it does not remove
 a deprecated [field](../fields/fields.md) from being serialized to preserve
 backward compatibility of the protocol. If the protocol definition does require
-removal of the deprecated field from being serialized, the the **deprecated**
+removal of the deprecated field from being serialized, the **deprecated**
 property must be supplemented with **removed** property.
 
 For example:

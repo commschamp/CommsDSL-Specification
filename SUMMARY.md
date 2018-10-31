@@ -47,5 +47,6 @@
     * [Properties for optional Field](appendix/optional.md)
     * [Properties for variant Field](appendix/variant.md)
     * [Properties for message](appendix/message.md)
+    * [Properties for interface](appendix/interface.md)
     * [Units](appendix/units.md)
 
