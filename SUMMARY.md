@@ -36,6 +36,7 @@
     * [size Layer](frames/size.md)
     * [sync Layer](frames/sync.md)
     * [checksum Layer](frames/checksum.md)
+    * [value Layer](frames/value.md)
     * [custom Layer](frames/custom.md)
 * [Protocol Versioning](versioning/versioning.md)
 * [Appendix](appendix/appendix.md)
@@ -59,3 +60,4 @@
     * [Properties of frame](appendix/frame.md)
     * [Common Properties of Layers](appendix/layers.md)
     * [Properties of checksum Layer](appendix/checksum.md)
+    * [Properties of value Layer](appendix/value.md)
