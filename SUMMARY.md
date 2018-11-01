@@ -53,9 +53,9 @@
     * [Properties of ref Field](appendix/ref.md)
     * [Properties of optional Field](appendix/optional.md)
     * [Properties of variant Field](appendix/variant.md)
+    * [Units](appendix/units.md)
     * [Properties of message](appendix/message.md)
     * [Properties of interface](appendix/interface.md)
     * [Properties of frame](appendix/frame.md)
     * [Common Properties of Layers](appendix/layers.md)
-    * [Units](appendix/units.md)
-
+    * [Properties of checksum Layer](appendix/checksum.md)

@@ -1,5 +1,5 @@
 ## &lt;sync&gt; Layer
-The **&lt;sing&gt;** layer represents synchronization bytes, usually (but not always) 
+The **&lt;sync&gt;** layer represents synchronization bytes, usually (but not always) 
 present at the beginning of the [frame](frames.md). 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
