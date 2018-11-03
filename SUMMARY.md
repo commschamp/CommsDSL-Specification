@@ -38,7 +38,7 @@
     * [checksum Layer](frames/checksum.md)
     * [value Layer](frames/value.md)
     * [custom Layer](frames/custom.md)
-* [Protocol Versioning](versioning/versioning.md)
+* [Protocol Versioning Summary](versioning/versioning.md)
 * [Appendix](appendix/appendix.md)
     * [Properties of schema](appendix/schema.md)
     * [Common Properties of Fields](appendix/fields.md)
@@ -61,3 +61,4 @@
     * [Common Properties of Layers](appendix/layers.md)
     * [Properties of checksum Layer](appendix/checksum.md)
     * [Properties of value Layer](appendix/value.md)
+    * [Properties of custom Layer](appendix/custom.md)

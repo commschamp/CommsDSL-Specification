@@ -7,7 +7,7 @@ Other elements, such as [fields](../fields/fields.md) or
 [messages](../messages/messages.md) allow specification of version they were
 introduced by using **sinceVersion** property. It is also possible to provide
 an information about version since which the element has been deprecated using
-**deprecated** property. Usage of **deprecated** property just an indication for
+**deprecated** property. Usage of **deprecated** property is just an indication for
 developers that the element should not be used any more. The code generator may
 introduce this information as a comment in the generated code. However, it does not remove
 a deprecated [field](../fields/fields.md) from being serialized to preserve
@@ -30,9 +30,9 @@ In the example above field **F2** was introduced in version 2. The field **F3**
 was introduced in version 3, but deprecated and removed in version 4.
 
 All these version numbers in the schema definition allow generation of proper version checks
-and correct code for protocols that communication their version in their 
+and correct code for protocols that communicate their version in their 
 [framing](../frames/frames.md) or selected messages. Please refer to
-[Protocol Versioning](../versioning/versioning.md) chapter for more details on
+[Protocol Versioning Summary](../versioning/versioning.md) chapter for more details on
 the subject.
 
 For all other protocols that don't report their version and/or don't care about
