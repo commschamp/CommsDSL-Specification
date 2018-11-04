@@ -31,10 +31,10 @@ The checksum calculation algorithm must be specified using **alg**
 - **crc-ccitt** (aliases: **crc_ccitt**) - [CRC-16-CCITT](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)
 where polynomial is `0x1021`, initial value is `0xffff`, final XOR value is `0`, and no reflection of bytes.
 - **crc-16** (aliases: **crc_16**) - [CRC-16-IBM](https://en.wikipedia.org/wiki/Cyclic_redundancy_check),
-where polynomial is `0x8005`, initial value is `0`, final XOR value is `0`. reflection is performed on every
+where polynomial is `0x8005`, initial value is `0`, final XOR value is `0`, reflection is performed on every
 byte as well as final value.
 - **crc-32** (aliases: **crc_32**) - [CRC-32](https://en.wikipedia.org/wiki/Cyclic_redundancy_check),
-where polynomial is `0x04C11DB7`, initial value is `0xffffffff`, final XOR value is `0xffffffff`. reflection is
+where polynomial is `0x04C11DB7`, initial value is `0xffffffff`, final XOR value is `0xffffffff`, reflection is
 performed on every byte as well as final value.
 - **custom** - Custom algorithm, code for which needs to be provided to the
 code generator, so it can copy it to the generated code.
@@ -44,7 +44,7 @@ code generator, so it can copy it to the generated code.
     <frame name="ProtocolFrame">
         ...
         <payload name="Data" />
-        <checksum name="Checksum" alt="crc-16" ...>
+        <checksum name="Checksum" alg="crc-16" ...>
             <int name="ChecksumField" type="uint16" />
         </checksum>
     </frame>
@@ -59,7 +59,7 @@ When **custom** algorithm is selected, its name must be provided using
     <frame name="ProtocolFrame">
         ...
         <payload name="Data" />
-        <checksum name="Checksum" alt="custom" algName="MyCustomChecksumCalc" ...>
+        <checksum name="Checksum" alg="custom" algName="MyCustomChecksumCalc" ...>
             <int name="ChecksumField" type="uint16" />
         </checksum>
     </frame>
@@ -70,8 +70,8 @@ to locate the required external implementation file and use appropriate
 class / function name when the calculation functionality needs to be invoked.
 
 #### Calculation Area
-The **custom** layer definition must also specify the layers data of which is
-used to calculate the checksum. It is done using **from** preperty that is
+The **custom** layer definition must also specify the layers, data of which is
+used to calculate the checksum. It is done using **from** property that is
 expected to specify name of the layer where checksum calculation starts.
 ```
 <?xml version="1.0" encoding="UTF-8"?>

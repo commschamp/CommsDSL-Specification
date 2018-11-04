@@ -52,7 +52,7 @@ The **tentative** mode is there to perform *read* operation on the inner field
 only if there are non-consumed bytes left in the input buffer. This mode
 can be useful with protocols that just add fields at the end of the 
 [message](../messages/messages.md) in the new version, 
-but the protocol itself doesn't report its version version in any other way.
+but the protocol itself doesn't report its version in any other way.
 
 The default mode of the newly constructed **&lt;optional&gt;** field can be
 specified using **defaultMode** [property](../intro/properties.md).
@@ -90,7 +90,7 @@ using **cond** [property](../intro/properties.md).
 that is a member of a [**&lt;bundle&gt;**](bundle.md) or a 
 [**&lt;message&gt;**](../messages/messages.md). The **cond** expression 
 specifies condition when the **&lt;optional&gt;** field exists, and must always
-reference other field. Such reference is always prefixed with **$** character
+reference other **sibling** field. Such reference is always prefixed with **$** character
 to indicate that the field is a **sibling** of the **&lt;optional&gt;** and 
 not some external field.
 
@@ -125,7 +125,7 @@ latter exists, only if value of **F1** is less than value of **F2**
 
 #### Multiple Existence Conditions
 The **CommsDSL** also allows usage of multiple existence condition statements. However,
-they need to be wrapped either by either **&lt;and&gt;** or **&lt;or&gt;** 
+they need to be wrapped by either **&lt;and&gt;** or **&lt;or&gt;** 
 XML child elements, which represent "**and**" and "**or**" logical conditions
 respectively. 
 ```
@@ -139,7 +139,7 @@ respectively.
                 <int name="WrappedF3" type="uint32" />
             </field>
             <or>
-                <cond value="$F1 = 0 />
+                <cond value="$F1 = 0" />
                 <and>
                     <cond value="$F1 = 1" />
                     <cond value="$F2 != 0" />

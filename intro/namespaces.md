@@ -39,7 +39,7 @@ It can contain all the mentioned [previously](schema_def.md) nodes.
         <frames>
             <frame ... />
             <frame ... />
-        <frames>
+        </frames>
     </ns>
 </schema>
 ```

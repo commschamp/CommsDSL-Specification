@@ -50,7 +50,7 @@ long multiline description it is recommended to define it as a text child elemen
 ```
 
 #### Protocol (Schema) Version
-As was mentioned in [Protocol Versioning](../intro/protocol_versioning.md) section
+As was mentioned in [Protocol Versioning](../intro/protocol_versioning.md) section,
 **CommsDSL** supports (but doesn't enforce) versioning of the schema / protocol.
 In order to specify the version use **version** property with unsigned integral
 value. Defaults to **0**.
@@ -60,7 +60,7 @@ value. Defaults to **0**.
     ...
 </schema>
 ```
-In case the protocol definition uses[semantic versioning](https://semver.org/) 
+In case the protocol definition uses [semantic versioning](https://semver.org/) 
 with major / minor numbers, it is recommended to combine multiple numbers into one
 mentally using "shift" operation(s).
 For example version **1.5** can be defined and used throughout the schema as **0x105**.
@@ -75,7 +75,7 @@ For example version **1.5** can be defined and used throughout the schema as **0
 As this specification evolves over time it can introduce new properties or
 other elements. It is possible to specify the version of the **DSL** as the schema's
 property. If code generator expects earlier version of the schema it is expected
-to report an error (or at least warning). 
+to report an error (or at least a warning). 
 
 The DSL version is specified using **dslVersion** property with unsigned integral
 value. Defaults to **0**, which means any version of code generator will try to
@@ -83,7 +83,7 @@ parse the schema and will report error / warning in case it encounters unrecogni
 property or other construct.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<schema name="MyProtocol" dsLVersion="2">
+<schema name="MyProtocol" dslVersion="2">
     ...
 </schema>
 ```

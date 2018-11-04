@@ -12,7 +12,7 @@ for detailed description.
 |**bitLength**|[unsigned](../intro/numeric.md)|1|no|length of **type** in bits|Serialization length in bits, applicable only to a member of [&lt;bitfield&gt;](../fields/bitfield.md).|
 |**serOffset**|[numeric](../intro/numeric.md)|1|no|0|Extra value that needs to be added to the field's value when the latter is being serialized.|
 |**signExt**|[bool](../intro/boolean.md)|1|no|true|Enable / Disable sign extension of the signed value when **length** property is used to reduce the default serialization length.|
-|**scaling**|"[numeric](../intro/numeric.md) / [numeric](../intro/numeric.md)"|1|no|"1/1"|Scaling ratio.|
+|**scaling**|"[numeric](../intro/numeric.md) / [numeric](../intro/numeric.md)"|1|no|1/1|Scaling ratio.|
 |**units**|[units](units.md)|1|no||Units of the value.|
 |**validRange**|"[ [numeric](../intro/numeric.md), [numeric](../intro/numeric.md) ]"|1|no||Range of valid values.|
 |**validValue**|[numeric](../intro/numeric.md)|1|no||Valid value.|

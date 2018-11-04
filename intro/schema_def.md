@@ -11,7 +11,7 @@ information header as well as **single** root node called **&lt;schema&gt;**:
 </schema>
 ```
 The schema node may define its properties (described in detail in 
-[Schema](../schema/schema.md) section).
+[Schema](../schema/schema.md) chapter).
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="2">
@@ -32,11 +32,11 @@ by multiple messages. Such fields are defined as children of **&lt;fields&gt;** 
 </schema>
 ```
 There can be multiple **&lt;fields&gt;** elements in the same schema definition file.
-The fields are described in detail in [Fields](../fields/fields.md) section.
+The fields are described in detail in [Fields](../fields/fields.md) chapter.
 
 #### Messages
 The definition of a single message is done using **&lt;message&gt;** node (described
-in detail in [Messages](../messages/messages.md) section).
+in detail in [Messages](../messages/messages.md) chapter).
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -67,7 +67,7 @@ Multiple messages can (but don't have to) be bundled together as children of **&
 
 #### Framing
 Transport framing is defined using **&lt;frame&gt;** node (described in detail in
-[Frames](../frames/frames.md) section).
+[Frames](../frames/frames.md) chapter).
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -103,7 +103,7 @@ message object is being handled by the application. The
 handles these cases by having a common interface class for all the messages, which
 contains this extra information. In order to support such cases, the **CommsDSL** 
 introduces optional node **&lt;interface&gt;** (described in detail in 
-[Interfaces](../interfaces/interfaces.md) section) for description of such common
+[Interfaces](../interfaces/interfaces.md) chapter) for description of such common
 interfaces.
 ```
 <?xml version="1.0" encoding="UTF-8"?>

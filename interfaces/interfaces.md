@@ -1,6 +1,6 @@
 # Interfaces
 There are protocols that attach some extra information, such as version and/or
-extra flags, to the message [framing](../frames/frames.md). This extra information
+extra flags, to the message transport [framing](../frames/frames.md). This extra information
 usually influences how message fields are deserialized and/or how message object
 is handled. It means that these received extra values need to be attached to
 **every** message object. The **CommsDSL** allows specification of such extra
@@ -83,7 +83,7 @@ extra fields when needed.
         <int name="Version" type="uint8" semanticType="version" />
     </interface>
     
-    <interface name="Interface1" copyFieldsFrom="Interface1">
+    <interface name="Interface2" copyFieldsFrom="Interface1">
         <set name="Flags" length="1">
             ...
         </set>
@@ -103,7 +103,7 @@ to choose name for the common interface class it creates.
 version in the examples above. It is required to be used for proper 
 [protocol versioning](../versioning/versioning.md). The value of the field
 having "version" value as **semanticType** property, will be considered 
-for fields that, which introduced and/or deprecated at some stage, i.e. use
+for fields that, were introduced and/or deprecated at some stage, i.e. use
 **sinceVersion** and/or **derecated** + **removed** properties.
 
 Use [properties table](../appendix/interface.md) for future references.

@@ -1,5 +1,5 @@
 ## Protocol Versioning
-The **CommsDSL** allows provides a way to specify version of the binary
+The **CommsDSL** provides a way to specify version of the binary
 protocol by using **version** property of the [schema](../schema/schema.md)
 element.
 
@@ -9,7 +9,7 @@ introduced by using **sinceVersion** property. It is also possible to provide
 an information about version since which the element has been deprecated using
 **deprecated** property. Usage of **deprecated** property is just an indication for
 developers that the element should not be used any more. The code generator may
-introduce this information as a comment in the generated code. However, it does not remove
+introduce this information as a comment in the generated code. However, it does **NOT** remove
 a deprecated [field](../fields/fields.md) from being serialized to preserve
 backward compatibility of the protocol. If the protocol definition does require
 removal of the deprecated field from being serialized, the **deprecated**

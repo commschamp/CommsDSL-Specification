@@ -55,7 +55,7 @@ well as [numeric](../intro/numeric.md) value (using **val**
 [underlying type](#underlying-type). The **&lt;validValue&gt;**-es may be listed
 in any order, not necessarily sorted.
 
-Every **&lt;validValue&gt;** supports extra properties:
+Every **&lt;validValue&gt;** has extra optional properties:
 - **description** - Extra description and documentation on how to use the value.
 - **displayName** - String specifying how to name the value in various analysis tools.
 - **sinceVersion** - Version of the protocol when the value was introduced.
@@ -243,7 +243,7 @@ for protocol version **3**.
 #### Referencing Other **&lt;enum&gt;** Values
 Any specified **&lt;validValue&gt;** can be referenced by other fields 
 (not only **&lt;enum&gt;**) when specifying [numeric](../intro/numeric.md) 
-value of some property. To reference it the **&lt;enum&gt;** name 
+value of some property. To reference it, the **&lt;enum&gt;** name 
 must be specified followed by a **.** (dot) and name of the chosen **&lt;validValue&gt;**
 
 ```
@@ -256,7 +256,7 @@ must be specified followed by a **.** (dot) and name of the chosen **&lt;validVa
             <validValue name="Val3" val="10"/>
         </enum>
         
-        <int name="SomeIntField" type="uint32" defaltValue="SomeEnumField.Val2" />
+        <int name="SomeIntField" type="uint32" defaultValue="SomeEnumField.Val2" />
     </fields>
 </schema>
 ```
@@ -273,7 +273,7 @@ as well.
                 <validValue name="Val3" val="10"/>
             </enum>
             
-            <int name="SomeIntField" type="uint32" defaltValue="ns1.SomeEnumField.Val2" />
+            <int name="SomeIntField" type="uint32" defaultValue="ns1.SomeEnumField.Val2" />
         </fields>
     </ns>
 </schema>

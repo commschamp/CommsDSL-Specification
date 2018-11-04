@@ -22,12 +22,12 @@ to avoid duplication of field definition for multiple messages.
     </message>
 </schema>
 ```
-The **&lt;float&gt;** field has all the [common](common.md) properties. It
+The **&lt;ref&gt;** field has all the [common](common.md) properties. It
 also copies **name** and **displayName** [properties](../intro/properties.md)
 from the referenced field and allows overriding them with new values.
 Note, that in the example above **&lt;ref&gt;** field defined as a member of
 **Msg1** message hasn't provided any **name** value. It is allowed because
-it has taken a tame of the referenced field (*SomeIntField*).
+it has taken a name of the referenced field (*SomeIntField*).
 
 #### Referencing the Field
 The only extra property the **&lt;ref&gt;** field has is **field** to 

@@ -1,4 +1,4 @@
-## Common Properties for Fields
+## Common Properties of Fields
 Refer to [Common Properties of Fields](../fields/common.md) chapter for detailed description. 
 
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|

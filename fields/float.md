@@ -36,7 +36,7 @@ Such values (if exist) must be listed as **&lt;special&gt;** child of the
 </schema>
 ```
 The code generator is expected to generate extra convenience functions that 
-check whether stored value has special value as well as updating the stored value
+check whether field has special value as well as updating the stored value
 with special one.
 
 Every **&lt;special&gt;** must define a valid [name](../intro/names.md) 
@@ -62,7 +62,7 @@ the following case-insensitive strings.
 </schema>
 ```
 
-Every **&lt;special&gt;** supports extra properties:
+Every **&lt;special&gt;** has extra optional properties:
 - **description** - Extra description and documentation on how to use the value.
 - **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 - **deprecated** - Version of the protocol when the special name / meaning was deprecated.
@@ -145,7 +145,7 @@ generator is expected to generate code that checks whether field's value
 is valid. The **CommsDSL** provides multiple properties to help with such
 task.
 
-One of such properties if **validRange**. The format of it's value is 
+One of such properties is **validRange**. The format of it's value is 
 "[*min_value*, *max_value*]".
 ```
 <?xml version="1.0" encoding="UTF-8"?>

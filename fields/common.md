@@ -134,7 +134,7 @@ of the [schema](../schema/schema.md). Also value of **sinceVersion** must be
 The version information on the field in global **&lt;fields&gt;** area or 
 inside some [namespace](../intro/namespaces.md) does **NOT** make sense and 
 should be ignored by the code generator. It is allowed when field is a member
-of a [message](../messages/messages.md) or a [bundle](bundle.md) field.
+of a [&lt;message&gt;](../messages/messages.md) or a [&lt;bundle&gt;](bundle.md) field.
 
 
 #### Failing Read of the Field on Invalid Value
@@ -171,7 +171,7 @@ When new message with this ID comes in, the [framing](../frames/frames.md) code
 is expected to try reading all of the variants and choose one, on which **read** 
 operation doesn't fail. The **order** property of the message specifies in
 what order the messages with the same ID must be read. It described in more
-detail in [messages](../messages/messages.md) chapter.
+detail in [Messages](../messages/messages.md) chapter.
 
 #### Pseudo Fields
 Sometimes there may be a need to have "psuedo" fields, which are implemented

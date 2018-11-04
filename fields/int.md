@@ -31,8 +31,8 @@ The variable length types are encoded using **Base-128** form, such as
 big endian.
 
 #### Special Values
-Some protocol may set a special meaning for some values. For example, some
-field specifies configuration of of some timer duration, when **0** value means
+Some protocol may assign a special meaning for some values. For example, some
+field specifies configuration of some timer duration, when **0** value means
 infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of the 
 **&lt;int&gt;** XML element.
 ```
@@ -46,7 +46,7 @@ infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of 
 </schema>
 ```
 The code generator is expected to generate extra convenience functions that 
-check whether stored value has special value as well as updating the stored value
+check whether field has special value as well as updating the stored value
 with special one.
 
 Every **&lt;special&gt;** must define a valid [name](../intro/names.md) 
@@ -56,7 +56,7 @@ well as [numeric](../intro/numeric.md) value (using **val**
 [underlying type](#underlying-type). The **&lt;special&gt;**-s may be listed
 in any order, not necessarily sorted.
 
-Every **&lt;special&gt;** supports extra properties:
+Every **&lt;special&gt;** has extra optional properties:
 - **description** - Extra description and documentation on how to use the value.
 - **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 - **deprecated** - Version of the protocol when the special name / meaning was deprecated.
@@ -164,7 +164,7 @@ define such field as 1 byte integer
 <int name="Year" type="uint8"  />
 ```
 it is quite inconvenient to work with it in a client code. The client code needs to be
-aware that what offset needs to be added to get the proper year value. It is
+aware what offset needs to be added to get the proper year value. It is
 much better to use **serOffset** property to manipulate value before and after
 serialization.
 ```
@@ -181,16 +181,16 @@ defined using **type** property.
 
 #### Sign Extension
 When limiting [serialization length](#serialization-length) using **length** 
-properties, the performed **read** operation is expected to sign 
+property, the performed **read** operation is expected to sign 
 extend read signed value. However, such default behavior may be incorrect
 for some cases, especially when [serialization offset](#serialization-offset) is
 also used. There are protocols that disallow serialization of a negative value.
-Any signed integer must add predefined offset to make it non-negative forst, and only
+Any signed integer must add predefined offset to make it non-negative first, and only
 then serialize. The deserialization procedure is the opposite, first deserialize
-the non-negative value, and then subtract predefined offset the get the real value.
+the non-negative value, and then subtract predefined offset to get the real value.
 
 For example, there is an integer field with expected valid values between 
--8,000,8000 and +8,000,00. This range fits into 3 bytes, which are used to 
+-8,000,000 and +8,000,000. This range fits into 3 bytes, which are used to 
 serialize such field. Such field is serialized using the
 following math:
 - Add 8,000,000 to the field's value to get non-negative number.
@@ -211,13 +211,13 @@ non-default [serialization length](#serialization-length).
 
 #### Scaling
 Some protocols may not support serialization of floating point values, and 
-use scaling instead. It is done by multiplying the orinal floating point value
+use scaling instead. It is done by multiplying the original floating point value
 by some number, dropping the fraction part and serializing the value as integer.
 Upon reception, the integer value is divided by predefined number to get a 
 proper floating point value. 
 
 For example, there is a distance measured in millimeters with precision of 
-4 numbers after decimal point. The value is multiplied by 10,000 and serialized
+4 digits after decimal point. The value is multiplied by 10,000 and serialized
 as **&lt;int&gt;** field. Such scenario is supported by **CommsDSL** via 
 introduction of **scaling** [property](../intro/properties.md).
 ```
@@ -251,7 +251,7 @@ The code generator may use this information to generate a functionality that all
 retrieval of proper value for requested units, while doing all the conversion 
 math internally. Such behavior will allow developers, that use generated
 protocol code, to focus on their business logic without getting into details
-on how value was transfered.
+on how value was transfered and what units are used by default.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -389,8 +389,8 @@ is set to **true**.
 #### Extra Display Properties
 When [scaling](#scaling) information is specified, it is possible to notify 
 GUI analysis tools that value of **&lt;int&gt;** field should be displayed as
-floating pointer number. To do so, use **displayDecimals** [property](../intro/properties.md) 
-with numeric value of how many numbers need to be displayed after decimal point.
+scaled floating point number. To do so, use **displayDecimals** [property](../intro/properties.md) 
+with numeric value of how many digits need to be displayed after decimal point.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

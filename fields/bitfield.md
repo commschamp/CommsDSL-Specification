@@ -1,7 +1,7 @@
 ## &lt;bitfield&gt; Field
 The **&lt;bitfield&gt;** is a container field, which allows wrapped member fields
 to be serialized using limited number of bits (instead of bytes). 
-The supported fields, that can be member of the **&lt;bitfield&gt;**, are:
+The supported fields, that can be members of the **&lt;bitfield&gt;**, are:
 - [&lt;enum&gt;](enum.md)
 - [&lt;int&gt;](int.md)
 - [&lt;set&gt;](set.md)

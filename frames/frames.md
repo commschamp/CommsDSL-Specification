@@ -71,14 +71,14 @@ ID (1 byte) | PAYLOAD
 ```
 
 Available layers are:
-- [&lt;payload&gt;](frames/payload.md) - Message payload.
-- [&lt;id&gt;](frames/id.md) - Numeric message ID.
-- [&lt;size&gt;](frames/size.md) - Remaining size (length).
-- [&lt;sync&gt;](frames/sync.md) - Synchronization bytes.
-- [&lt;checksum&gt;](frames/checksum.md) - Checksum.
-- [&lt;value&gt;](frames/checksum.md) - Extra value, usually to be assigned to one of the
+- [&lt;payload&gt;](payload.md) - Message payload.
+- [&lt;id&gt;](id.md) - Numeric message ID.
+- [&lt;size&gt;](size.md) - Remaining size (length).
+- [&lt;sync&gt;](sync.md) - Synchronization bytes.
+- [&lt;checksum&gt;](checksum.md) - Checksum.
+- [&lt;value&gt;](value.md) - Extra value, usually to be assigned to one of the
 [&lt;interface&gt;](../interfaces/interfaces.md) fields.
-- [&lt;custom&gt;](frames/custom.md) - Any other custom layer, not provided by **CommsDSL**. 
+- [&lt;custom&gt;](custom.md) - Any other custom layer, not provided by **CommsDSL**. 
 
 If there is any other [property](../intro/properties.md) defined as XML child
 of the **&lt;frame&gt;**, then all the layers must be wrapped in 

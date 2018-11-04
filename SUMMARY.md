@@ -5,7 +5,7 @@
     * [Schema Definition](intro/schema_def.md)
     * [Multiple Files](intro/multiple_files.md)
     * [Namespaces](intro/namespaces.md)
-    * [Platofms](intro/platofms.md)
+    * [Platforms](intro/platforms.md)
     * [References](intro/references.md)
     * [Properties](intro/properties.md)
     * [Numeric Values](intro/numeric.md)

@@ -88,7 +88,7 @@ several other fields in the [&lt;message&gt;](../messages/messages.md) or in the
 </schema>
 ```
 **NOTE**, the existence of **$** prefix when specifying **lengthPrefix** value.
-It indicates that the referenced field is in the containing
+It indicates that the referenced field is a sibling in the containing
 [&lt;message&gt;](../messages/messages.md) or the
 [&lt;bundle&gt;](bundle.md) field.
 

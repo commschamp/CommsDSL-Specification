@@ -131,7 +131,7 @@ use **copyFieldsFrom** property to specify original message.
 ```
 In the example above *Msg2* will have the same fields as *Msg1*. 
 
-After copying fields from other message, all other defined fileds will be
+After copying fields from other message, all other defined fields will be
 appended to copied ones.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -149,7 +149,7 @@ In the example above *Msg2* will have 2 fields: *F1* and *F2*.
 
 #### Ordering
 There are protocols that may define various forms of the same message, 
-which share the same numberic ID, but are differentiated by a serialization 
+which share the same numeric ID, but are differentiated by a serialization 
 length or value of some particular
 field inside the message. It can be convenient to define such variants as separate
 classes. In case there are multiple **&lt;message&gt;**-es with the same

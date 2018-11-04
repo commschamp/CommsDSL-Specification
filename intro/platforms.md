@@ -7,6 +7,9 @@ use this information and generate some platform specific code.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
+    <platform name="Plat1" />
+    <platform name="Plat2" />
+    <platform name="Plat3" />
 </schema>
 ```
 

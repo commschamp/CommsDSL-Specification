@@ -27,7 +27,7 @@ values are:
 #### Serialization Length
 The [underlying type](#underlying-type) specification may be omitted
 if serialization length (in number of bytes) is specified using **length** property. In this case
-type [underlying type](#underlying-type) is automatically selected based on
+[underlying type](#underlying-type) is automatically selected based on
 the provided serialization length.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,7 +75,7 @@ Every such element must specify its [name](../intro/names.md) using
     </fields>
 </schema>
 ```
-The bit indexing starts from **Least** significant bit, and mustn't exceed number
+The bit indexing starts from **least** significant bit, and mustn't exceed number
 of bits allowed by the [underlying type](#underlying-type). The **&lt;bit&gt;**-s 
 may be listed in any order, not necessarily sorted.
 
@@ -93,7 +93,7 @@ These properties are described in detail in
 
 #### Default Bit Value
 When the **&lt;set&gt;** field object is default constructed, all bits are initialized
-to **false**, i.e. **0**. Such default behavior cat be modified using 
+to **false**, i.e. **0**. Such default behavior can be modified using 
 **defaultValue** [property](../intro/properties.md) with 
 [boolean](../intro/boolean.md) value.
 ```

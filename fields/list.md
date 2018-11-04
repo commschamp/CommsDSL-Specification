@@ -84,7 +84,7 @@ If the defined list must contain predefined number of elements, use **count**
 #### Count Prefix
 Most protocols prefix the variable length lists with number of elements that
 are going to follow, use **countPrefix** child XML element to specify a field
-that is going to be used is such prefix.
+that is going to be used as such prefix.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -142,7 +142,7 @@ several other fields in the [&lt;message&gt;](../messages/messages.md) or in the
 </schema>
 ```
 **NOTE**, the existence of **$** prefix when specifying **countPrefix** value.
-It indicates that the referenced field is in the containing
+It indicates that the referenced field is a sibling in the containing
 [&lt;message&gt;](../messages/messages.md) or the
 [&lt;bundle&gt;](bundle.md) field.
 
@@ -188,8 +188,8 @@ the [Count Prefix](#count-prefix) section.
 are mutually exclusive, i.e. cannot be used together.
 
 #### Element Length Prefix
-Some protocols for its forward / backward compatibility prefix every element
-with its serialization length. If there is such need, use **elemLengthPrefix**
+Some protocols prefix every element with its serialization length for the 
+forward / backward compatibility of the protocol. If there is such need, use **elemLengthPrefix**
 to specify a field that will prefix every element of the list.
 ```
 <?xml version="1.0" encoding="UTF-8"?>

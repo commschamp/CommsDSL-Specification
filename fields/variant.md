@@ -8,12 +8,13 @@ as well as extra properties and elements described below.
 The **&lt;variant&gt;** field is there to support heterogeneous lists of fields.
 The classic example would be a list of *key-value* pairs, where numeric *key*
 defines what type of *value* follows. Similar to [&lt;bundle&gt;](bundle.md)
-field, member fields need to be listed as children XML elements of the **&lt;bundle&gt;**.
+field, member fields need to be listed as children XML elements of the **&lt;variant&gt;**.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
         <int name="Key" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        
         <variant name="Property">
             <bundle name="Prop1">
                 <int reuse="Key" defaultValue="0" validValue="0"  />
@@ -24,6 +25,7 @@ field, member fields need to be listed as children XML elements of the **&lt;bun
                 <string name="Value" length="16" />
             </bundle>
         </variant>
+        
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
@@ -41,12 +43,13 @@ right member is the same.
 
 In the example above, in order to support future versions of the protocol, 
 that may introduce new properties, it is recommended to add "unknown" property
-with non-failing *read* operation.
+with non-failing *read* operation at the bottom of the members list.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
         <int name="Key" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        
         <variant name="Property">
             <bundle name="Prop1">
                 <int reuse="Key" defaultValue="0" validValue="0"  />
@@ -61,6 +64,7 @@ with non-failing *read* operation.
                 <data name="Value"/>
             </bundle>
         </variant>
+        
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>

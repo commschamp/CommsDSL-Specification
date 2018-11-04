@@ -5,8 +5,8 @@ for detailed description.
 
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
-|**field**|[reference](../intro/references.md) to external field|1|no||Wrapped field.|
-|**defaultMode**|"tentative", "missing", "exist"|1|no|"tentative"|Default mode of the field. See also [Default Mode Strings](#default-mode-strings) below.|
+|**field**|[field](../fields/fields.md)|1|no||Wrapped field.|
+|**defaultMode**|"tentative", "missing", "exist"|1|no|tentative|Default mode of the field. See also [Default Mode Strings](#default-mode-strings) below.|
 |**cond**|string|1|no||Condition when the field exists.|
 |**displayExtModeCtrl**|[bool](../intro/boolean.md)|1|no|false|Disable manual update of the mode in GUI analysis tools.|
 

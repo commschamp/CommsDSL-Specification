@@ -13,7 +13,7 @@ circular references.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
-        <int name="SomeField> type="uint8" />
+        <int name="SomeField" type="uint8" />
     </fields>
     
     <message name="SomeMessage" id="1">
@@ -29,12 +29,12 @@ separated by a **.** (dot).
 <schema ...>
     <ns name="myns">
         <fields>
-            <int name="SomeField> type="uint8" />
+            <int name="SomeField" type="uint8" />
         </fields>
         
         <ns name="subns">
             <fields>
-                <int name="SomeOtherField> type="uint16" />
+                <int name="SomeOtherField" type="uint16" />
             </fields>
         </ns>
         
