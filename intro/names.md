@@ -15,8 +15,8 @@ letter.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
-        <int name="someField> type="uint8" />
-        <int name="SomeField> type="uint16" />
+        <int name="someField" type="uint8" />
+        <int name="SomeField" type="uint16" />
     </fields>
 </schema>
 ```
