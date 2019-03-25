@@ -242,7 +242,7 @@ length. **CommsDSL** supports such lists with **elemFixedLength**
     </fields>
 </schema>
 ```
-The code generator must report an error when element of such list, 
-with **elemFixedLength** property set to **true**, has variable length.
+The code generator must report an error when element of such list 
+(with **elemFixedLength** property set to **true**) has variable length.
 
 Use [properties table](../appendix/list.md) for future references.

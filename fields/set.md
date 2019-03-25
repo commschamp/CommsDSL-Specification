@@ -128,7 +128,7 @@ to **0xfe** when default constructed.
 
 
 #### Reserved Bits
-All the bits that weren't listed as **&lt;bit&gt;** XML child element
+All the bits that aren't listed as **&lt;bit&gt;** XML child elements
 are considered to be reserved. By default every reserved bit is expected to be 
 zeroed when field is checked to have a valid value. Such expectation can be changed using
 **reservedValue** property.

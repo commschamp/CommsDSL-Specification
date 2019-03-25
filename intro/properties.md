@@ -2,8 +2,8 @@
 Almost every element in **CommsDSL** has one or more properties, such as **name**.
 Any property can be defined using multiple ways. In can be useful when an
 element has too many properties to specify in a single line for a convenient
-reading. Any of the described below supported ways of defining a single property
-can be used for any element in the schema.
+reading. **Any** of the described below supported ways of defining a single property
+can be used for **any** element in the schema.
 
 The property can be defined as an XML attribute.
 ```

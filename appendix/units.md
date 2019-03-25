@@ -45,7 +45,7 @@ The tables below contain lists of available units.
 |Hertz|"hz", "hertz"|
 |Kilohertz|"khz", "kilohertz"|
 |Megahertz|"mhz", "megahertz"|
-|Gigahertz|"ghz""gigahertz"|
+|Gigahertz|"ghz", "gigahertz"|
 
 #### Angle Units
 |Units Name|Accepted Values (case insensitive)|

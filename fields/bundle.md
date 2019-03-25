@@ -51,9 +51,9 @@ of the **&lt;bundle&gt;**, then all the members must be wrapped in
 ```
 
 #### Reusing Other Bundle
-Like any other field **&lt;bundle&gt;** supports **reuse** of any other **&lt;bundle&gt;**.
+Like any other field, **&lt;bundle&gt;** supports **reuse** of any other **&lt;bundle&gt;**.
 Such reuse copies all the fields from original **&lt;bundle&gt;** in addition
-to all the properties. Any new defined member field gets appended to the copied ones.
+to all the properties. Any new defined member field gets **appended** to the copied ones.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">

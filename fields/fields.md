@@ -24,7 +24,7 @@ It can also be defined as a member of a message.
 Field that is defined as a child of **&lt;fields&gt;** node of the 
 [&lt;schema&gt;](../intro/schema_def.md) or 
 [&lt;ns&gt;](../intro/namespaces.md) can be referenced by other fields to avoid
-definition duplication.
+duplication of the same definition.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

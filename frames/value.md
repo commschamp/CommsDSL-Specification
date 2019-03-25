@@ -102,7 +102,7 @@ must be the same for all the listed interfaces.
 There are protocols that don't report protocol version in their transport
 framing. Instead, they use some special "connection" message that report
 protocol version. As the result, all subsequent messages must adhere to the
-reported protocol. The **CommsDSL** resolves this problem by defining 
+reported version. The **CommsDSL** resolves this problem by defining 
 **pseudo** **&lt;value&gt;** layer using **pseudo** [property](../intro/properties.md)
 with [boolean](../intro/boolean.md) value. The field of the pseudo **&lt;value&gt;** layer
 does not get serialized. However, the code generator must allow external

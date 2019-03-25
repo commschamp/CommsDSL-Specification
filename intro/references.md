@@ -21,7 +21,7 @@ circular references.
     </message>
 </schema>
 ```
-When referencing a field or a value from a namespace (any namespace, not just
+When referencing a field or a value defined in a namespace (any namespace, not just
 different one), the former must be prefixed with a namespace(s) name(s) 
 separated by a **.** (dot).
 ```

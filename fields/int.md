@@ -28,7 +28,7 @@ values are:
 ```
 The variable length types are encoded using **Base-128** form, such as
 [LEB128](https://en.wikipedia.org/wiki/LEB128) for *little* endian or similar for
-big endian.
+*big* endian.
 
 #### Special Values
 Some protocol may assign a special meaning for some values. For example, some

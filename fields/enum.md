@@ -31,7 +31,7 @@ values are:
 ```
 The variable length types are encoded using **Base-128** form, such as
 [LEB128](https://en.wikipedia.org/wiki/LEB128) for *little* endian or similar for
-big endian.
+*big* endian.
 
 #### Valid Values
 All the valid values must be listed as **&lt;validValue&gt;** child of the 
@@ -113,7 +113,7 @@ default endian value with extra **endian** property.
 
 #### Serialization Length
 The [underlying type](#underlying-type) dictates the serialization length
-of the **&lt;enum&gt;** field. However there may be protocols, that limit serialization
+of the **&lt;enum&gt;** field. However, there may be protocols that limit serialization
 length of the field to non-standard lengths, such as **3** bytes. In this case
 use **length** property to specify custom serialization length.
 ```
@@ -159,8 +159,8 @@ In this case the serialization length may be specified in bits using **bitLength
 
 #### Hex Assignment
 The code generator is expected to generate appropriate **enum** types using
-decimal values assigned to enumeration names. However, some protocols may list 
-valid values using hexadecimal format. To make the reading of the generated code
+**decimal** values assigned to enumeration names. However, some protocol specifications may list 
+valid values using **hexadecimal** format. To make the reading of the generated code
 more convenient, use **hexAssign** [property](../intro/properties.md) with
 [boolean](../intro/boolean.md) value to force code generator make the assignments
 using hexadecimal values.
@@ -197,7 +197,7 @@ enum class SomeEnumFieldVal
 
 #### Allow Non-Unique Values
 By default, non-unqiue values are not allowed, the code generator must report
-an error if two different **&lt;validValue&gt;**-es use the same value of **val**
+an error if two different **&lt;validValue&gt;**-es use the same value of the **val**
 property. It is done as protection against copy-paste errors. However,
 **CommsDSL** allows usage of non-unique values in case **nonUniqueAllowed** 
 [property](../intro/properties.md) has been set to **true**.

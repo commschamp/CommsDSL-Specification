@@ -70,7 +70,7 @@ to locate the required external implementation file and use appropriate
 class / function name when the calculation functionality needs to be invoked.
 
 #### Calculation Area
-The **custom** layer definition must also specify the layers, data of which is
+The **checksum** layer definition must also specify the layers, data of which is
 used to calculate the checksum. It is done using **from** property that is
 expected to specify name of the layer where checksum calculation starts.
 ```

@@ -39,7 +39,7 @@ generated class. The [property](../intro/properties.md) is **description**.
 #### Reusing Other Fields
 Sometimes two different fields are very similar, but differ in one particular
 aspect. **CommsDSL** allows copying all the properties from previously defined
-field and change value of some properties after the copy. For example:
+field (using **reuse** property) and change some of them after the copy. For example:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -80,7 +80,7 @@ the [name](../intro/names.md).
 ```
 
 If **displayName** is not specified, the code generator must use value of property
-**name** instead. In order to force empty name to display, use "_" (underscore).
+**name** instead. In order to force empty **displayName**, use "_" (underscore) value.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -90,15 +90,31 @@ If **displayName** is not specified, the code generator must use value of proper
 </schema>
 ```
 
-The values of some fields may be controlled by other fields. In this case, it
+Sometimes the values of some fields may be controlled by other fields. In this case, it
 could be wise to disable manual update of such fields. To enable/disable such
 behavior use **displayReadOnly** property with [boolean](../intro/boolean.md)
 value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" displayReadOnly="true" ... />
+    </fields>
+</schema>
+```
 
-Sometimes, it can be desirable to completely hide some field 
+Also sometimes it can be desirable to completely hide some field 
 from being displayed in the protocol analysis GUI application. In this case
 use **displayHidden** property with [boolean](../intro/boolean.md)
 value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" displayHidden="true" ... />
+    </fields>
+</schema>
+```
 
 #### Versioning
 **CommsDSL** allows providing an information in what version the field was added
