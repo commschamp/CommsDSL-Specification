@@ -13,7 +13,7 @@ for detailed description.
 |**validValue**|floating point value, **nan**, **inf**, **-inf**|1|no||Valid value.|
 |**validMin**|floating point value|1|no||Valid minimal value. All the numbers above it are considered to be valid.|
 |**validMax**|floating point value|1|no||Valid maximal value. All the numbers below it are considered to be valid.|
-|**validCheckVersion**|[bool](../intro/boolean.md)|1|no|false|Mark all the range of existing FP values to be valid, excluding **nan**, **inf**, and **-inf**.|
+|**validFullRange**|[bool](../intro/boolean.md)|1|no|false|Mark all the range of existing FP values to be valid, excluding **nan**, **inf**, and **-inf**.|
 |**validCheckVersion**|[bool](../intro/boolean.md)|1|no|false|Take into account protocol version when generating code for field's value validity check.|
 |**displayDecimals**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis how many digits need to be displayed after the fraction point.|
 

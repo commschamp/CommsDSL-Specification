@@ -48,9 +48,6 @@ whole field to be dedicated to storage of the numeric ID. In such case
                 </set>
             </bitfield>
         </custom>
-        <id name="Id">
-            ...  
-        </id>
         <payload name="Data" />
     </frame>
 </schema>

@@ -26,7 +26,7 @@ For example:
     </message>
 </schema>
 ```
-In the example above field **F2** was introduced in version 2. The field **F3**
+In the example above the field **F2** was introduced in version 2. The field **F3**
 was introduced in version 3, but deprecated and removed in version 4.
 
 All these version numbers in the schema definition allow generation of proper version checks

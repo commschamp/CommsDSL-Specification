@@ -74,8 +74,8 @@ For example version **1.5** can be defined and used throughout the schema as **0
 #### DSL Version
 As this specification evolves over time it can introduce new properties or
 other elements. It is possible to specify the version of the **DSL** as the schema's
-property. If code generator expects earlier version of the schema it is expected
-to report an error (or at least a warning). 
+property. If code generator expects earlier version of the schema it should
+report an error (or at least a warning). 
 
 The DSL version is specified using **dslVersion** property with unsigned integral
 value. Defaults to **0**, which means any version of code generator will try to

@@ -78,7 +78,7 @@ Available layers are:
 - [&lt;checksum&gt;](checksum.md) - Checksum.
 - [&lt;value&gt;](value.md) - Extra value, usually to be assigned to one of the
 [&lt;interface&gt;](../interfaces/interfaces.md) fields.
-- [&lt;custom&gt;](custom.md) - Any other custom layer, not provided by **CommsDSL**. 
+- [&lt;custom&gt;](custom.md) - Any other custom layer, not defined by **CommsDSL**. 
 
 If there is any other [property](../intro/properties.md) defined as XML child
 of the **&lt;frame&gt;**, then all the layers must be wrapped in 
@@ -96,7 +96,7 @@ of the **&lt;frame&gt;**, then all the layers must be wrapped in
 </schema>
 ```
 
-All this layers have [common](common.md) as well as their own specific set of 
+All these layers have [common](common.md) as well as their own specific set of 
 properties.
 
 Use [properties table](../appendix/frame.md) for future references.
