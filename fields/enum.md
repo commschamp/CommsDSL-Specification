@@ -240,43 +240,4 @@ value **10** will be considered valid only if reported protocol version is
 greater than or equal to **2**. The value **15** will be considered valid only
 for protocol version **3**.
 
-#### Referencing Other **&lt;enum&gt;** Values
-Any specified **&lt;validValue&gt;** can be referenced by other fields 
-(not only **&lt;enum&gt;**) when specifying [numeric](../intro/numeric.md) 
-value of some property. To reference it, the **&lt;enum&gt;** name 
-must be specified followed by a **.** (dot) and name of the chosen **&lt;validValue&gt;**
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <enum name="SomeEnumField" type="uint8">
-            <validValue name="Val1" val="0" />
-            <validValue name="Val2" val="5" />
-            <validValue name="Val3" val="10"/>
-        </enum>
-        
-        <int name="SomeIntField" type="uint32" defaultValue="SomeEnumField.Val2" />
-    </fields>
-</schema>
-```
-If **&lt;enum&gt;** field resides in a namespace, add it to the reference string
-as well.
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <ns name="ns1"
-        <fields>
-            <enum name="SomeEnumField" type="uint8">
-                <validValue name="Val1" val="0" />
-                <validValue name="Val2" val="5" />
-                <validValue name="Val3" val="10"/>
-            </enum>
-            
-            <int name="SomeIntField" type="uint32" defaultValue="ns1.SomeEnumField.Val2" />
-        </fields>
-    </ns>
-</schema>
-```
-
 Use [properties table](../appendix/enum.md) for future references.

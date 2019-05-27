@@ -15,5 +15,5 @@ Refer to [Common Properties of Fields](../fields/common.md) chapter for detailed
 |**failOnInvalid**|[bool](../intro/boolean.md)|1|no|false|Fail *read* operation if read value is invalid.|
 |**pseudo**|[bool](../intro/boolean.md)|1|no|false|In case of **true**, don't serialize/deserialize this field.|
 |**customizable**|[bool](../intro/boolean.md)|1|no|false|Mark the field to allow compile time customization regardless of code generator's level of customization.|
-|**semanticType**|"none", "messageId", "version"|1|no|none|Specify semantic type of the field. It allows code generator to generate special code for special cases.|
+|**semanticType**|"none", "messageId", "version", "length"|1|no|none|Specify semantic type of the field. It allows code generator to generate special code for special cases. Value "length" was introduced in **v2** of this specification.|
 

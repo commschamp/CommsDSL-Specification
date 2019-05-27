@@ -33,5 +33,31 @@ it has taken a name of the referenced field (*SomeIntField*).
 The only extra property the **&lt;ref&gt;** field has is **field** to 
 specify a [reference](../intro/references.md) to other field.
 
+#### Length in Bits
+Since **v2** of this specification it is allowed to use **&lt;ref&gt;** field
+as member of the [&lt;bitfield&gt;](bitfield.md) field while referencing one
+of the allowed member types. In such case it is required to use **bitLength**
+property to specify length in bits.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <enum name="SomeEnum type="uint8">
+            <validValue name="V1" val="0" />
+            <validValue name="V2" val="1" />
+            <validValue name="V3" val="2" />
+        </enum>
+        
+        <bitfield name="SomeBitfield">
+            <int name="SomeIntMember" type="uint8" bitLength="3" />
+            <set name="SomeSetMember" bitLength="3">
+                ...
+            </set>
+            <ref field="SomeEnum" bitLength="2" />
+        </bitfield>
+    </fields>
+</schema>
+```
+
 
 Use [properties table](../appendix/ref.md) for future references.

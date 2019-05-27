@@ -89,23 +89,6 @@ The default value can also be specified using the name of one of the
 </schema>
 ```
 
-As was mentioned earlier in [&lt;enum&gt;](enum.md) field description, the 
-defined **&lt;validValue&gt;** can be referenced as numeric value as well.
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <enum name="SomeEnumField" type="uint8" defaultValue="5">
-            <validValue name="Val1" val="0" />
-            <validValue name="Val2" val="5" />
-            <validValue name="Val3" val="0x1b" />
-        </enum>
-        
-        <int name="SomeIntField" type="uint8" defaultValue="SomeEnumField.Val2" />
-    </fields>
-</schema>
-``` 
-
 #### Endian
 The default serialization endian of the protocol is specified in **endian**
 property of the [schema](../schema/schema.md). It is possible to override the

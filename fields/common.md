@@ -157,7 +157,7 @@ of a [&lt;message&gt;](../messages/messages.md) or a [&lt;bundle&gt;](bundle.md)
 Some fields may specify what values are considered to be valid, and there may
 be a need to fail the **read** operation in case the received value is invalid.
 
-To achieve this, **failOnInvalid** property with [boolean](../intro/boolean.md)
+To achieve this **failOnInvalid** property with [boolean](../intro/boolean.md)
 value can be used. There are two main scenarios that may require usage of this
 property. One is the protocol being implemented requires such behavior in its
 specification. The second is when there are multiple forms of the same message 
@@ -235,6 +235,10 @@ message ID. Applicable to [&lt;enum&gt;](enum.md) and [&lt;int&gt;](int.md)
 fields.
 - **version** - Used to specify that the field is used to hold protocol version.
 Applicable to [&lt;int&gt;](int.md) field.
+- **length** - Used to specify that the field holds total serialization length 
+of the subsequent fields. Applicable to [&lt;int&gt;](int.md) field, which is
+a member of [&lt;bundle&gt;](bundle.md) field. The **length** semantic type
+was introduced in **v2.0** of **CommsDSL** specification.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
