@@ -25,7 +25,7 @@ Every message definition must specify its [numeric](../intro/numeric.md) ID usin
 </schema> 
 ```
 
-It is higly recommended to define "message ID" numeric values as external
+It is highly recommended to define "message ID" numeric values as external
 [&lt;enum&gt;](../fields/enum.md) field and reuse its values.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -80,6 +80,31 @@ display proper space separated name (which is defined using **displayName**
 ```
 In case **displayName** is empty, the analysis tools are expected to use value
 of **name** [property](../intro/properties.md) instead.
+
+It is recommended to share the **displayName** with relevant **&lt;validValue&gt;**
+of **&lt;enum&gt;** that lists numeric IDs of the messages:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="Msg1Name" defaultValue="Message 1" />
+        <string name="Msg2Name" defaultValue="Message 2" />
+        
+        <enum name="MsgId" type="uint8" semanticType="messageId">
+            <validValue name="Msg1" val="1" displayName="^Msg1Name" />
+            <validValue name="Msg2" val="2" displayName="^Msg2Name" />
+        </enum>
+        
+        <message name="Msg1" id="MsgId.Msg1" displayName="^Msg1Name">
+            ...
+        </message>
+        
+        <message name="Msg2" id="MsgId.Msg2" displayName="^Msg2Name">
+            ...
+        </message>
+    </fields>
+</schema>
+```
 
 #### Fields
 Every **&lt;message&gt;** has zero or more [fields](../fields/fields.md) that 
