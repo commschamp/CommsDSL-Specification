@@ -2,7 +2,7 @@
 Quite often there is a need to reuse (or reference) some other values already
 defined and used for some other fields. The **v1** of this specification
 allowed referencing the external [&lt;enum&gt;](enum.md) **validValue**-s only, while
-**v2** of this specification externds such functionality to other fields as well.
+**v2** of this specification extends such functionality to other fields as well.
 In general, when the other field is referenced its **defaultValue** is taken, 
 unless inner value is referenced, such as **validValue** of the [&lt;enum&gt;](enum.md)
 field or **special** value of the [&lt;int&gt;](int.md) field.
@@ -95,7 +95,7 @@ field can be referenced by other numeric fields.
     </fields>
 </schema>
 ```
-In the example above **defaultValue** of *SomeEnumField* is *0*, 
+In the example above **defaultValue** of *SomeEnumField* is **0**, 
 **validValue** *Val1* equals to **5**, and **validValue** *Val2* equals to
 **10**.
 
@@ -145,6 +145,27 @@ which will result in numeric values been either **0** or **1**.
 ```
 The definition above will result in **defaultValue** of *SomeFloatField* to be
 **1.0**.
+
+#### Referencing Values Defined in **&lt;float&gt;**-s
+Similar to [&lt;int&gt;](int.md) it is possible to reference [&lt;float&gt;](float.md) values 
+used in **defaultValue** property and/or as **&lt;special&gt;** value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <float name="SomeFloatField" type="double" defaultValue="nan">
+            <special name="S1" val="inf" />
+        </float>
+
+        <float name="SomeOtherFloatField" type="double" defaultValue="SomeFloatField.S1">
+            <special name="S1" val="SomeFloatField" />
+        </float>
+        
+    </fields>
+</schema>
+```
+In the example above **defaultValue** of *SomeOtherFloatField* is **inf**, 
+while value of *SomeOtherFloatField.S1* special is **nan**.
 
 #### Referencing Values Defined in **&lt;string&gt;**-s
 When referencing values of [&lt;string&gt;](string.md) fields there is a need

@@ -23,7 +23,7 @@ to avoid duplication of field definition for multiple messages.
 </schema>
 ```
 The **&lt;ref&gt;** field has all the [common](common.md) properties. It
-also copies **name** and **displayName** [properties](../intro/properties.md)
+also copies **name**, **displayName** and **semanticType** [properties](../intro/properties.md)
 from the referenced field and allows overriding them with new values.
 Note, that in the example above **&lt;ref&gt;** field defined as a member of
 **Msg1** message hasn't provided any **name** value. It is allowed because

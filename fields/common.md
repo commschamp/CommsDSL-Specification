@@ -231,13 +231,16 @@ property.
 
 Available semantic types are:
 - **messageId** - Used to specify what type/field is used for holding numeric 
-message ID. Applicable to [&lt;enum&gt;](enum.md) and [&lt;int&gt;](int.md)
-fields.
+message ID. Applicable to [&lt;enum&gt;](enum.md) fields.
 - **version** - Used to specify that the field is used to hold protocol version.
-Applicable to [&lt;int&gt;](int.md) field.
+Applicable to [&lt;int&gt;](int.md) field (or [&lt;ref&gt;](ref.md) referening
+an [&lt;int&gt;](int.md)).
 - **length** - Used to specify that the field holds total serialization length 
-of the subsequent fields. Applicable to [&lt;int&gt;](int.md) field, which is
-a member of [&lt;bundle&gt;](bundle.md) field. The **length** semantic type
+of the subsequent fields. Applicable to [&lt;int&gt;](int.md) field 
+(or [&lt;ref&gt;](ref.md) referening an [&lt;int&gt;](int.md)). 
+The **length** semantic type makes sense only for 
+a member of [&lt;bundle&gt;](bundle.md) field and should be ignored in
+all other cases. The **length** semantic type
 was introduced in **v2.0** of **CommsDSL** specification.
 
 ```
