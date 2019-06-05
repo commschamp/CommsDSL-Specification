@@ -6,5 +6,6 @@ for detailed description.
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**field**|[reference](../intro/references.md)|1|yes||Reference to other field.|
+|**bitLength**|[unsigned](../intro/numeric.md)|2|no|length in bits|Serialization length in bits, applicable only to a member of [&lt;bitfield&gt;](../fields/bitfield.md) and when referencing a field that can be a member of [&lt;bitfield&gt;](../fields/bitfield.md).|
 
 

@@ -6,6 +6,9 @@ The supported fields, that can be members of the **&lt;bitfield&gt;**, are:
 - [&lt;int&gt;](int.md)
 - [&lt;set&gt;](set.md)
 
+Since **v2** of the specification it is also allowed to use 
+[&lt;ref&gt;](ref.md) field, which references one of the field types above.
+
 The **&lt;bitfield&gt;** field has all the [common](common.md) properties
 as well as extra properties and elements described below.
 

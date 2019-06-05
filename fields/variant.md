@@ -14,14 +14,14 @@ field, member fields need to be listed as children XML elements of the **&lt;var
 <schema name="MyProtocol" endian="big">
     <fields>
         <int name="Key" type="uint8" failOnInvalid="true" displayReadOnly="true" />
-        
+
         <variant name="Property">
             <bundle name="Prop1">
-                <int reuse="Key" defaultValue="0" validValue="0"  />
+                <int reuse="Key" defaultValue="0" validValue="0" />
                 <int name="Value" type="uint32" />
             </bundle>
             <bundle name="Prop2">
-                <int reuse="Key" defaultValue="1" validValue="1"  />
+                <int reuse="Key" defaultValue="1" validValue="1" />
                 <string name="Value" length="16" />
             </bundle>
         </variant>
@@ -41,34 +41,6 @@ needs to terminate. The *in-order* read is high level logic, the code generator
 is allowed to introduce optimizations as long as the outcome of detecting the
 right member is the same.
 
-In the example above, in order to support future versions of the protocol, 
-that may introduce new properties, it is recommended to add "unknown" property
-with non-failing *read* operation at the bottom of the members list.
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<schema name="MyProtocol" endian="big">
-    <fields>
-        <int name="Key" type="uint8" failOnInvalid="true" displayReadOnly="true" />
-        
-        <variant name="Property">
-            <bundle name="Prop1">
-                <int reuse="Key" defaultValue="0" validValue="0"  />
-                <int name="Value" type="uint32" />
-            </bundle>
-            <bundle name="Prop2">
-                <int reuse="Key" defaultValue="1" validValue="1"  />
-                <string name="Value" length="16" />
-            </bundle>
-            <bundle name="Unknown">
-                <int reuse="Key" failOnInvalid="false"  />
-                <data name="Value"/>
-            </bundle>
-        </variant>
-        
-        <list name="PropertiesList" element="Property" />
-    </fields>
-</schema>
-```
 If there is any other [property](../intro/properties.md) defined as XML child
 of the **&lt;variant&gt;**, then all the members must be wrapped in 
 **&lt;members&gt;** XML element for separation.
@@ -88,6 +60,93 @@ of the **&lt;variant&gt;**, then all the members must be wrapped in
     </fields>
 </schema>
 ```
+
+Another quite popular example of is to have heterogeneous list of 
+TLV (type / length / value) triplets.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+
+        <variant name="Property">
+            <bundle name="Prop1">
+                <int reuse="Type" defaultValue="0" validValue="0" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint32" />
+            </bundle>
+            <bundle name="Prop2">
+                <int reuse="Type" defaultValue="1" validValue="1" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <string name="Value" />
+            </bundle>
+            ... 
+        </variant>
+        
+        <list name="PropertiesList" element="Property" />
+    </fields>
+</schema>
+```
+Please **note** assigning **semanticType** property to be **length** for the
+*Length* field in every bundle. It specifies that the field contains
+remaining length of all the subsequent fields in the **&lt;bundle&gt;** and
+allows the code generator to produce correct code. The support for
+**length** value of **semanticType** has been introduced in **v2** of this
+specification.
+
+Quite often the developers wonder why there is a need to use *remaining length*
+information for the fields, length of which is constant and known and compile time.
+It allows introducing more fields in future versions of the protocol while
+preserving forward / backward compatibility of the protocol. For example:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big" version="2">
+    <fields>
+        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+
+        <variant name="Property">
+            <bundle name="Prop1">
+                <int reuse="Type" defaultValue="0" validValue="0" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint32" />
+                <int name="Value2" type="int16" sinceVersion="2"/>
+            </bundle>
+            ... 
+        </variant>
+        
+        <list name="PropertiesList" element="Property" />
+    </fields>
+</schema>
+```
+The old version of the protocol code, that is not aware of extra field being
+added in the new version, will be able to skip over unknown data and read
+the next property from the correct location.
+
+It also allows safe reception and handling of unexpected (or unknown) properties that could be 
+introduced in the future versions of the protocol while still operating correctly.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+
+        <variant name="Property">
+            ...
+            <bundle name="UnknownProp">
+                <int reuse="Type" failOnInvalid="false" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <data name="Value" />
+            </bundle>
+        </variant>
+        
+        <list name="PropertiesList" element="Property" />
+    </fields>
+</schema>
+```
+**NOTE**, that in the example above the *UnknownProp* is defined to
+be the last member field of the **&lt;variant&gt;** field and has
+non-failing read of its *Type* (**failOnInvalid** property has been set
+to **false**).
 
 #### Default Member
 When **&lt;variant&gt;** field is constructed, it should not hold any

@@ -27,6 +27,7 @@
     * [ref Field](fields/ref.md)
     * [optional Field](fields/optional.md)
     * [variant Field](fields/variant.md)
+    * [Referencing Values of Other Fields](fields/references.md)    
 * [Messages](messages/messages.md)
 * [Interfaces](interfaces/interfaces.md)
 * [Frames](frames/frames.md)
