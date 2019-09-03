@@ -192,7 +192,7 @@ then serialize. The deserialization procedure is the opposite, first deserialize
 the non-negative value, and then subtract predefined offset to get the real value.
 
 For example, there is an integer field with expected valid values between 
--8,000,000 and +8,000,000. This range fits into 3 bytes, which are used to 
+`-8,000,000` and `+8,000,000`. This range fits into 3 bytes, which are used to 
 serialize such field. Such field is serialized using the
 following math:
 - Add 8,000,000 to the field's value to get non-negative number.
