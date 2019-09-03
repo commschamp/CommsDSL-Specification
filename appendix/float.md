@@ -16,6 +16,9 @@ for detailed description.
 |**validFullRange**|[bool](../intro/boolean.md)|1|no|false|Mark all the range of existing FP values to be valid, excluding **nan**, **inf**, and **-inf**.|
 |**validCheckVersion**|[bool](../intro/boolean.md)|1|no|false|Take into account protocol version when generating code for field's value validity check.|
 |**displayDecimals**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis how many digits need to be displayed after the fraction point.|
+|**nonUniqueSpecialsAllowed**|[bool](../intro/boolean.md)|2|no|false|Allow non unique **&lt;special&gt;**-s.|
+|**displaySpecials**|[bool](../intro/boolean.md)|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.|
+
 
 #### Properties of &lt;special&gt; Child Element of &lt;float&gt; Field
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
@@ -25,4 +28,5 @@ for detailed description.
 |**description**|string|1|no||Human readable description of the value.|
 |**sinceVersion**|[unsigned](../intro/numeric.md)|1|no|0|Version of the protocol in which value was introduced.|
 |**deprecated**|[unsigned](../intro/numeric.md)|1|no|max unsigned|Version of the protocol in which value was deprecated.<br />Must be greater than value of **sinceVersion**.|
+|**displayName**|string|2|no||Name to display in various analysis tools.|
 
