@@ -21,6 +21,8 @@ for detailed description.
 |**validCheckVersion**|[bool](../intro/boolean.md)|1|no|false|Take into account protocol version when generating code for field's value validity check.|
 |**displayDecimals**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis tools to display this field as floating point value with specified number of digits after the fraction point.|
 |**displayOffset**|[numeric](../intro/numeric.md)|1|no|0|Indicates to GUI analysis tools to add specified offset value to a field's value when displaying it.|
+|**nonUniqueSpecialsAllowed**|[bool](../intro/boolean.md)|2|no|false|Allow non unique **&lt;special&gt;**-s.|
+|**displaySpecials**|[bool](../intro/boolean.md)|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.|
 
 #### Properties of &lt;special&gt; Child Element of &lt;int&gt; Field
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
@@ -30,4 +32,5 @@ for detailed description.
 |**description**|string|1|no||Human readable description of the value.|
 |**sinceVersion**|[unsigned](../intro/numeric.md)|1|no|0|Version of the protocol in which value was introduced.|
 |**deprecated**|[unsigned](../intro/numeric.md)|1|no|max unsigned|Version of the protocol in which value was deprecated.<br />Must be greater than value of **sinceVersion**.|
+|**displayName**|string|2|no||Name to display in various analysis tools.|
 

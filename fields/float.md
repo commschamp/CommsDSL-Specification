@@ -66,9 +66,28 @@ Every **&lt;special&gt;** has extra optional properties:
 - **description** - Extra description and documentation on how to use the value.
 - **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 - **deprecated** - Version of the protocol when the special name / meaning was deprecated.
+- **displayName** - Readable name to display for the special value in protocol debugging and visualization tools.
 
 All these extra properties are described in detail in 
 [Common Properties of Fields](common.md).
+
+By default, non-unqiue special values (different name for the same value) are 
+not allowed, the code generator must report
+an error if two different **&lt;special&gt;**-es use the same value of the **val**
+property. It is done as protection against copy-paste errors. However,
+**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed** 
+[property](../intro/properties.md) has been set to **true**.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <float name="SomeFloat" type="float" nonUniqueSpecialsAllowed="true">
+            <special name="S1" val="0.0" />
+            <special name="S2" val="0.0" />
+        </int>
+    </fields>
+</schema>
+```
 
 #### Default Value
 The default value of the **&lt;float&gt;** field when constructed can be specified
@@ -278,5 +297,21 @@ with numeric value.
 ```
 If value of **displayDecimals** is **0**, then it is up to the GUI tool
 to choose how many digits after decimal point to display.
+
+When **&lt;special&gt;** values are specified the protocol analysis tools are 
+expected to display them next to actual numeric value of the field. The **displaySpecials**
+[property](../intro/properties.md) with [boolean](../intro/boolean.md) value
+is there to control this default behavior.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <float name="SomeFloat" type="float" displaySpecials="false">
+            <special name="S1" val="0.0" />
+            <special name="S2" val="nan" />
+        </int>
+    </fields>
+</schema>
+```
 
 Use [properties table](../appendix/float.md) for future references.
