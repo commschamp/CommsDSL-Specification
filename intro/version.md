@@ -1,5 +1,5 @@
 ## Version
-Current version of this document is **2.0**
+Current version of this document is **2.1**
 
 This document is versioned using [Semantic Versioning](https://semver.org/) 
 without **MAJOR** number (in intension not to have any non-backward compatible changes).
