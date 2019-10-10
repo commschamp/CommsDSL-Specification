@@ -7,7 +7,13 @@ for detailed description.
 |**name**|[name](../intro/names.md) string|1|yes||Name of the interface.|
 |**description**|string|1|no||Human readable description of the interface.|
 |**copyFieldsFrom**|[reference](../intro/references.md) string|1|no||Interface definition from which fields need to be copied.|
+|**copyFieldsAliases**|[bool](../intro/boolean.md)|3|no|true|Control copy of the defined [aliases](../aliases/aliases.md) when **copyFieldsFrom** property is used to copy fields from the other [&lt;interface&gt;](../interfaces/interfaces.md).|
 
-The **&lt;interfaces&gt;** also allows listing of fields using
-**&lt;fields&gt;** child XML element.
+
+Extra child XML elements allowed:
+
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;fields&gt;**|0|Wraps member fields.|
+|**&lt;alias&gt;**|3|Alias names for other member fields. See [Aliases](../aliases/aliases.md) for more info.|
 

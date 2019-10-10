@@ -6,7 +6,7 @@ for detailed description.
 |:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
 |**name**|[name](../intro/names.md) string|1|yes||Name of the message.|
 |**id**|[numeric](../intro/numeric.md)|1|yes||Numeric ID of the message.|
-|**description**|string|1|no||Human readable description of the interface.|
+|**description**|string|1|no||Human readable description of the message.|
 |**displayName**|string|1|no||Name of the message to display. If empty, the code generator must use value of property **name** instead.|
 |**copyFieldsFrom**|[reference](../intro/references.md) string|1|no||Message definition from which fields need to be copied.|
 |**order**|[numeric](../intro/numeric.md)|1|no|0|Relative order of the messages with the same **id**.|
@@ -15,8 +15,12 @@ for detailed description.
 |**removed**|[bool](../intro/boolean.md)|1|no|false|Indicates whether deprecated message has been removed from being supported.|
 |**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.| 
 |**customizable**|[bool](../intro/boolean.md)|1|no|false|Mark the message to allow compile time customization regardless of code generator's level of customization.|
+|**copyFieldsAliases**|[bool](../intro/boolean.md)|3|no|true|Control copy of the defined [aliases](../aliases/aliases.md) when **copyFieldsFrom** property is used to copy fields from the other [&lt;message&gt;](../messages/messages.md).|
 
+Extra child XML elements allowed:
 
-The **&lt;message&gt;** also allows listing of fields using
-**&lt;fields&gt;** child XML element.
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;fields&gt;**|0|Wraps member fields.|
+|**&lt;alias&gt;**|3|Alias names for other member fields. See [Aliases](../aliases/aliases.md) for more info.|
 

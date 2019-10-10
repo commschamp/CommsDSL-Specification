@@ -9,6 +9,9 @@ for detailed description.
 |**displayIdxReadOnlyHidden**|[bool](../intro/boolean.md)|1|no|false|Hide active index of the member when field displayed in read-only mode.|
 
 
-The **&lt;variant&gt;** field also allows listing of member fields using
-**&lt;members&gt;** child XML element.
+Extra child XML elements allowed:
+
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;members&gt;**|0|Wraps member fields.|
 
