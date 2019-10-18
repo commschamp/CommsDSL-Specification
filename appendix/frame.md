@@ -7,6 +7,9 @@ for detailed description.
 |**name**|[name](../intro/names.md) string|1|yes||Name of the frame.|
 |**description**|string|1|no||Human readable description of the frame.|
 
-The **&lt;frame&gt;** also allows listing of layers using
-**&lt;layers&gt;** child XML element.
+Extra child XML elements allowed:
+
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;layers&gt;**|1|Wraps member layers.|
 

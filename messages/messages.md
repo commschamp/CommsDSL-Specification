@@ -313,5 +313,10 @@ customizable at compile time.
 </schema>
 ```
 
+#### Alias Names to Member Fields
+Sometimes an existing member field may be renamed and/or moved. It is possible to
+create alias names for the fields to keep the old client code being able to compile
+and work. Please refer to [Aliases](../aliases/aliases.md) chapter for more details.
+
 Use [properties table](../appendix/message.md) for future references.
 

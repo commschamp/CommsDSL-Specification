@@ -1,0 +1,193 @@
+# Aliases
+It is not uncommon for a particular field to change its meaning and as the
+result to change its name over time when the protocol evolves. Simple change
+of the name in the schema may result in various compilation errors of old
+client code when new version of the protocol definition library is released.
+To help with such case the **CommsDSL** introduces an ability to create
+**alias** names for the existing fields.
+
+For example let's assume there is some message definition like the one below:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="0x1">
+        <int name="SomeField" type="uint32" />
+        ...
+    </message>
+</schema> 
+```
+In case there is a need to rename the **SomeField** name to be **SomeOtherField**,
+then the message definition can add an **&lt;alias&gt;** with the old name to
+the renamed field in order to keep the old client code compiling. 
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="0x1">
+        <fields>
+            <int name="SomeOtherField" type="uint32" />
+            ...
+        </fields>
+        <alias name="SomeField" field="$SomeOtherField" />
+    </message>
+</schema> 
+```
+In such case the code generator must allow access of the renamed field by
+both old and new names.
+
+Note that the message fields must be bundled in **&lt;fields&gt;** XML element
+in order to allow usage of non-field definition **&lt;alias&gt;** XML child of
+the **&lt;message&gt;** node.
+
+Also note that value of the **field** property of the **&lt;alias&gt;** element
+must start with `$` character to indicate that the referenced field is a sibling
+one, similar to [&lt;optional&gt;](../fields/optional.md) field conditions.
+
+Quite often, in order to keep protocol backward compatible, developers convert
+existing numeric field into a [&lt;bitfield&gt;](../fields/bitfield.md) when
+need arises to add some extra field to the message. For example, let's assume
+there was an enum field with limited number of valid values:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="0x1">
+        <enum name="SomeEnum" type="uint8">
+            <validValue name="V1" val="0" />
+            <validValue name="V2" val="1" />
+            <validValue name="V3" val="2" />
+        </enum>
+        ...
+    </message>
+</schema> 
+```
+When need arises to introduce new value the developer may decide to save I/O
+traffic reuse the same byte occupied by the `SomeEnum` field, like below.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="0x1">
+        <bitfield name="F1"
+            <enum name="SomeEnum" type="uint8" bitLength="2">
+                <validValue name="V1" val="0" />
+                <validValue name="V2" val="1" />
+                <validValue name="V3" val="2" />
+            </enum>
+            <int name="SomeInt" type="uint8" bitLength="6"
+        </bitfield>
+        ...
+    </message>
+</schema> 
+```
+In order to keep old client code compiling it is possible to introduce
+alias to the `SomeEnum` member of the [&lt;bitfield&gt;](../fields/bitfield.md) 
+like this:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="0x1">
+        <fields>
+            <bitfield name="F1"
+                <enum name="SomeEnum" type="uint8" bitLength="2">
+                    ...
+                </enum>
+                <int name="SomeInt" type="uint8" bitLength="6"
+            </bitfield>
+            ...
+        </fields>
+        <alias name="SomeEnum" field="$F1.SomeEnum" />
+    </message>
+</schema> 
+```
+There can be any number of different **&lt;alias&gt;** nodes. The elements
+that are allowed to have **&lt;alias&gt;**-es are [&lt;message&gt;](../messages/messages.md),
+[&lt;interface&gt;](../interfaces/interfaces.md), and [&lt;bundle&gt;](../fields/bundle.md).
+
+#### Description
+The **&lt;alias&gt;** node may also have **description** 
+[property](../intro/properties.md) which is expected to find its way into
+the generated code as a comment for the relevant access functions.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        ...
+        <alias name="SomeField" field="SomeOtherField">
+            <description>
+                Some long
+                multiline
+                description
+            </description>
+        </alias>
+    </message>
+</schema>
+```
+
+#### More on Aliases in &lt;message&gt;-es
+When a new [&lt;message&gt;](../messages/messages.md) is defined it can
+copy all the fields from other already defined [&lt;message&gt;](../messages/messages.md)
+(using **copyFieldsFrom** [property](../intro/properties.md)).
+By default all the [&lt;alias&gt;](../aliases/aliases.md) definitions are also copied.
+It is possible to modify this default behavior by using **copyFieldsAliases** 
+[property](../intro/properties.md) with [boolean](../intro/boolean.md) value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        ...
+    </message>
+
+    <message name="Msg2" id="2" copyFieldsAliases="false">
+        ...
+    </message>
+    
+</schema>
+```
+
+#### More on Aliases in &lt;interface&gt;-es
+Similar to [&lt;message&gt;](../messages/messages.md)-es 
+[&lt;interface&gt;](../interfaces/interfaces.md) can also use **copyFieldsFrom** 
+[property](../intro/properties.md) to copy its field from some other 
+[&lt;interface&gt;](../interfaces/interfaces.md) definition and have all
+the aliases copied by default. The control of such default copying behavior
+is also done by using **copyFieldsAliases** 
+[property](../intro/properties.md) with [boolean](../intro/boolean.md) value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface1">
+        ...
+    </interface>
+
+    <interface name="Interface2" copyFieldsAliases="false">
+        ...
+    </interface>
+    
+</schema>
+```
+
+#### More on Aliases in &lt;bundle&gt;-es
+When a new [&lt;bundle&gt;](../fields/bundle.md) field is defined it can
+reuse definition of already defined other [&lt;bundle&gt;](../fields/bundle.md)
+(using **reuse** [property](../intro/properties.md)).
+By default all the [&lt;alias&gt;](../aliases/aliases.md) definitions are also copied.
+It is possible to modify this default behavior by using **reuseAliases** 
+[property](../intro/properties.md) with [boolean](../intro/boolean.md) value.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="B1">
+            ...
+            <alias .../>
+            <alias .../>
+        </bundle>
+
+        <bundle name="B2" reuse="B1" reuseAliases="false">
+            ...
+        </bundle>
+    </fields>
+</schema>
+```
+
+Use [properties table](../appendix/alias.md) for future references.
+
+

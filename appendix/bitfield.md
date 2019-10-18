@@ -8,6 +8,8 @@ for detailed description.
 |**endian**|"big" or "little"|1|no|endian of [schema](../schema/schema.md)|Endian of the field.|
 
 
-The **&lt;bitfield&gt;** field also allows listing of member fields using
-**&lt;members&gt;** child XML element.
+Extra child XML elements allowed:
 
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;members&gt;**|1|Wraps member fields.|
