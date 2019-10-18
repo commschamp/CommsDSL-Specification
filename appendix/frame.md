@@ -11,5 +11,5 @@ Extra child XML elements allowed:
 
 |XML Element|DSL Version|Description|
 |:---------:|:---------:|-----------|
-|**&lt;layers&gt;**|0|Wraps member layers.|
+|**&lt;layers&gt;**|1|Wraps member layers.|
 

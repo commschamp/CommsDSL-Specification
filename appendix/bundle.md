@@ -11,6 +11,6 @@ Extra child XML elements allowed:
 
 |XML Element|DSL Version|Description|
 |:---------:|:---------:|-----------|
-|**&lt;members&gt;**|0|Wraps member fields.|
+|**&lt;members&gt;**|1|Wraps member fields.|
 |**&lt;alias&gt;**|3|Alias names for other member fields. See [Aliases](../aliases/aliases.md) for more info.|
 

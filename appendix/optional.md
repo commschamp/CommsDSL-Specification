@@ -11,11 +11,16 @@ for detailed description.
 |**displayExtModeCtrl**|[bool](../intro/boolean.md)|1|no|false|Disable manual update of the mode in GUI analysis tools.|
 
 Inner field must be specified using **field** property or as 
-child XML element. The **&lt;optional&gt;** field also allows wrapping of inner field using
-**&lt;field&gt;** child XML element.
+child XML element. 
 
-Multiple conditions can be wrapped in either **&lt;and&gt;** or **&lt;or&gt;**
-child XML element.
+Extra child XML elements allowed:
+
+|XML Element|DSL Version|Description|
+|:---------:|:---------:|-----------|
+|**&lt;field&gt;**|1|Wraps member field.|
+|**&lt;cond&gt;**|1|Condition when field exists.|
+|**&lt;and&gt;**|1|Logical "and" of conditions.|
+|**&lt;or&gt;**|1|Logical "or" of conditions.|
 
 #### Default Mode Strings
 |Mode|Accepted Values (case insensitive)|
