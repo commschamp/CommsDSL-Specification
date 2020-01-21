@@ -1,5 +1,5 @@
 ## &lt;float&gt; Field
-This field stores and abstracts away value of floating poing type with IEEE 754 encoding. 
+This field stores and abstracts away value of floating point type with IEEE 754 encoding. 
 The **&lt;float&gt;** field has all the [common](common.md) properties
 as well as extra properties and elements described below.
 
