@@ -1,0 +1,17 @@
+CommsDSL Specification
+======================
+Alex Robenko
+v3.1, 2020-20
+:doctype: article
+:numbered!:
+:sectnums!:
+:revinfo!:
+
+
+include::intro/intro.txt[]
+include::schema/schema.txt[]
+include::fields/fields.txt[]
+include::messages/messages.txt[]
+include::interfaces/interfaces.txt[]
+
+include::frames/frames.txt[]
