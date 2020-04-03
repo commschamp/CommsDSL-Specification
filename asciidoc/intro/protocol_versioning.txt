@@ -17,6 +17,7 @@ removal of the deprecated field from being serialized, the **deprecated**
 property must be supplemented with **removed** property.
 
 For example:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="5" >

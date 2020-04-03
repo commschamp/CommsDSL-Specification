@@ -6,6 +6,7 @@ Schema definition may contain various global (protocol-wide)
 === Protocol Name ===
 The protocol name is defined using **name** property. It may contain any
 alphanumeric character, but mustn't start with a number. 
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol">
@@ -22,6 +23,7 @@ parameters.
 === Endian ===
 Default endian for the protocol can be defined using **endian** property. Supported
 values are either **big** or **little** (case insensitive). Defaults to **little**.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="Big">
@@ -38,6 +40,7 @@ just for documentation purposes. The description is provided using **description
 property of the **&lt;schema&gt;** node. Just like any <<intro-properties, property>>
 the description can be provided using one of the accepted ways. In case of
 long multiline description it is recommended to define it as a text child element.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol">
@@ -55,6 +58,7 @@ As was mentioned in <<intro-protocol-versioning, Protocol Versioning>> section,
 **CommsDSL** supports (but doesn't enforce) versioning of the schema / protocol.
 In order to specify the version use **version** property with unsigned integral
 value. Defaults to **0**.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" version="5">
@@ -65,6 +69,7 @@ In case the protocol definition uses https://semver.org/[semantic versioning]
 with major / minor numbers, it is recommended to combine multiple numbers into one
 mentally using "shift" operation(s).
 For example version **1.5** can be defined and used throughout the schema as **0x105**.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" version="0x105">
@@ -82,6 +87,7 @@ The DSL version is specified using **dslVersion** property with unsigned integra
 value. Defaults to **0**, which means any version of code generator will try to
 parse the schema and will report error / warning in case it encounters unrecognized
 property or other construct.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" dslVersion="2">
@@ -101,6 +107,7 @@ field inside the message. It can be convenient to define such variants as separa
 classes. **CommsDSL** allows doing so by setting **nonUniqueMsgIdAllowed** property
 of the schema to **true**. In this case, code generator must allow definition of
 different messages with the same numeric ID.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" nonUniqueMsgIdAllowed="true">

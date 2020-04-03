@@ -9,6 +9,7 @@ specified by the first processed schema file. It is allowed to omit any properti
 that have already been defined. For example:
 
 First processed file:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="2">
@@ -16,6 +17,7 @@ First processed file:
 </schema>
 ----
 Second processed file:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
@@ -28,6 +30,7 @@ defined **name**, **endian**, and **version**. The second file doesn't mention
 
 However, the following third file must cause an error due to changing the
 **endian** value:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="little">
@@ -38,6 +41,7 @@ Also note, that all the properties have some default value and cannot be
 defined in second or later processed file while been omitted in the first one.
 
 For example, the first file doesn't specify version number (which defaults to **0**)
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
@@ -46,6 +50,7 @@ For example, the first file doesn't specify version number (which defaults to **
 ----
 The following second file must cause an error due to an attempt to override
 **version** property with different value.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" version="2">

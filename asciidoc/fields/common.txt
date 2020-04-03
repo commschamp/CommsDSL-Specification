@@ -8,6 +8,7 @@ They are summarized below.
 Every field must define it's <<intro-names, name>>, which is expected to be 
 used by a code generator when defining a relevant class. The name is defined
 using **name** <<intro-properties, property>>.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -22,6 +23,7 @@ It is possible to provide a description of the field about what it is and
 how it is expected to be used. This description is only for documentation
 purposes and may find it's way into the generated code as a comment for the
 generated class. The <<intro-properties, property>> is **description**.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -42,6 +44,7 @@ Sometimes two different fields are very similar, but differ in one particular
 aspect. **CommsDSL** allows copying all the properties from previously defined
 field (using **reuse** property) and change some of them after the copy. For example:
 
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -62,6 +65,23 @@ The **reuse** is allowed only from the field of the same **kind**. For example,
 it is **NOT** allowed for <<fields-enum, &lt;enum&gt; >> field to reuse definition of
 <<fields-int, &lt;int&gt; >>, only other <<fields-enum, &lt;enum&gt; >>.
 
+==== Forcing Generation ====
+By default the code generator is expected not to generate code for fields that
+are not <<intro-references, referenced>> by any other field to reduce amount of 
+generated code. However, there may be cases when a field releated definitions are expected
+to find their way into the generated code even the field itself is not referenced
+anywhere. To help with such forcing the **forceGen** <<intro-properties, property>>
+has been introduced with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" forceGen="true" ... />
+    </fields>
+</schema>
+----
+
 ==== Display Properties ====
 **CommsDSL** supports generation of not only field's serialization and
 value access functionality, but also of various GUI protocol visualization, debugging and
@@ -71,6 +91,7 @@ field is expected to be displayed by such tools.
 The **displayName** property is there to specify proper string of the field's
 name, with spaces, dots and other characters that are not allowed to exist in
 the <<intro-names, name>>.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -82,6 +103,7 @@ the <<intro-names, name>>.
 
 If **displayName** is not specified, the code generator must use value of property
 **name** instead. In order to force empty **displayName**, use "_" (underscore) value.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -95,6 +117,7 @@ Sometimes the values of some fields may be controlled by other fields. In this c
 could be wise to disable manual update of such fields. To enable/disable such
 behavior use **displayReadOnly** property with <<intro-boolean, boolean>>
 value.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -108,6 +131,7 @@ Also sometimes it can be desirable to completely hide some field
 from being displayed in the protocol analysis GUI application. In this case
 use **displayHidden** property with <<intro-boolean, boolean>>
 value.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -126,6 +150,7 @@ To specify the version in which field was introduced, use **sinceVersion**
 property. To specify the version in which the field was deprecated, use
 **deprecated** property. To specify whether the field was removed after being deprecated
 use **removed** property in addition to **deprecated**.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="5" >
@@ -165,6 +190,7 @@ property. One is the protocol being implemented requires such behavior in its
 specification. The second is when there are multiple forms of the same message 
 which are differentiated by the value of some specific field in its payload.
 For example:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" nonUniqueMsgIdAllowed="true" >
@@ -197,6 +223,7 @@ using proper field abstration, and are handled as
 any other field, but not actually getting serialized when written (or deserialized
 when read). It can be achieved using **pseudo** property with <<intro-boolean, boolean>>
 value.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="5" >
@@ -217,6 +244,7 @@ to allow generated field abstraction to be customizable regardless of the custom
 level requested from the code generator. **CommsDSL** provides **customizable**
 property with <<intro-boolean, boolean>> value to force any field being
 customizable at compile time.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -246,6 +274,7 @@ a member of <<fields-bundle, &lt;bundle&gt; >> field and should be ignored in
 all other cases. The **length** semantic type
 was introduced in **v2.0** of **CommsDSL** specification.
 
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

@@ -7,10 +7,12 @@ reading. **Any** of the described below supported ways of defining a single prop
 can be used for **any** element in the schema.
 
 The property can be defined as an XML attribute.
+[source,xml]
 ----
 <int name="SomeField" type="uint8" />
 ----
 Or as child node with **value** attribute:
+[source,xml]
 ----
 <int>
     <name value="SomeField" />
@@ -18,6 +20,7 @@ Or as child node with **value** attribute:
 </int>
 ----
 Property value can also be defined as a text of the child XML element.
+[source,xml]
 ----
 <int>
     <name>SomeField</name>
@@ -25,6 +28,7 @@ Property value can also be defined as a text of the child XML element.
 </int>
 ----
 It is allowed to mix ways of defining properties for a single element
+[source,xml]
 ----
 <int name="SomeField">
     <type value="uint8" />
@@ -34,6 +38,7 @@ It is allowed to mix ways of defining properties for a single element
 Many properties must be defined only once for a specific element. In this case,
 repetition of it is prohibited. The definition below must cause an error (even
 if provided **type** value is not changed).
+[source,xml]
 ----
 <int name="SomeField" type="uint8" >
     <type value="uint8" />

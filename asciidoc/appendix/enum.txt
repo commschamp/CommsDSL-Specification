@@ -1,4 +1,5 @@
-## Properties of &lt;enum&gt; Field
+[[appendix-enum]]
+=== Properties of &lt;enum&gt; Field ===
 The **&lt;enum&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;enum&gt; Field](../fields/enum.md) chapter
 for detailed description. 

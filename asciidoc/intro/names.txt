@@ -12,6 +12,7 @@ generating appropriate classes and/or access functions.
 As the result, the code generator may report an error for the following definition
 of fields, which use different names, but differ only in the case of the first
 letter.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -25,6 +26,7 @@ letter.
 The names of the elements must be unique in their scope. It is allowed to 
 use the same name in different <<intro-namespaces, namespaces>> or different 
 <<messages-messages, messages>>.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

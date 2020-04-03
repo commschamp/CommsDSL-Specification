@@ -10,6 +10,7 @@ For example, message defines its payload as a reference (alias) to the
 globally defined field. This field is defined before the message definition. 
 The opposite order **must** cause an error. It allows easy avoidance of 
 circular references.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -25,6 +26,7 @@ circular references.
 When referencing a field or a value defined in a namespace (any namespace, not just
 different one), the former must be prefixed with a namespace(s) name(s) 
 separated by a **.** (dot).
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

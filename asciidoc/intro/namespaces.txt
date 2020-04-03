@@ -10,6 +10,7 @@ language) or introduce relevant prefixes into the names to avoid name clashes.
 
 The namespace is defined using **&lt;ns&gt;** node with single **name** property.
 It can contain all the mentioned [previously](schema_def.md) nodes.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -45,6 +46,7 @@ It can contain all the mentioned [previously](schema_def.md) nodes.
 </schema>
 ----
 The namespace (**&lt;ns&gt;**) can also contain other namespaces:
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
