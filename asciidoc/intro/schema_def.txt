@@ -1,3 +1,4 @@
+[[intro-schema-def]]
 === Schema Definition ===
 The **CommsDSL** schema files use https://en.wikipedia.org/wiki/XML[XML] to
 define all the messages, their fields, and framing.

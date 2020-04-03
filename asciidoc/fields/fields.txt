@@ -1,9 +1,8 @@
 [[fields-fields]]
-=== Fields ===
+== Fields ==
 Any **field** can be defined as independent element inside the **&lt;fields&gt;**
-child of the [&lt;schema&gt;](../intro/schema_def.md) or a 
-[namespace](../intro/namespaces.md).
-```
+child of the <<intro-schema-def, &lt;schema&gt; >> or a <<intro-namespaces, &lt;ns&gt; >>.
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -11,9 +10,9 @@ child of the [&lt;schema&gt;](../intro/schema_def.md) or a
         ...
     </fields>
 </schema>
-```
+----
 It can also be defined as a member of a message.
-```
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="SomeMessage" id="1">
@@ -21,12 +20,12 @@ It can also be defined as a member of a message.
         ...
     </message>
 </schema>
-```
+----
 Field that is defined as a child of **&lt;fields&gt;** node of the 
-[&lt;schema&gt;](../intro/schema_def.md) or 
-[&lt;ns&gt;](../intro/namespaces.md) can be referenced by other fields to avoid
+<<intro-schema-def, &lt;schema&gt; >> or 
+<<intro-namespaces, &lt;ns&gt; >> can be referenced by other fields to avoid
 duplication of the same definition.
-```
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <ns name="ns1">
@@ -38,24 +37,39 @@ duplication of the same definition.
         ...
     </message>
 </schema>
-```
+----
 
 The available fields are described in details in the sections to follow. They are:
-- [&lt;enum&gt;](enum.md) - Enumeration field.
-- [&lt;int&gt;](int.md) - Integral value field.
-- [&lt;set&gt;](set.md) - Bitset (bitmask) field.
-- [&lt;bitfield&gt;](bitfield.md) - Bitfield field.
-- [&lt;bundle&gt;](bundle.md) - Bundle field.
-- [&lt;string&gt;](string.md) - String field.
-- [&lt;data&gt;](data.md) - Raw data field.
-- [&lt;list&gt;](list.md) - List of other fields.
-- [&lt;float&gt;](float.md) - Floating point value field.
-- [&lt;ref&gt;](ref.md) - Reference to (alias of) other field.
-- [&lt;optional&gt;](optional.md)- Optional field.
-- [&lt;variant&gt;](variant.md)- Variant field.
+
+* <<fields-enum, &lt;enum&gt; >> - Enumeration field.
+* <<fields-int, &lt;int&gt; >> - Integral value field.
+* <<fields-set, &lt;set&gt; >> - Bitset (bitmask) field.
+* <<fields-bitfield, &lt;bitfield&gt; >> - Bitfield field.
+* <<fields-bundle, &lt;bundle&gt; >> - Bundle field.
+* <<fields-string, &lt;string&gt; >> - String field.
+* <<fields-data, &lt;data&gt; >> - Raw data field.
+* <<fields-list, &lt;list&gt; >> - List of other fields.
+* <<fields-float, &lt;float&gt; >> - Floating point value field.
+* <<fields-ref, &lt;ref&gt; >> - Reference to (alias of) other field.
+* <<fields-optional, &lt;optional&gt; >> - Optional field.
+* <<fields-variant, &lt;variant&gt; >> - Variant field.
 
 
-All this fields have [common](common.md) as well as their own specific set of 
+All this fields have <<fields-common, common>> as well as their own specific set of 
 properties.
 
+include::common.txt[]
+include::enum.txt[]
+include::int.txt[]
+include::set.txt[]
+include::bitfield.txt[]
+include::bundle.txt[]
+include::string.txt[]
+include::data.txt[]
+include::list.txt[]
+include::float.txt[]
+include::ref.txt[]
+include::optional.txt[]
+include::variant.txt[]
+include::references.txt[]
 
