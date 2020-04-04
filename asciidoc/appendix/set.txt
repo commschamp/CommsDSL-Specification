@@ -1,4 +1,5 @@
-## Properties of &lt;set&gt; Field
+[[appendix-set]]
+=== Properties of &lt;set&gt; Field ===
 The **&lt;set&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;set&gt; Field](../fields/set.md) chapter
 for detailed description. 

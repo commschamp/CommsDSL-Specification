@@ -1,19 +1,22 @@
 [[fields-set]]
 === &lt;set&gt; Field ===
 This field stores and abstracts away value of bitset (bitmask) type. 
-The **&lt;set&gt;** field has all the [common](common.md) properties
+The **&lt;set&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
-#### Underlying Type
+[[fields-set-underlying-type]]
+==== Underlying Type ====
 The underlying type of the **&lt;set&gt;** field can be provided its underlying storage type using 
-**type** [property](../intro/properties.md). Available 
+**type** <<intro-properties, property>>. Available 
 values are:
-- **uint8** - 1 byte unsigned integer.
-- **uint16** - 2 bytes unsigned integer.
-- **uint32** - 4 bytes unsigned integer.
-- **uint64** - 8 bytes unsigned integer.
 
-```
+* **uint8** - 1 byte unsigned integer.
+* **uint16** - 2 bytes unsigned integer.
+* **uint32** - 4 bytes unsigned integer.
+* **uint64** - 8 bytes unsigned integer.
+
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -22,15 +25,16 @@ values are:
         </set>
     </fields>
 </schema>
-```
+----
 **NOTE** that the available types are all fixed length unsigned ones.
 
-#### Serialization Length
-The [underlying type](#underlying-type) specification may be omitted
+==== Serialization Length ====
+The <<fields-set-underlying-type, underlying type>> specification may be omitted
 if serialization length (in number of bytes) is specified using **length** property. In this case
-[underlying type](#underlying-type) is automatically selected based on
+<<fields-set-underlying-type, underlying type>> is automatically selected based on
 the provided serialization length.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -39,13 +43,14 @@ the provided serialization length.
         </set>
     </fields>
 </schema>
-```
+----
 
-#### Length in Bits
-**&lt;set&gt;** field can be a member of [&lt;bitfield&gt;](bitfield.md) field.
+==== Length in Bits ====
+**&lt;set&gt;** field can be a member of <<fields-bitfield, &lt;bitfield&gt; >> field.
 In this case the serialization length may be specified in bits using **bitLength**
-[property](../intro/properties.md).
-```
+<<intro-properties, property>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -57,15 +62,16 @@ In this case the serialization length may be specified in bits using **bitLength
         </bitfield>
     </fields>
 </schema>
-```
-**NOTE** that the [underlying type](#underlying-type) information can be
+----
+**NOTE** that the <<fields-set-underlying-type, underlying type>> information can be
 omitted when **bitLength** property is in use, just like with **length**.
 
-#### Bits
+==== Bits ====
 The **&lt;set&gt;** field may list its bits as **&lt;bit&gt;** XML child elements.
-Every such element must specify its [name](../intro/names.md) using 
+Every such element must specify its <<intro-names, name>> using 
 **name** property as well as its index using **idx** property.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -75,29 +81,31 @@ Every such element must specify its [name](../intro/names.md) using
         </set>
     </fields>
 </schema>
-```
+----
 The bit indexing starts from **least** significant bit, and mustn't exceed number
-of bits allowed by the [underlying type](#underlying-type). The **&lt;bit&gt;**-s 
+of bits allowed by the <<fields-set-underlying-type, underlying type>>. The **&lt;bit&gt;**-s 
 may be listed in any order, not necessarily sorted.
 
 The code generator is expected to generate convenience functions (or other means) 
 to set / get the value of every listed bit.
 
-Every **&lt;bit&gt;** element may also define extra [properties](../intro/properties.md) 
+Every **&lt;bit&gt;** element may also define extra <<intro-properties, properties>> 
 listed below for better readability:
-- **description** - Extra description and documentation on the bit.
-- **displayName** - String specifying how to name the bit in various analysis tools.
+
+* **description** - Extra description and documentation on the bit.
+* **displayName** - String specifying how to name the bit in various analysis tools.
 
 These properties are described in detail in 
-[Common Properties of Fields](common.md).
+<<fields-common, Common Properties of Fields>>.
 
 
-#### Default Bit Value
+==== Default Bit Value ====
 When the **&lt;set&gt;** field object is default constructed, all bits are initialized
 to **false**, i.e. **0**. Such default behavior can be modified using 
-**defaultValue** [property](../intro/properties.md) with 
-[boolean](../intro/boolean.md) value.
-```
+**defaultValue** <<intro-properties, property>> with 
+<<intro-boolean, boolean>> value.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -107,13 +115,14 @@ to **false**, i.e. **0**. Such default behavior can be modified using
         </set>
     </fields>
 </schema>
-```
+----
 The *SomeSetField* field from the example above is expected to be initialized
 to **0xff** when default constructed.
 
 The **defaultValue** may also be specified per-bit, which overrides the 
 **defaultValue** specified for the whole field.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -123,17 +132,18 @@ The **defaultValue** may also be specified per-bit, which overrides the
         </set>
     </fields>
 </schema>
-```
+----
 The *SomeSetField* field from the example above is expected to be initialized
 to **0xfe** when default constructed.
 
 
-#### Reserved Bits
+==== Reserved Bits ====
 All the bits that aren't listed as **&lt;bit&gt;** XML child elements
 are considered to be reserved. By default every reserved bit is expected to be 
 zeroed when field is checked to have a valid value. Such expectation can be changed using
 **reservedValue** property.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -143,14 +153,16 @@ zeroed when field is checked to have a valid value. Such expectation can be chan
         </set>
     </fields>
 </schema>
-```
+----
 The *SomeSetField* field from the example above is expected to be initialized
 to **0xfc** and all the reserved (non-listed) bits are expected to remain **true**.
 
 Reserved bits can also be specified as **&lt;bit&gt;** XML child element
-with usage of **reserved** [property](../intro/properties.md) with 
-[boolean](../intro/boolean.md) value.
- ```
+with usage of **reserved** <<intro-properties, property>> with 
+<<intro-boolean, boolean>> value.
+
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -164,18 +176,19 @@ with usage of **reserved** [property](../intro/properties.md) with
         </set>
     </fields>
 </schema>
-```
+----
 The example above marks bit **2** to be reserved, that is initialized to 
 **true** and must always stay **true**.
 
 The *SomeSetField* field from the example above is expected to be initialized
 to **0x04** when default constructed.
 
-#### Endian
+==== Endian ====
 The default serialization endian of the protocol is specified in **endian**
-property of the [schema](../schema/schema.md). It is possible to override the
+property of the <<schema-schema, schema>>. It is possible to override the
 default endian value with extra **endian** property.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -187,16 +200,17 @@ default endian value with extra **endian** property.
         </enum>
     </fields>
 </schema>
-```
+----
 
-#### Allow Non-Unique Bit Names
+==== Allow Non-Unique Bit Names ====
 By default, having multiple names for the same bit is not allowed, 
 the code generator must report an error if two different 
 **&lt;bit&gt;**-s use the same value of **idx**
 property. It is done as protection against copy-paste errors. However,
 **CommsDSL** allows usage of multiple names for the same bit in case **nonUniqueAllowed** 
-[property](../intro/properties.md) has been set to **true**.
-```
+<<intro-properties, property>> has been set to **true**.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -206,18 +220,19 @@ property. It is done as protection against copy-paste errors. However,
         </set>
     </fields>
 </schema>
-```
+----
 
-#### Versioning
-In addition to mentioned earlier [properties](../intro/properties.md),
+==== Versioning ====
+In addition to mentioned earlier <<intro-properties, properties>>,
 every **&lt;bit&gt;** element supports extra ones for versioning:
-- **sinceVersion** - Version of the protocol when the bit was introduced (became non-reserved).
-- **deprecated** - Version of the protocol when the value was deprecated (became reserved again).
+
+* **sinceVersion** - Version of the protocol when the bit was introduced (became non-reserved).
+* **deprecated** - Version of the protocol when the value was deprecated (became reserved again).
 
 These extra properties are described in detail in 
-[Common Properties of Fields](common.md).
+<<fields-common, Common Properties of Fields>>.
 
-#### Version Based Validity
+==== Version Based Validity ====
 The code generator is expected to generate functionality checking that 
 **&lt;set&gt;** field contains a valid value. Any specified non-reserved
 bit can have any value, while reserved bits (implicit or explicit) must have value
@@ -226,9 +241,10 @@ By default, the validity check must ignore the version in which particular
 bit became reserved / non-reserved, and check only values of the bits that have
 always stayed reserved. However, it is possible to force code generator to
 generate validity check code that takes into account reported version of the
-protocol by using **validCheckVersion** [property](../intro/properties.md), which
+protocol by using **validCheckVersion** <<intro-properties, property>>, which
 is set to **true**.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="5">
     <fields>
@@ -240,7 +256,7 @@ is set to **true**.
         </enum>
     </fields>
 </schema>
-```
+----
 In the example above bits **0** and **5** will always have valid values. However
 bit **10** will be considered valid only if it is cleared before version **2**, and
 may have any value after. The bit **15** will be allowed any value when version **3**

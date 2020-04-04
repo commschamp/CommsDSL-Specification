@@ -1,4 +1,5 @@
-## Properties of &lt;int&gt; Field
+[[appendix-int]]
+=== Properties of &lt;int&gt; Field ===
 The **&lt;int&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;int&gt; Field](../fields/int.md) chapter
 for detailed description. 

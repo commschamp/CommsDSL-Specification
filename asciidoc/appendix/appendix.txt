@@ -6,3 +6,7 @@ in this document for a quick reference.
 include::schema.txt[]
 include::fields.txt[]
 include::enum.txt[]
+include::int.txt[]
+include::set.txt[]
+
+include::units.txt[]

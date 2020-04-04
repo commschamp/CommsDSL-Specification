@@ -1,4 +1,5 @@
-## Units
+[[appendix-units]]
+=== Units ===
 The tables below contain lists of available units.
 
 |Units Name|Accepted Values (case insensitive)|
