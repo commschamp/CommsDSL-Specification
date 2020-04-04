@@ -1,4 +1,5 @@
-## Properties of &lt;bitfield&gt; Field
+[[appendix-bitfield]]
+=== Properties of &lt;bitfield&gt; Field ===
 The **&lt;bitfield&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;bitfield&gt; Field](../fields/bitfield.md) chapter
 for detailed description. 

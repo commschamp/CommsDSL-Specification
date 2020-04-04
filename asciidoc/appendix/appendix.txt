@@ -8,5 +8,7 @@ include::fields.txt[]
 include::enum.txt[]
 include::int.txt[]
 include::set.txt[]
+include::bitfield.txt[]
+include::bundle.txt[]
 
 include::units.txt[]

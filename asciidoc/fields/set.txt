@@ -262,4 +262,4 @@ bit **10** will be considered valid only if it is cleared before version **2**, 
 may have any value after. The bit **15** will be allowed any value when version **3**
 of the protocol is reported, and must be cleared for any other version.
 
-Use [properties table](../appendix/set.md) for future references.
+Use <<appendix-set, properties table>> for future references.
