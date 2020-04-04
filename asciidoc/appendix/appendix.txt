@@ -11,5 +11,6 @@ include::set.txt[]
 include::bitfield.txt[]
 include::bundle.txt[]
 include::string.txt[]
+include::data.txt[]
 
 include::units.txt[]
