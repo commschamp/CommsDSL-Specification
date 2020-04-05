@@ -1,13 +1,14 @@
 [[fields-list]]
 === &lt;list&gt; Field ===
 This field stores and abstracts away a list of other fields. 
-The **&lt;list&gt;** field has all the [common](common.md) properties
+The **&lt;list&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
-#### Element Field of the List
-Every **&lt;list&gt;** must specify its element [field](fields.md). The
+==== Element Field of the List ====
+Every **&lt;list&gt;** must specify its element <<fields-fields, field>>. The
 element field can be defined as XML child of the **&lt;list&gt;** definition.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -16,10 +17,11 @@ element field can be defined as XML child of the **&lt;list&gt;** definition.
         </list>
     </fields>
 </schema>
-```
+----
 If a list element contains multiple fields, they must be bundled as members
-of the [&lt;bundle&gt;](bundle.md) field.
-```
+of the <<fields-bundle, &lt;bundle&gt; >> field.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -34,11 +36,12 @@ of the [&lt;bundle&gt;](bundle.md) field.
         </list>
     </fields>
 </schema>
-```
+----
 In case other properties of the **&lt;list&gt;** field are defined as child
 XML elements, then the element field definition needs to be wrapped by 
 **&lt;element&gt;** XML child.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -52,10 +55,11 @@ XML elements, then the element field definition needs to be wrapped by
         </list>
     </fields>
 </schema>
-```
+----
 The **CommsDSL** also allows reference of externally defined field to be
-an element using **element** [property](../intro/properties.md).
-```
+an element using **element** <<intro-properties, property>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -66,12 +70,13 @@ an element using **element** [property](../intro/properties.md).
         <list name="SomeListField" element="ExternallyDefinedElement" />
     </fields>
 </schema>
-```
+----
 
-#### Fixed Count
+==== Fixed Count ====
 If the defined list must contain predefined number of elements, use **count**
-[property](../intro/properties.md) to provide the required information.
-```
+<<intro-properties, property>> to provide the required information.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -80,13 +85,15 @@ If the defined list must contain predefined number of elements, use **count**
         </list>
     </fields>
 </schema>
-```
+----
 
-#### Count Prefix
+[[fields-list-count-prefix]]
+==== Count Prefix ====
 Most protocols prefix the variable length lists with number of elements that
 are going to follow, use **countPrefix** child XML element to specify a field
 that is going to be used as such prefix.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -100,12 +107,13 @@ that is going to be used as such prefix.
         </list>
     </fields>
 </schema>
-```
+----
 
 In case the count prefix field is defined as external field, **CommsDSL** allows
-usage of **countPrefix** as [property](../intro/properties.md), value of
+usage of **countPrefix** as <<intro-properties, property>>, value of
 which contains name of the referenced field.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -116,11 +124,12 @@ which contains name of the referenced field.
         </list>
     </fields>
 </schema>
-```
+----
 The **CommsDSL** also supports **detached** count prefix, when there are
-several other fields in the [&lt;message&gt;](../messages/messages.md) or in the
-[&lt;bundle&gt;](bundle.md) between the count field and the **&lt;list&gt;**.
-```
+several other fields in the <<messages-messages, &lt;message&gt; >> or in the
+<<fields-bundle, &lt;bundle&gt; >> between the count field and the **&lt;list&gt;**.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -141,22 +150,23 @@ several other fields in the [&lt;message&gt;](../messages/messages.md) or in the
         </list>
     </message>
 </schema>
-```
+----
 **NOTE**, the existence of **$** prefix when specifying **countPrefix** value.
 It indicates that the referenced field is a sibling in the containing
-[&lt;message&gt;](../messages/messages.md) or the
-[&lt;bundle&gt;](bundle.md) field.
+<<messages-messages, &lt;message&gt; >> or the
+<<fields-bundle, &lt;bundle&gt; >> field.
 
 The code generator is expected to take the existence of such detached prefix
 into account and generate correct code for various field operations
 (read, write, etc...).
 
-#### Length Prefix
+==== Length Prefix ====
 There are protocols that prefix a list with **serialization length** rather
 than number of elements. In this case use **lengthPrefix** instead of **countPrefix**.
 The allowed usage scenarios are exactly the same as described above in
-the [Count Prefix](#count-prefix) section.
-```
+the <<fields-list-count-prefix, Count Prefix>> section.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -183,16 +193,17 @@ the [Count Prefix](#count-prefix) section.
         </list>
     </message>
 </schema>
-```
+----
 
 **NOTE**, that **count**, **countPrefix** and **lengthPrefix** properties
 are mutually exclusive, i.e. cannot be used together.
 
-#### Element Length Prefix
+==== Element Length Prefix ====
 Some protocols prefix every element with its serialization length for the 
 forward / backward compatibility of the protocol. If there is such need, use **elemLengthPrefix**
 to specify a field that will prefix every element of the list.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -218,13 +229,14 @@ to specify a field that will prefix every element of the list.
         </list>
     </fields>
 </schema>
-```
+----
 In case every list element has fixed length and protocol specification doesn't
 allow adding extra variable length fields to the element in the future, some
 protocols prefix only **first** element in the list with its serialization 
 length. **CommsDSL** supports such lists with **elemFixedLength** 
-[property](../intro/properties.md), that has [boolean](../intro/boolean.md) value.
-```
+<<intro-properties, property>>, that has <<intro-boolean, boolean>> value.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -242,8 +254,8 @@ length. **CommsDSL** supports such lists with **elemFixedLength**
         </list>
     </fields>
 </schema>
-```
+----
 The code generator must report an error when element of such list 
 (with **elemFixedLength** property set to **true**) has variable length.
 
-Use [properties table](../appendix/list.md) for future references.
+Use <<appendix-list, properties table>> for future references.

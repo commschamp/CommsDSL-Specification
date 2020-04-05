@@ -1,4 +1,5 @@
-## Properties of &lt;list&gt; Field
+[[appendix-list]]
+=== Properties of &lt;list&gt; Field ===
 The **&lt;list&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;list&gt; Field](../fields/list.md) chapter
 for detailed description. 
