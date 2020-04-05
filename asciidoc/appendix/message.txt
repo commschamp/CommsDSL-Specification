@@ -1,4 +1,5 @@
-## Properties of &lt;message&gt;
+[[appendix-message]]
+=== Properties of &lt;message&gt; ===
 Refer to [Messages](../messages/messages.md) chapter
 for detailed description. 
 

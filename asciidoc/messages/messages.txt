@@ -2,39 +2,43 @@
 == Messages ==
 Every message is defined using **&lt;message&gt;** XML element.
 
-#### Message Name
-Every message definition must specify its [name](../intro/names.md) using
-**name** [property](../intro/properties.md).
-```
+=== Message Name ===
+Every message definition must specify its <<intro-names, name>> using
+**name** <<intro-properties, property>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" ...>
         ...
     </message>
 </schema> 
-```
+----
 
-#### Numeric ID
-Every message definition must specify its [numeric](../intro/numeric.md) ID using
-**id** [property](../intro/properties.md).
-```
+[[messages-numeric-id]]
+=== Numeric ID ===
+Every message definition must specify its <<intro-numeric, numeric>> ID using
+**id** <<intro-properties, property>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="0x1">
         ...
     </message>
 </schema> 
-```
+----
 
 It is highly recommended to define "message ID" numeric values as external
-[&lt;enum&gt;](../fields/enum.md) field and reuse its values.
-```
+<<fields-enum, &lt;enum&gt; >> field and reuse its values.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
         <enum name="MsgId" type="uint8" semanticType="messageId">
-            <validValue name="Msg1" val=0x1" />
-            <validValue name="Msg2" val=0x2" />
+            <validValue name="Msg1" val="0x1" />
+            <validValue name="Msg2" val="0x2" />
         </enum>
     </fields>
     
@@ -46,14 +50,15 @@ It is highly recommended to define "message ID" numeric values as external
         ...
     </message>
 </schema> 
-```
+----
 
-#### Description
+=== Description ===
 It is possible to provide a description of the message about what it is and
 how it is expected to be used. This description is only for documentation
 purposes and may find it's way into the generated code as a comment for the
-generated class. The [property](../intro/properties.md) is **description**.
-```
+generated class. The <<intro-properties, property>> is **description**.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1">
@@ -65,26 +70,28 @@ generated class. The [property](../intro/properties.md) is **description**.
         ...
     </message>
 </schema>
-```
+----
 
-#### Display Name
+=== Display Name ===
 When various analysis tools display message details, the preference is to 
 display proper space separated name (which is defined using **displayName**
-[property](../intro/properties.md)) rather than using a [name](../intro/names.md).
-```
+<<intro-properties, property>>) rather than using a <<intro-names, name>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1" displayName="Message 1">
         ...
     </message>
 </schema>
-```
+----
 In case **displayName** is empty, the analysis tools are expected to use value
-of **name** [property](../intro/properties.md) instead.
+of **name** <<intro-properties, property>> instead.
 
 It is recommended to share the **displayName** with relevant **&lt;validValue&gt;**
 of **&lt;enum&gt;** that lists numeric IDs of the messages:
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -105,12 +112,13 @@ of **&lt;enum&gt;** that lists numeric IDs of the messages:
         </message>
     </fields>
 </schema>
-```
+----
 
-#### Fields
-Every **&lt;message&gt;** has zero or more [fields](../fields/fields.md) that 
+=== Fields ===
+Every **&lt;message&gt;** has zero or more <<fields-fields, fields>> that 
 can be specified as child XML elements.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -127,11 +135,12 @@ can be specified as child XML elements.
         ...
     </message>
 </schema>
-```
-If there is any other [property](../intro/properties.md) defined as XML child
+----
+If there is any other <<intro-properties, property>> defined as XML child
 of the **&lt;message&gt;**, then all the fields must be wrapped in 
 **&lt;fields&gt;** XML element for separation.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <message name="Msg1" id="1">
@@ -141,11 +150,12 @@ of the **&lt;message&gt;**, then all the fields must be wrapped in
         </fields>
     </message>
 </schema>
-```
+----
 
 Sometimes different messages have the same fields. In order to avoid duplication,
 use **copyFieldsFrom** property to specify original message.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1">
@@ -154,12 +164,13 @@ use **copyFieldsFrom** property to specify original message.
     
     <message name="Msg2" id="2" copyFieldsFrom="Msg1" />
 </schema>
-```
+----
 In the example above *Msg2* will have the same fields as *Msg1*. 
 
 After copying fields from other message, all other defined fields will be
 appended to copied ones.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1">
@@ -170,21 +181,22 @@ appended to copied ones.
         <float name="F2" type="float" />
     </message>
 </schema>
-```
+----
 In the example above *Msg2* will have 2 fields: *F1* and *F2*.
 
-#### Ordering
+=== Ordering ===
 There are protocols that may define various forms of the same message, 
 which share the same numeric ID, but are differentiated by a serialization 
 length or value of some particular
 field inside the message. It can be convenient to define such variants as separate
 classes. In case there are multiple **&lt;message&gt;**-es with the same
-[numeric ID](#numeric-id), it is required to specify order 
+<<messages-numeric-id, numeric ID>>, it is required to specify order 
 in which they are expected to be processed (read). The ordering is specified
-using **order** [property](../intro/properties.md) with unsigned [numeric](../intro/numeric.md)
+using **order** <<intro-properties, property>> with unsigned <<intro-numeric, numeric>>
 value. The message object with lower **order** value gets created and its
 *read* operation attempted **before** message object with higher value.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" nonUniqueMsgIdAllowed="true">
     <message name="Msg1Form1" id="1" order="0" >
@@ -195,15 +207,15 @@ value. The message object with lower **order** value gets created and its
         ...
     </message>    
 </schema>
-```
+----
 **NOTE** that there is a need to set **nonUniqueMsgIdAllowed** property of
-the [schema](../schema/schema.md) to **true** to allow multiple message objects
+the <<schema-schema, schema>> to **true** to allow multiple message objects
 with the same numeric ID.
 
 All the **order** values for the same numeric ID must be unique, but not necessarily
 sequential.
 
-#### Versioning
+=== Versioning ===
 **CommsDSL** allows providing an information in what version the message was added
 to the protocol, as well as in what version it was deprecated, and whether
 it was removed (not supported any more) after deprecation.
@@ -212,7 +224,8 @@ To specify the version in which message was introduced, use **sinceVersion**
 property. To specify the version in which the message was deprecated, use
 **deprecated** property. To specify whether the message was removed after being deprecated
 use **removed** property in addition to **deprecated**.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="5" >
     <message name="SomeMessage" id="100" sinceVersion="2" >
@@ -224,29 +237,30 @@ use **removed** property in addition to **deprecated**.
     </message>
     
 </schema>
-```
+----
 In the example above *SomeMessage* was introduced in version *2*, and 
 *SomeOtherMessage* was introduced in version *3*, but deprecated and removed in
 version *4*.
 
 **NOTE**, that all the specified versions mustn't be greater that the version
-of the [schema](../schema/schema.md). Also value of **sinceVersion** must be
+of the <<schema-schema, schema>>. Also value of **sinceVersion** must be
 **less** than value of **deprecated**.
 
 The code generator is expected to be able to generate support for specific versions
 and include / exclude support for some messages based on their version information.
 
-#### Platforms
+=== Platforms ===
 Some protocols may be used in multiple independent platforms, while having 
 some platform-specific messages. The **CommsDSL** allows listing of the
-supported platforms using [&lt;platform&gt;](../intro/platforms.md) XML nodes.
+supported platforms using <<intro-platforms, &lt;platform&gt; >> XML nodes.
 Every message may list platforms in which it must be supported using **platforms**
-[property](../intro/properties.md). In case the property's value is empty (default),
+<<intro-properties, property>>. In case the property's value is empty (default),
 the message is supported in **all** the available platforms (if any defined).
 The **platforms** property value is coma-separated list of platform names with
 preceding **+** if the listed platforms are the one supported, or **-** if 
 the listed platforms need to be **excluded** from all available ones.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <platform name="Plat1" />
@@ -262,7 +276,7 @@ the listed platforms need to be **excluded** from all available ones.
         ...
     </message>
 </schema> 
-```
+----
 In the example above *Msg1* is supported only for platforms *Plat1* and *Plat4*,
 while *Msg2* is **NOT** supported in *Plat1*, and *Plat2* (i.e. supported in
 *Plat3* and *Plat4*).
@@ -271,13 +285,14 @@ The main consideration for what format to choose should be whether the platforms
 support for the message should or should **NOT** be added automatically when
 new **&lt;platform&gt;** is defined.
 
-#### Sender
+=== Sender ===
 In most protocols there are uni-directional messages. The **CommsDSL**
 allows definition of entity that sends a particular message using **sender**
 property. Available values are **both** (default), **server**, and **client**.
 The code generator may use provided information and generate some auxiliary code
 and/or data structures to be used for *client* and/or *server* implementation.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1" sender="client">
@@ -292,32 +307,33 @@ and/or data structures to be used for *client* and/or *server* implementation.
         ...
     </message>
 </schema> 
-```
+----
 In the example above *Msg1* and *Msg2* are uni-directional messages, while
 *Msg3* is bi-directional.
 
-#### Customization
+=== Customization ===
 The code generator is expected to allow some level of compile time customization of the 
 generated code, such as enable/disable generation of particular virtual functions. 
 The code generator is also expected to provide command line
 options to choose required level of customization. Sometimes it may be required
 to allow generated message class to be customizable regardless of the customization
 level requested from the code generator. **CommsDSL** provides **customizable**
-property with [boolean](../intro/boolean.md) value to force any message to being
+property with <<intro-boolean, boolean>> value to force any message to being
 customizable at compile time.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1" customizable="true">
         ...
     </message>
 </schema>
-```
+----
 
-#### Alias Names to Member Fields
+=== Alias Names to Member Fields ===
 Sometimes an existing member field may be renamed and/or moved. It is possible to
 create alias names for the fields to keep the old client code being able to compile
-and work. Please refer to [Aliases](../aliases/aliases.md) chapter for more details.
+and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
 
-Use [properties table](../appendix/message.md) for future references.
+Use <<appendix-message, properties table>> for future references.
 
