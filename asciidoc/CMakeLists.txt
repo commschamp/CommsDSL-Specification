@@ -10,7 +10,7 @@ set (VERSION "v3.1")
 set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.txt")
 
 add_custom_target("pdf" ALL
-    COMMAND ${A2X_EXECUTABLE} -v -f pdf --dblatex-opts "-P latex.output.revhistory=0 -P toc.section.depth=2"
+    COMMAND ${A2X_EXECUTABLE} -v -f pdf --dblatex-opts "-P toc.section.depth=2"
         ${MAIN_FILE}
     COMMAND ${CMAKE_COMMAND} -E rename "${PROJECT_SOURCE_DIR}/commsdsl_spec.pdf" "${CMAKE_CURRENT_BINARY_DIR}/commsdsl_spec_${VERSION}.pdf"
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})

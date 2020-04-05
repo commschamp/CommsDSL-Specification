@@ -1,5 +1,5 @@
-CommsDSL Specification
-======================
+CommsDSL Specification v3.1
+===========================
 Alex Robenko
 v3.1, 2020-20
 :doctype: article

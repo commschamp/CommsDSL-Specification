@@ -1,4 +1,5 @@
-## Properties of &lt;interface&gt;
+[[appendix-interface]]
+=== Properties of &lt;interface&gt; ===
 Refer to [Interfaces](../interfaces/interfaces.md) chapter
 for detailed description. 
 
