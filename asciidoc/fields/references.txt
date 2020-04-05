@@ -2,19 +2,20 @@
 === Referencing Values of Other Fields ===
 Quite often there is a need to reuse (or reference) some other values already
 defined and used for some other fields. The **v1** of this specification
-allowed referencing the external [&lt;enum&gt;](enum.md) **validValue**-s only, while
+allowed referencing the external <<fields-enum, &lt;enum&gt; >> **validValue**-s only, while
 **v2** of this specification extends such functionality to other fields as well.
 In general, when the other field is referenced its **defaultValue** is taken, 
-unless inner value is referenced, such as **validValue** of the [&lt;enum&gt;](enum.md)
-field or **special** value of the [&lt;int&gt;](int.md) field.
+unless inner value is referenced, such as **validValue** of the <<fields-enum, &lt;enum&gt; >>
+field or **special** value of the <<fields-int, &lt;int&gt; >> field.
 
-#### Referencing Values Defined in **&lt;enum&gt;**-s
+==== Referencing Values Defined in **&lt;enum&gt;**-s ====
 Any specified **&lt;validValue&gt;** can be referenced by other numeric fields 
-(not only **&lt;enum&gt;**) when specifying [numeric](../intro/numeric.md) 
+(not only **&lt;enum&gt;**) when specifying <<intro-numeric, numeric>> 
 value of some property. To reference it, the **&lt;enum&gt;** name 
 must be specified followed by a **.** (dot) and name of the chosen **&lt;validValue&gt;**
 
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -27,12 +28,13 @@ must be specified followed by a **.** (dot) and name of the chosen **&lt;validVa
         <int name="SomeIntField" type="uint32" defaultValue="SomeEnumField.Val2" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of the *SomeIntField* will be **5**.
 
-When [&lt;enum&gt;](enum.md) is referenced by its name, its **defaultValue** 
+When <<fields-enum, &lt;enum&gt; >> is referenced by its name, its **defaultValue** 
 is taken.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -48,14 +50,15 @@ is taken.
         </int>
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of the *SomeIntField* is **10**, the
 value of the *S1* special is **5** (equals to **defaultValue** of *SomeEnumField*),
 and value of the *S2* special is **0**.
 
 Floating point fields can also reference values defined in 
-[&lt;enum&gt;](enum.md) fields.
-```
+<<fields-enum, &lt;enum&gt; >> fields.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -70,13 +73,14 @@ Floating point fields can also reference values defined in
         </float>
     </fields>
 </schema>
-```
+----
 
-#### Referencing Values Defined in **&lt;int&gt;**-s
-Similar to [&lt;enum&gt;](enum.md) the inner value of [&lt;int&gt;](int.md)
+==== Referencing Values Defined in **&lt;int&gt;**-s ====
+Similar to <<fields-enum, &lt;enum&gt; >> the inner value of <<fields-int, &lt;int&gt; >>
 field can be referenced by other numeric fields.
 
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -95,7 +99,7 @@ field can be referenced by other numeric fields.
         </float>
     </fields>
 </schema>
-```
+----
 In the example above **defaultValue** of *SomeEnumField* is **0**, 
 **validValue** *Val1* equals to **5**, and **validValue** *Val2* equals to
 **10**.
@@ -103,10 +107,11 @@ In the example above **defaultValue** of *SomeEnumField* is **0**,
 Also the **defaultValue** of *SomeFloatField* is **5.0**, while
 value of its *S1* special is **10.0**.
 
-#### Referencing Values Defined in **&lt;set&gt;**-s
-The **defaultValue** property of any element of the [&lt;set&gt;](set.md) field
+==== Referencing Values Defined in **&lt;set&gt;**-s ====
+The **defaultValue** property of any element of the <<fields-set, &lt;set&gt; >> field
 can also be referenced.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -121,17 +126,18 @@ can also be referenced.
         </set>
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeOtherSetField* is **false**
 (same as **defaultValue** of *SomeSetField*), the **reservedValue** of
 *SetOtherField* is **true** (same as **defaultValue** of *SomeSetField.B0*), and
 the **defaultValue** of *SomeOtherSetField.B5" is **false** (same as 
 **defaultValue** of *SomeSetField.B1*).
 
-Other numeric fields, such as [&lt;enum&gt;](enum.md), [&lt;int&gt;](int.md),
-and [&lt;float&gt;](float.md) can also reference boolean values of [&lt;set&gt;](set.md),
+Other numeric fields, such as <<fields-enum, &lt;enum&gt; >>, <<fields-int, &lt;int&gt; >>,
+and <<fields-float, &lt;float&gt; >> can also reference boolean values of <<fields-set, &lt;set&gt; >>,
 which will result in numeric values been either **0** or **1**.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -143,14 +149,15 @@ which will result in numeric values been either **0** or **1**.
         <float name="SomeFloatField" type="float" defaultValue="SomeSetField.B0" />
     </fields>
 </schema>
-```
+----
 The definition above will result in **defaultValue** of *SomeFloatField* to be
 **1.0**.
 
-#### Referencing Values Defined in **&lt;float&gt;**-s
-Similar to [&lt;int&gt;](int.md) it is possible to reference [&lt;float&gt;](float.md) values 
+==== Referencing Values Defined in **&lt;float&gt;**-s ====
+Similar to <<fields-int, &lt;int&gt; >> it is possible to reference <<fields-float, &lt;float&gt; >> values 
 used in **defaultValue** property and/or as **&lt;special&gt;** value.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -164,17 +171,18 @@ used in **defaultValue** property and/or as **&lt;special&gt;** value.
         
     </fields>
 </schema>
-```
+----
 In the example above **defaultValue** of *SomeOtherFloatField* is **inf**, 
 while value of *SomeOtherFloatField.S1* special is **nan**.
 
-#### Referencing Values Defined in **&lt;string&gt;**-s
-When referencing values of [&lt;string&gt;](string.md) fields there is a need
+==== Referencing Values Defined in **&lt;string&gt;**-s ====
+When referencing values of <<fields-string, &lt;string&gt; >> fields there is a need
 to differentiate between a reference to external field and a genuine string
 value. To do so the `^` prefix was introduced. If a property value, that 
 requires a string, starts with `^` it means external reference and error
 must be reported if referenced field is not found.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -182,40 +190,43 @@ must be reported if referenced field is not found.
         <string name="SomeOtherString" defaultValue="^SomeString" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeOtherString* field is
 **hello**.
 
 If there is a need to define a genuine string value that starts with `^` character,
 then there is a need to escape it with `\`.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
         <string name="SomeOtherString" defaultValue="\^SomeString" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeOtherString* field is
 **^SomeString**.
 
 The question may arise what if a genuine value string needs to start with `\^`.
 In this case just add additional `\` at the front.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
         <string name="SomeOtherString" defaultValue="\\^SomeString" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeOtherString* field is
 **\^SomeString**. 
 
 The bottom line: any **prefix** sequence of `\` followed by the `^` will
 result in drop of one `\` in the final string value. In case there is any
 other character used in the middle, the string value remains as is.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -223,15 +234,16 @@ other character used in the middle, the string value remains as is.
         <string name="String2" defaultValue="\.\^SomeString" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *String1* field is
 **\\SomeString** because there is no `^` character after `\` and 
 the **defaultValue** of *String2* field is **\.\^SomeString** because
 the sequence of `\` is interrupted by `.`. 
 
-**NOTE**, that string referenced can be useful when [&lt;enum&gt;](enum.md)
+**NOTE**, that string referenced can be useful when <<fields-enum, &lt;enum&gt; >>
 field is used to specify numeric message IDs.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -252,20 +264,21 @@ field is used to specify numeric message IDs.
         </message>
     </fields>
 </schema>
-```
+----
 In the example above the **displayName** property of a message is
 expected to be the same as **displayName** property of appropriate
-**&lg;validValue&gt;** of *MsgId* enum. Referencing common value insures
+**&lt;validValue&gt;** of *MsgId* enum. Referencing common value insures
 that the change to the name (if happens) propagates to appropriate fields.
 
-#### Referencing Values Defined in **&lt;data&gt;**-s
-When referencing values of [&lt;data&gt;](data.md) fields there is also a need
+==== Referencing Values Defined in **&lt;data&gt;**-s ====
+When referencing values of <<fields-data, &lt;data&gt; >> fields there is also a need
 to differentiate between a reference to external field and a genuine data
 value. For example the string `abcd` can be interpreted as valid field name
 as well as valid hexadecimal bytes. As the result there is also a need 
 to use `^` prefix (just like with **&lt;string&gt;** values) to indicate
 external reference. 
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -273,14 +286,15 @@ external reference.
         <string name="SomeOtherData" defaultValue="^SomeData" />
     </fields>
 </schema>
-```
+----
 The **defaultValue** of *SomeOtherData* will be `0x12 0x34 0x56`.
 
-#### Referencing Values via **&lt;ref&gt;**-s
-The [&lt;ref&gt;](ref.md) field is there to create an alias to other field. The
-**CommsDSL** allows retrieving value for the [&lt;ref&gt;](ref.md) field as
+==== Referencing Values via **&lt;ref&gt;**-s ====
+The <<fields-ref, &lt;ref&gt;>> field is there to create an alias to other field. The
+**CommsDSL** allows retrieving value for the <<fields-ref, &lt;ref&gt;>> field as
 if it was retrieved from the referenced field.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -291,14 +305,15 @@ if it was retrieved from the referenced field.
         <int name="SomeOtherInt" type="uint18" defaultValue="SomeRef.S1" />
     </fields>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeOtherInt* is **5**, same as
 the value of *SomeInt.S1*.
 
-#### Referencing Values in Namespaces
+==== Referencing Values in Namespaces ====
 In case referenced field resides in a namespace, add it to the reference string
-as well. The same [referencing](../intro/references.md) rules apply.
-```
+as well. The same <<intro-references, referencing>> rules apply.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <ns name="ns1"
@@ -313,12 +328,13 @@ as well. The same [referencing](../intro/references.md) rules apply.
         </fields>
     </ns>
 </schema>
-```
+----
 
-#### Referencing Values in &lt;bitfield&gt;-s or &lt;bundle&gt;-s
+==== Referencing Values in &lt;bitfield&gt;-s or &lt;bundle&gt;-s ====
 The **CommsDSL** also allows referencing values from member fields of a
-[&lt;bitfield&gt;](bitfield.md) or a [&lt;bundle&gt;](bundle.md).
-```
+<<fields-bitfield, &lt;bitfield&gt; >> or a <<fields-bundle, &lt;bundle&gt; >>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <ns name="ns1"
@@ -336,13 +352,14 @@ The **CommsDSL** also allows referencing values from member fields of a
         </fields>
     </ns>
 </schema>
-```
+----
 In the example above the **defaultValue** of *SomeIntField* is **5**.
 
-#### Referencing Values in &lt;optional&gt;-s;
-There are two forms of [&lt;optional&gt;](optional.md) fields. One references
+==== Referencing Values in &lt;optional&gt;-s; ====
+There are two forms of <<fields-optional, &lt;optional&gt; >> fields. One references
 external field, another defines it as a member.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -357,11 +374,12 @@ external field, another defines it as a member.
         </optional>
     </fields>
 </schema>
-```
-In case the [&lt;optional&gt;](optional.md) field references external field it
+----
+In case the <<fields-optional, &lt;optional&gt; >> field references external field it
 can **NOT** be used for value reference. The one that defines optional field
 internally as a child element, can.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
@@ -373,5 +391,5 @@ internally as a child element, can.
         <int name="SomeOtherInt" type="int16" defaultValue="Opt2.SomeOptInt.S1" />
     </fields>
 </schema>
-```
+----
 **NOTE** that there is a need to reference internal member field by name.
