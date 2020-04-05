@@ -1,4 +1,5 @@
-## Properties of &lt;float&gt; Field
+[[appendix-float]]
+=== Properties of &lt;float&gt; Field ===
 The **&lt;float&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;float&gt; Field](../fields/float.md) chapter
 for detailed description. 

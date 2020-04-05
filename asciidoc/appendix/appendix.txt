@@ -13,5 +13,6 @@ include::bundle.txt[]
 include::string.txt[]
 include::data.txt[]
 include::list.txt[]
+include::float.txt[]
 
 include::units.txt[]
