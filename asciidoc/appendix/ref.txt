@@ -1,4 +1,5 @@
-## Properties of &lt;ref&gt; Field
+[[appendix-ref]]
+=== Properties of &lt;ref&gt; Field ===
 The **&lt;ref&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;ref&gt; Field](../fields/bitfield.md) chapter
 for detailed description. 
