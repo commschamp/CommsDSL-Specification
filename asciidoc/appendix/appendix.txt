@@ -16,5 +16,5 @@ include::list.txt[]
 include::float.txt[]
 include::ref.txt[]
 include::optional.txt[]
-
+include::variant.txt[]
 include::units.txt[]

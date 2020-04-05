@@ -1,16 +1,17 @@
 [[fields-variant]]
 === &lt;variant&gt; Field ===
-This field is basically a *union* of other [fields](fields.md). 
+This field is basically a *union* of other <<fields-fields, fields>>. 
 It can hold only one field at a time out of the provided list of supported
-[fields](fields.md). The **&lt;variant&gt;** field has all the [common](common.md) properties
+<<fields-fields, fields>>. The **&lt;variant&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
-#### Member Fields
+==== Member Fields ====
 The **&lt;variant&gt;** field is there to support heterogeneous lists of fields.
 The classic example would be a list of *key-value* pairs, where numeric *key*
-defines what type of *value* follows. Similar to [&lt;bundle&gt;](bundle.md)
+defines what type of *value* follows. Similar to <<fields-bundle, &lt;bundle&gt; >>
 field, member fields need to be listed as children XML elements of the **&lt;variant&gt;**.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -30,8 +31,8 @@ field, member fields need to be listed as children XML elements of the **&lt;var
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
-```
-The example above defines every *key-value* pair as [&lt;bundle&gt;](bundle.md)
+----
+The example above defines every *key-value* pair as <<fields-bundle, &lt;bundle&gt; >>
 field, where first field (*key*) reuses external definition of *Key* field and
 adds its default construction value as well as what value considered to be valid.
 **NOTE**, that every *key* member sets **failOnInvalid** property to **true**. 
@@ -42,10 +43,11 @@ needs to terminate. The *in-order* read is high level logic, the code generator
 is allowed to introduce optimizations as long as the outcome of detecting the
 right member is the same.
 
-If there is any other [property](../intro/properties.md) defined as XML child
+If there is any other <<intro-properties, property>> defined as XML child
 of the **&lt;variant&gt;**, then all the members must be wrapped in 
 **&lt;members&gt;** XML element for separation.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -60,11 +62,12 @@ of the **&lt;variant&gt;**, then all the members must be wrapped in
         </variant>
     </fields>
 </schema>
-```
+----
 
 Another quite popular example of is to have heterogeneous list of 
 TLV (type / length / value) triplets.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -87,7 +90,7 @@ TLV (type / length / value) triplets.
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
-```
+----
 Please **note** assigning **semanticType** property to be **length** for the
 *Length* field in every bundle. It specifies that the field contains
 remaining length of all the subsequent fields in the **&lt;bundle&gt;** and
@@ -99,7 +102,8 @@ Quite often the developers wonder why there is a need to use *remaining length*
 information for the fields, length of which is constant and known and compile time.
 It allows introducing more fields in future versions of the protocol while
 preserving forward / backward compatibility of the protocol. For example:
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="2">
     <fields>
@@ -118,14 +122,15 @@ preserving forward / backward compatibility of the protocol. For example:
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
-```
+----
 The old version of the protocol code, that is not aware of extra field being
 added in the new version, will be able to skip over unknown data and read
 the next property from the correct location.
 
 It also allows safe reception and handling of unexpected (or unknown) properties that could be 
 introduced in the future versions of the protocol while still operating correctly.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -143,19 +148,20 @@ introduced in the future versions of the protocol while still operating correctl
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
-```
+----
 **NOTE**, that in the example above the *UnknownProp* is defined to
 be the last member field of the **&lt;variant&gt;** field and has
 non-failing read of its *Type* (**failOnInvalid** property has been set
 to **false**).
 
-#### Default Member
+==== Default Member ====
 When **&lt;variant&gt;** field is constructed, it should not hold any
 field and when serialized, it mustn't produce any output. 
 However, it is possible to specify default member to which
 the **&lt;variant&gt;** field should be initialized when constructed.
-To specify such member use **defaultMember** [property](../intro/properties.md).
-```
+To specify such member use **defaultMember** <<intro-properties, property>>.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -167,10 +173,11 @@ To specify such member use **defaultMember** [property](../intro/properties.md).
         </variant>
     </fields>
 </schema>
-```
+----
 The **defaultMember** property may also specify index instead of the member 
 name.
-```
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -182,17 +189,18 @@ name.
         </variant>
     </fields>
 </schema>
-```
+----
 Negative number as value of **defaultMember** property will force the 
 **&lt;variant&gt;** field not to have a default member.
 
-#### Extra Display Property
+==== Extra Display Property ====
 By default GUI protocol analysis tools should display the index of the 
 held member when displaying **&lt;variant&gt;** field in "read only" mode.
 However, for some occasions this information may be irrelevant. To hide
 display of index use **displayIdxReadOnlyHidden** 
-[property](../intro/properties.md) with [boolean](../intro/boolean.md) value.
-```
+<<intro-properties, property>> with <<intro-boolean, boolean>> value.
+[source,xml]
+----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
@@ -204,7 +212,7 @@ display of index use **displayIdxReadOnlyHidden**
         </variant>
     </fields>
 </schema>
-```
+----
 
-Use [properties table](../appendix/variant.md) for future references.
+Use <<appendix-variant, properties table>> for future references.
 

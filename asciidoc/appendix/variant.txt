@@ -1,4 +1,5 @@
-## Properties of &lt;variant&gt; Field
+[[appendix-variant]]
+=== Properties of &lt;variant&gt; Field ===
 The **&lt;variant&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;variant&gt; Field](../fields/variant.md) chapter
 for detailed description. 
