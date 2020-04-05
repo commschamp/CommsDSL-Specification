@@ -14,7 +14,5 @@ include::messages/messages.txt[]
 include::interfaces/interfaces.txt[]
 include::aliases/aliases.txt[]
 include::frames/frames.txt[]
-
 include::versioning/versioning.txt[]
-
 include::appendix/appendix.txt[]

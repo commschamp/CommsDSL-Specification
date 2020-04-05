@@ -1,4 +1,5 @@
-## Properties of &lt;alias&gt;
+[[appendix-alias]]
+=== Properties of &lt;alias&gt; ===
 Refer to [Aliases](../aliases/aliases.md) chapter for detailed description. 
 Introduced in DSL version **3**.
 

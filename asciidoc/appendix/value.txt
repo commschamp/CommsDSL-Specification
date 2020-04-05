@@ -1,4 +1,5 @@
-## Properties of &lt;value&gt; Layer
+[[appendix-value]]
+=== Properties of &lt;value&gt; Frame Layer ===
 The **&lt;value&gt;** layer has all the [common](layers.md) properties as
 well as ones listed below. Refer to [&lt;value&gt; Layer](../frames/value.md) chapter
 for detailed description. 

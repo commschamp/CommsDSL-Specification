@@ -1,4 +1,5 @@
-## Properties of &lt;frame&gt;
+[[appendix-frame]]
+=== Properties of &lt;frame&gt; ===
 Refer to [Frames](../frames/frames.md) chapter
 for detailed description. 
 

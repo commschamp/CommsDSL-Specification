@@ -1,4 +1,5 @@
-## Common Properties of Layers
+[[appendix-layers]]
+=== Common Properties of Frame Layers ===
 Refer to [Common Properties of Layers](../frames/common.md) chapter for detailed description. 
 
 |Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|

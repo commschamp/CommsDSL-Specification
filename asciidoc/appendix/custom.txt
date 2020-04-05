@@ -1,4 +1,5 @@
-## Properties of &lt;custom&gt; Layer
+[[appendix-custom]]
+=== Properties of &lt;custom&gt; Frame Layer ===
 The **&lt;custom&gt;** layer has all the [common](layers.md) properties as
 well as ones listed below. Refer to [&lt;custom&gt; Layer](../frames/custom.md) chapter
 for detailed description. 
