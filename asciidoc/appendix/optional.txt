@@ -1,4 +1,5 @@
-## Properties of &lt;optional&gt; Field
+[[appendix-optional]]
+=== Properties of &lt;optional&gt; Field ===
 The **&lt;optional&gt;** field has all the [common](fields.md) properties as
 well as ones listed below. Refer to [&lt;optional&gt; Field](../fields/optional.md) chapter
 for detailed description. 
