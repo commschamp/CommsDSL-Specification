@@ -1,9 +1,12 @@
 [[appendix-layers]]
 === Common Properties of Frame Layers ===
-Refer to [Common Properties of Layers](../frames/common.md) chapter for detailed description. 
+Refer to <<frames-common, Common Properties of Layers>> chapter for detailed description. 
 
-|Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
-|:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
-|**name**|[name](../intro/names.md) string|1|yes||Name of the layer.|
-|**description**|string|1|no||Human readable description of the layer.|
-|**field**|[field](../fields/fields.md)|1|yes (except for [&lt;payload&gt;](../frames/payload.md))||Wrapped field definition.|
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**name**|<<intro-names, name>> string|1|yes||Name of the layer.
+|**description**|string|1|no||Human readable description of the layer.
+|**field**|<<fields-fields, field>> or <<intro-references, reference>> to it|1|yes (except for <<frames-payload, &lt;payload&gt; >>)||Wrapped field definition.
+|===

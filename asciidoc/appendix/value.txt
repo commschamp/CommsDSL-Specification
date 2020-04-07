@@ -1,12 +1,15 @@
 [[appendix-value]]
 === Properties of &lt;value&gt; Frame Layer ===
-The **&lt;value&gt;** layer has all the [common](layers.md) properties as
-well as ones listed below. Refer to [&lt;value&gt; Layer](../frames/value.md) chapter
+The **&lt;value&gt;** layer has all the <<appendix-layers, common>> properties as
+well as ones listed below. Refer to <<frames-value, &lt;value&gt; Layer>> chapter
 for detailed description. 
 
-|Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
-|:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
-|**interfaces**|comma separated list of [names](../intro/names.md)|1|no||List of supported [&lt;interfaces&gt;](../interfaces/interfaces.md).|
-|**interfaceFieldName**|[name](../intro/names.md) string|1|yes (only if **interfaces** is not empty)||Name of the relevant field inside each [&lt;interface&gt;](../interfaces/interfaces.md).|
-|**pseudo**|[bool](../intro/boolean.md)|1|no|false|Mark the layer as **pseudo** one, i.e. one that doesn't serialize its field.|
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**interfaces**|comma separated list of <<intro-names, names>>|1|no||List of supported <<interfaces-interfaces, &lt;interface&gt; >>-es.
+|**interfaceFieldName**|<<intro-names, name>> string|1|yes (only if **interfaces** is not empty)||Name of the relevant field inside each <<interfaces-interfaces, &lt;interface&gt; >>.
+|**pseudo**|<<intro-boolean, bool>>|1|no|false|Mark the layer as **pseudo** one, i.e. one that doesn't serialize its field.
+|===
 

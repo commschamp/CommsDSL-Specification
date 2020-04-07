@@ -1,16 +1,21 @@
 [[appendix-frame]]
 === Properties of &lt;frame&gt; ===
-Refer to [Frames](../frames/frames.md) chapter
+Refer to <<frames-frames, Frames>> chapter
 for detailed description. 
 
-|Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
-|:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
-|**name**|[name](../intro/names.md) string|1|yes||Name of the frame.|
-|**description**|string|1|no||Human readable description of the frame.|
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**name**|<<intro-names, name>> string|1|yes||Name of the frame.
+|**description**|string|1|no||Human readable description of the frame.
+|===
 
 Extra child XML elements allowed:
 
-|XML Element|DSL Version|Description|
-|:---------:|:---------:|-----------|
-|**&lt;layers&gt;**|1|Wraps member layers.|
+[cols="^.^28,^.^10,62", options="header"]
+|===
+|XML Element|DSL Version ^.^|Description
+|**&lt;layers&gt;**|1|Wraps member layers.
+|===
 
