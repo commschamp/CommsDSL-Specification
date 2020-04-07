@@ -1,18 +1,24 @@
 [[appendix-variant]]
 === Properties of &lt;variant&gt; Field ===
-The **&lt;variant&gt;** field has all the [common](fields.md) properties as
-well as ones listed below. Refer to [&lt;variant&gt; Field](../fields/variant.md) chapter
+The **&lt;variant&gt;** field has all the <<appendix-fields, common>> properties as
+well as ones listed below. Refer to <<fields-variant, &lt;variant&gt; Field>> chapter
 for detailed description. 
 
-|Property Name|Allowed type / value|DSL Version|Required|Default Value|Description|
-|:-----------:|:------------------:|:---------:|:------:|:-----------:|-----------|
-|**defaultMember**|[name](../intro/names.md) or [numeric](../intro/numeric.md) index|1|no|-1|Default member. Negative number means no member selected.|
-|**displayIdxReadOnlyHidden**|[bool](../intro/boolean.md)|1|no|false|Hide active index of the member when field displayed in read-only mode.|
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**defaultMember**|<<intro-names, name>> or <<intro-numeric, numeric>> index|1|no|-1|Default member. Negative number means no member selected.
+|**displayIdxReadOnlyHidden**|<<intro-boolean, bool>>|1|no|false|Hide active index of the member when field displayed in read-only mode.
+|===
 
 
 Extra child XML elements allowed:
 
-|XML Element|DSL Version|Description|
-|:---------:|:---------:|-----------|
-|**&lt;members&gt;**|1|Wraps member fields.|
+[cols="^.^28,^.^10,62", options="header"]
+|===
+|XML Element|DSL Version ^.^|Description
+
+|**&lt;members&gt;**|1|Wraps member fields.
+|===
 

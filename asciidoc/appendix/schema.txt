@@ -1,9 +1,10 @@
 [[appendix-schema]]
 === Properties of &lt;schema&gt; ===
+Refer to <<schema-schema, Schema>> chapter for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===
-|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^|Description
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
 |**name**|string|1|yes||Name of the protocol. Allowed to have spaces.
 |**endian**|"big" or "little"|1|no|little|Endian of the protocol.
