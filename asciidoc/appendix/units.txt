@@ -96,14 +96,4 @@ The tables below contain lists of available units.
 |Kilovolts|"kv", "kilovolt", "kilovolts"
 |===
 
-==== Computer Memory Units ====
-[cols="^.^30,70", options="header"]
-|===
-|Units Name ^.^|Accepted Values (case insensitive)
 
-|Bytes|"b", "byte", "bytes"
-|Kilobytes|"kb", "kilobyte", "kilobytes"
-|Megabytes|"mb", "megabyte", "megabytes"
-|Gigabytes|"gb", "gigabyte", "gigabytes"
-|Terabytes|"tb", "terabyte", "terabytes"
-|===
