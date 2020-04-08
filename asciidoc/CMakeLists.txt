@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.5)
-project ("commsdsl_spec")
+project ("commsdsl_spec" NONE)
 
 find_program (A2X_EXECUTABLE a2x)
 if (NOT A2X_EXECUTABLE)
@@ -16,6 +16,7 @@ add_custom_target("pdf" ALL
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 add_custom_target("site" ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/site
     COMMAND ${A2X_EXECUTABLE} -v -f xhtml -D ${CMAKE_CURRENT_BINARY_DIR}/site ${MAIN_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 

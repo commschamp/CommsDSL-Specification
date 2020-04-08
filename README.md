@@ -7,12 +7,16 @@ generation application(s).
 
 The PDF can be downloaded from [release](https://github.com/arobenko/CommsDSL-Specification/releases)
 artifacts of this project. The online HTML documentation is hosted on
-[gitbook](https://legacy.gitbook.com/book/arobenko/commsdsl-specification/details).
-If the specification is read directly from [github](https://github.com/arobenko/CommsDSL-Specification),
-use [SUMMARY](SUMMARY.md) for navigation.
+[github pages](https://arobenko.github.io/commsdsl_spec).
 
-This specification document is licensed under
-[Creative Commons Attribution-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nd/4.0/).
+The specification is written using [asciidoc](http://asciidoc.org/) and buildable
+using [CMake](https://cmake.org/)
 
-![cc-by-nd](cc-by-nd.png)
+# How to Build
+```
+$> mkdir build && cd build
+$> cmake ..
+$> make pdf                # <-- Builds PDF
+$> make site               # <-- Builds HTML
+```
 
