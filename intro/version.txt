@@ -1,0 +1,10 @@
+=== Specification Version ===
+This document is versioned using https://semver.org/[Semantic Versioning].
+
+The first (**MAJOR**) number in the version will describe the version of **DSL** itself, the
+second (**MINOR**) number will indicate **small** additions (such as adding new property
+for one of the elements) to the specification which
+do not break any backward compatibility, and the third (**PATCH**) number 
+(if exists) will indicate various language fixes and/or formatting changes of this 
+specification document.
+

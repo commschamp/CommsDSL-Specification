@@ -1,0 +1,66 @@
+[[intro-namespaces]]
+=== Namespaces ===
+In addition to splitting into <<intro-multiple-files, multiple files>>, **CommsDSL**
+provides namespaces to help in definition of big protocols. It is possible to
+define <<fields-fields, fields>>, <<messages-messages, messages>>, 
+<<interfaces-interfaces, interfaces>>, and <<frames-frames, frames>> in
+a separate namespace. The code generator must use this information to define
+relevant classes in a separate namespace(s) (if such feature is provided by the
+language) or introduce relevant prefixes into the names to avoid name clashes.
+
+The namespace is defined using **&lt;ns&gt;** node with single **name** property.
+It can contain all the mentioned [previously](schema_def.md) nodes.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="myns">
+        <fields>
+            ...
+        </fields>
+
+        <message ...>
+        </message>
+
+        <messages>
+            <message ... />
+            <message ... />
+        </messages>
+        
+        <interface ...>
+        </interface>
+        
+        <interfaces>
+            <interface ... />
+            <interface ... />
+        </interfaces>
+        
+        <frame ...>
+        </frame>
+        
+        <frames>
+            <frame ... />
+            <frame ... />
+        </frames>
+    </ns>
+</schema>
+----
+The namespace (**&lt;ns&gt;**) can also contain other namespaces:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="myns">
+        <ns name="subns1">
+            <fields>
+                ...
+            </fields>
+        </ns>
+        
+        <ns name="subns2">
+            <message ... />
+            <message ... />
+        </ns>
+    </ns>
+</schema>
+----

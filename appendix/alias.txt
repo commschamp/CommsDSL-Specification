@@ -1,0 +1,13 @@
+[[appendix-alias]]
+=== Properties of &lt;alias&gt; ===
+Refer to <<aliases-aliases, Aliases>> chapter for detailed description. 
+Introduced in DSL version **3**.
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**name**|<<intro-names, name>> string|3|yes||Name of the alias.
+|**description**|string|3|no||Human readable description of the alias.
+|**field**|relative <<intro-references, reference>> string|3|yes||Reference to the aliased field, must start with `$` character.
+|===

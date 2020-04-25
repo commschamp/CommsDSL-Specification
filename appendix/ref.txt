@@ -1,0 +1,14 @@
+[[appendix-ref]]
+=== Properties of &lt;ref&gt; Field ===
+The **&lt;ref&gt;** field has all the <<appendix-fields, common>> properties as
+well as ones listed below. Refer to <<fields-ref, &lt;ref&gt; Field>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**field**|<<intro-references, reference>>|1|yes||Reference to other field.
+|**bitLength**|<<intro-numeric, unsigned>>|2|no|length in bits|Serialization length in bits, applicable only to a member of <<fields-bitfield, &lt;bitfield&gt; >> and when referencing a field that can be a member of <<fields-bitfield, &lt;bitfield&gt; >>.
+|===
+

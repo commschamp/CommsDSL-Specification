@@ -1,0 +1,12 @@
+[[appendix-custom]]
+=== Properties of &lt;custom&gt; Frame Layer ===
+The **&lt;custom&gt;** layer has all the <<appendix-layers, common>> properties as
+well as ones listed below. Refer to <<frames-custom, &lt;custom&gt; Layer>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**idReplacement**|<<intro-boolean, bool>>|1|no|false|Mark the layer as one replacing <<frames-id, &lt;id&gt; >>.
+|===

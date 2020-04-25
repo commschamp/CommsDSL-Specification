@@ -1,0 +1,16 @@
+[[appendix-checksum]]
+=== Properties of &lt;checksum&gt; Frame Layer ===
+The **&lt;checksum&gt;** layer has all the <<appendix-layers, common>> properties as
+well as ones listed below. Refer to <<frames-checksum, &lt;checksum&gt; Layer>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**alg**|"sum", "crc-ccitt", "crc-16", "crc-32", "custom"|1|yes||Checksum calculation algorithm.
+|**algName**|<<intro-names, name>> string|1|no (unless **alg** is **custom**)||Name of the custom algorithm. Applicable only if **alg="custom"**.
+|**from**|<<intro-names, name>> string|1|yes (only if **until** is not specified)||Name of the frame layer, from which the checksum calculation starts.
+|**until**|<<intro-names, name>> string|1|yes (only if **from** is not specified)||Name of the frame layer, until (and including) which the checksum calculation is executed.
+|**verifyBeforeRead**|<<intro-boolean, bool>>|1|no|false|Perform checksum verification without reading values of other layers.
+|===

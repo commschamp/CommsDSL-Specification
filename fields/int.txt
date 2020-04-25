@@ -1,0 +1,488 @@
+[[fields-int]]
+=== &lt;int&gt; Field ===
+This field stores and abstracts away value of integral type. 
+The **&lt;int&gt;** field has all the <<fields-common, common>> properties
+as well as extra properties and elements described below.
+
+[[fields-int-underlying-type]]
+==== Underlying Type ====
+Every **&lt;int&gt;** field must provide its underlying storage type using 
+**type** <<intro-properties, property>>. Available 
+values are:
+
+* **int8** - 1 byte signed integer.
+* **uint8** - 1 byte unsigned integer.
+* **int16** - 2 bytes signed integer.
+* **uint16** - 2 bytes unsigned integer.
+* **int32** - 4 bytes signed integer.
+* **uint32** - 4 bytes unsigned integer.
+* **int64** - 8 bytes signed integer.
+* **uint64** - 8 bytes unsigned integer.
+* **intvar** - up to 8 bytes variable length signed integer
+* **uintvar** - up to 8 bytes variable length unsigned integer
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntield" type="uint8" />
+    </fields>
+</schema>
+----
+The variable length types are encoded using **Base-128** form, such as
+https://en.wikipedia.org/wiki/LEB128[LEB128] for *little* endian or similar for
+*big* endian.
+
+==== Special Values ====
+Some protocol may assign a special meaning for some values. For example, some
+field specifies configuration of some timer duration, when **0** value means
+infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of the 
+**&lt;int&gt;** XML element.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Duration" type="uint8">
+            <special name="Infinite" val="0" />
+        </int>
+    </fields>
+</schema>
+----
+The code generator is expected to generate extra convenience functions that 
+check whether field has special value as well as updating the stored value
+with special one.
+
+Every **&lt;special&gt;** must define a valid <<intro-names, name>> 
+(using **name** <<intro-properties, property>>) as 
+well as <<intro-numeric, numeric>> value (using **val** 
+<<intro-properties, property>>), that fits chosen 
+<<fields-int-underlying-type, underlying type>>. The **&lt;special&gt;**-s may be listed
+in any order, not necessarily sorted.
+
+Every **&lt;special&gt;** has extra optional properties:
+
+* **description** - Extra description and documentation on how to use the value.
+* **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
+* **deprecated** - Version of the protocol when the special name / meaning was deprecated.
+* **displayName** - Readable name to display for the special value in protocol debugging and visualization tools.
+
+All these extra properties are described in detail in 
+<<fields-common, Common Properties of Fields>>.
+
+By default, non-unqiue special values (different name for the same value) are 
+not allowed, the code generator must report
+an error if two different **&lt;special&gt;**-es use the same value of the **val**
+property. It is done as protection against copy-paste errors. However,
+**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed** 
+<<intro-properties, property>> has been set to **true**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeInt" type="uint8" nonUniqueSpecialsAllowed="true">
+            <special name="S1" val="0" />
+            <special name="S2" val="0" />
+        </int>
+    </fields>
+</schema>
+----
+
+==== Default Value ====
+The default value of the **&lt;int&gt;** field when constructed can be specified
+using **defaultValue** property. If not specified, defaults to **0**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8" defaultValue="5" />
+    </fields>
+</schema>
+----
+The default value can also be specified using the name of one of the 
+**&lt;special&gt;**-s:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8" defaultValue="Special2">
+            <special name="Special1" val="0" />
+            <special name="Special2" val="0xff" />
+        </int>
+    </fields>
+</schema>
+----
+
+==== Endian ====
+The default serialization endian of the protocol is specified in **endian**
+property of the <<schema-schema, schema>>. It is possible to override the
+default endian value with extra **endian** property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="SomeIntField" type="uint16" endian="little" />
+    </fields>
+</schema>
+----
+
+[[fields-int-serialization-length]]
+==== Serialization Length ====
+The <<fields-int-underlying-type, underlying type>> dictates the serialization length
+of the **&lt;int&gt;** field. However there may be protocols, that limit serialization
+length of the field to non-standard lengths, such as **3** bytes. In this case
+use **length** property to specify custom serialization length.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="SomeIntField" type="uint32" length="3" />
+    </fields>
+</schema>
+----
+
+**[red]#IMPORTANT#**: When **length** property is used with variable length 
+<<fields-int-underlying-type, underlying types>> (**intvar** and **uintvar**), 
+it means **maximum** allowed length.
+
+==== Length in Bits ====
+**&lt;int&gt;** field can be a member of <<fields-bitfield, &lt;bitfield&gt; >> field.
+In this case the serialization length may be specified in bits using **bitLength**
+<<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bitfield name="SomeBitfield">
+            <int name="SomeIntMember" type="uint8" bitLength="2" />
+            <int name="SomeOtherIntMember" type="uint8" bitLength="6" />
+        </bitfield>
+    </fields>
+</schema>
+----
+
+[[fields-int-serialization-offset]]
+==== Serialization Offset ====
+Some protocols may require adding/subtracting some value before serialization, and
+performing the opposite operation when the field is deserialized. Such operation
+can be forced using **serOffset** property with <<intro-numeric, numeric>> 
+value. The classic example would be defining a **year** field that is being
+serialized using 1 byte as offset from year 2000. Although it is possible to
+define such field as 1 byte integer 
+[source,xml]
+----
+<int name="Year" type="uint8"  />
+----
+it is quite inconvenient to work with it in a client code. The client code needs to be
+aware what offset needs to be added to get the proper year value. It is
+much better to use **serOffset** property to manipulate value before and after
+serialization.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="Year" type="int16" defaultValue="2000" serOffset="-2000" length="1" />
+    </fields>
+</schema>
+----
+**NOTE**, that value of **serOffset** property must fit into the underlying type
+defined using **type** property.
+
+
+==== Sign Extension ====
+When limiting <<fields-int-serialization-length, serialization length>> using **length** 
+property, the performed **read** operation is expected to sign 
+extend read signed value. However, such default behavior may be incorrect
+for some cases, especially when <<fields-int-serialization-offset, serialization offset>> is
+also used. There are protocols that disallow serialization of a negative value.
+Any signed integer must add predefined offset to make it non-negative first, and only
+then serialize. The deserialization procedure is the opposite, first deserialize
+the non-negative value, and then subtract predefined offset to get the real value.
+
+For example, there is an integer field with expected valid values between 
+`-8,000,000` and `+8,000,000`. This range fits into 3 bytes, which are used to 
+serialize such field. Such field is serialized using the
+following math:
+
+* Add 8,000,000 to the field's value to get non-negative number.
+* Serialize the result using only 3 bytes.
+
+In order to implement such example correctly there is a need to switch off the
+automatic sign extension when value is deserialized.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeField" type="int32" serOffset="8000000" length="3" signExt="false" />
+    </fields>
+</schema>
+----
+**NOTE**, that **signExt** property is relevant only for signed types with 
+non-default <<fields-int-serialization-length, serialization length>>.
+
+[[fields-int-scaling]]
+==== Scaling ====
+Some protocols may not support serialization of floating point values, and 
+use scaling instead. It is done by multiplying the original floating point value
+by some number, dropping the fraction part and serializing the value as integer.
+Upon reception, the integer value is divided by predefined number to get a 
+proper floating point value. 
+
+For example, there is a distance measured in millimeters with precision of 
+4 digits after decimal point. The value is multiplied by 10,000 and serialized
+as **&lt;int&gt;** field. Such scenario is supported by **CommsDSL** via 
+introduction of **scaling** <<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Distance" type="uint32" scaling="1/10000" />
+    </fields>
+</schema>
+----
+**NOTE**, that format of **scaling** value is "**numerator / denominator**". 
+The code generator is expected to define such field like any other 
+**&lt;int&gt;**, but also provide functions that allow set / get of 
+scaled floating point value.
+
+It is possible to omit the **denominator** value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="int16" scaling="4" />
+    </fields>
+</schema>
+----
+In the example above it is equivalent to having **scaling="4/1"** defined.
+
+==== Units ====
+Protocols quite often specify what units are being transfered. The **CommsDSL**
+provides **units** <<intro-properties, property>> to specify this information.
+The code generator may use this information to generate a functionality that allows 
+retrieval of proper value for requested units, while doing all the conversion 
+math internally. Such behavior will allow developers, that use generated
+protocol code, to focus on their business logic without getting into details
+on how value was transfered and what units are used by default.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Distance" type="uint32" units="mm" />
+    </fields>
+</schema>
+----
+For list of supported **units** values, refer to appended <<appendix-units, units>>
+table.
+
+Quite often, **units** and **scaling** need to be used together. For example
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Latitude" type="int32" units="deg" scaling="1/10000000" />
+    </fields>
+</schema>
+----
+The code generator may generate code that allows retrieval of proper
+(floating point) value of either **degrees** or **radians**, while all the
+scaling and conversion math is done automatically.
+
+==== Valid Values ====
+Many protocols specify ranges of values the field is allowed to have and how
+client code is expected to behave on reception of invalid values. The code
+generator is expected to generate code that checks whether field's value
+is valid. The **CommsDSL** provides multiple properties to help with such
+task.
+
+One of such properties if **validRange**. The format of it's value is 
+"[*min_value*, *max_value*]".
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8" validRange="[0, 10]" />
+    </fields>
+</schema>
+----
+It is possible to have multiple valid ranges for the same field. However XML
+does NOT allow having multiple attributes with the same name. As the result
+it is required to put extra valid ranges as **&lt;validRange&gt;** children
+elements.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8">
+             <validRange value="[0, 10]" />
+             <validRange value="[25, 40]" />
+        </int>
+    </fields>
+</schema>
+----
+Another property is **validValue**, which adds single value (not range) to 
+already defined valid ranges / values. Just like with **validRange**, multiple
+values need to be added as XML children elements.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8" validRange="[0, 10]" validValue="15">
+            <validValue value="40" />
+        </int>
+    </fields>
+</schema>
+----
+
+There are also **validMin** and **validMax**, which specify single 
+<<intro-numeric, numeric>> value and are equivalent to having + 
+`validRange="[provided_min_value, max_value_allowed_by_type]"` and +
+`validRange="[min_value_allowed_by_type, provided_max_value]"` respectively.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="int8" validMin="-20" />
+        <int name="SomeOtherIntField" type="int8" validMax="100" />
+    </fields>
+</schema>
+----
+The specified valid ranges and values are allowed to intersect. The code 
+generator may warn about such cases and/or unify them to limit number of
+**if** conditions in the generated code for better performance.
+
+If none of the mentioned above validity related options has been used, the
+whole range of available values is considered to be valid.
+
+All the validity related <<intro-properties, properties>> mentioned in this
+section (**validRange**, **validValue**, **validMin**, and **validMax**) may
+also add information about version they were introduced / deprecated in. 
+Adding such information is possible only when the property is defined as
+XML child element.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"? version="10">
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8">
+             <validRange value="[0, 10]" />
+             <validValue value="25" sinceVersion="2" deprecated="5" />
+             <validRange value="[55, 80]" sinceVersion="7" />
+        </int>
+    </fields>
+</schema>
+----
+The **sinceVersion** and **deprecated** properties are described in detail as 
+<<fields-common, Common Properties of Fields>>.
+
+
+==== Version Based Validity ====
+The code generator is expected to generate functionality checking that 
+**&lt;int&gt;** field contains a valid value. By default if the field's value 
+is within any of the specified ranges / values, then the it is considered to be valid
+regardless of version the containing range was
+introduced and/or deprecated. However, it is possible to force code generator to
+generate validity check code that takes into account reported version of the
+protocol by using **validCheckVersion** <<intro-properties, property>>, which
+is set to **true**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"? version="10">
+<schema ...>
+    <fields>
+        <int name="SomeIntField" type="uint8" validCheckVersion="true">
+             <validRange value="[0, 10]" />
+             <validValue value="25" sinceVersion="2" deprecated="5" />
+             <validRange value="[55, 80]" sinceVersion="7" />
+        </int>
+    </fields>
+</schema>
+----
+
+==== Extra Display Properties ====
+When <<fields-int-scaling, scaling>> information is specified, it is possible to notify 
+GUI analysis tools that value of **&lt;int&gt;** field should be displayed as
+scaled floating point number. To do so, use **displayDecimals** <<intro-properties, property>> 
+with numeric value of how many digits need to be displayed after decimal point.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Distance" type="uint32" scaling="1/10000" displayDecimals="4" />
+    </fields>
+</schema>
+----
+
+Also when <<fields-int-serialization-offset, serialization offset>> is provided, sometimes
+it may be desirable to display the value in the GUI analysis tool(s) with such offset.
+
+For example, many protocols define some kind of remaining length field
+when defining a transport <<frames-frames, frame>> or other places. Sometimes
+the value of such field should also include its own length. However, it 
+is much more convenient to work with it, when the retrieved value 
+shows only **remaining** length of subsequent fields, without worrying whether
+the value needs to be reduced by the serialization length of holding field, and what exactly
+this length is. Such field can be defined like this:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="RemLength" type="uint16" serOffset="2" />
+    </fields>
+</schema>
+----
+In the example above, the field is expected to hold only **remaining** length,
+**excluding** the length of itself, but adding it when value is serialized.
+
+However, when such field is displayed in GUI analysis tool(s), it is desirable 
+to display the value with serialization offset as well. It can be achieved using
+**displayOffset** <<intro-properties, property>> with 
+<<intro-numeric, numeric>> value.
+[source,xml] 
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="RemLength" type="uint16" serOffset="2" displayOffset="2"/>
+    </fields>
+</schema>
+----
+
+When **&lt;special&gt;** values are specified the protocol analysis tools are 
+expected to display them next to actual numeric value of the field. The **displaySpecials**
+<<intro-properties, property>> with <<intro-boolean, boolean>> value
+is there to control this default behavior.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeInt" type="uint8" displaySpecials="false">
+            <special name="S1" val="0" />
+            <special name="S2" val="2" />
+        </int>
+    </fields>
+</schema>
+----
+
+
+Use <<appendix-int, properties table>> for future references.

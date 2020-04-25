@@ -1,0 +1,140 @@
+[[versioning-versioning]]
+== Protocol Versioning Summary ==
+This chapter summarizes all version related aspects of the protocol definition.
+
+=== Version of the Schema ===
+The protocol definition <<schema-schema, &lt;schema&gt; >> has the
+**version** <<intro-properties, property>>, that specifies numeric version of the 
+protocol.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" version="5">
+    ...
+</schema>
+----
+
+=== Version in the Interface ===
+If protocol reports its version via transport <<frames-frames, framing>> or
+via some special "connection" <<messages-messages, message>>, and the
+protocol version must influence how some messages are deserialized / handled, then
+there is a need for <<interfaces-interfaces, &lt;interface&gt; >> definition,
+which must contain version field, marked as such using **semanticType="version"**
+property.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" version="5">
+    <interface name="Interface">
+        <int field="SomeName" type="uint16" semanticType="version" /> 
+    </interface>
+    ...
+</schema>
+----
+
+=== Version in the Frame ===
+In addition to the <<interfaces-interfaces, &lt;interface&gt; >> containing
+version information, the transport <<frames-frames, &lt;frame&gt; >> is also
+expected to contain <<frames-value, &lt;value&gt; >> layer, which will
+reassign the received version information to the message object (via 
+<<interfaces-interfaces, &lt;interface&gt; >>).
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" version="5">
+    <interface name="Interface">
+        <int field="SomeName" type="uint16" semanticType="version" /> 
+    </interface>
+    
+    <frame name="Frame">
+        <size name="Size">
+            <int name="SizeField" type="uint16" serOffset="2"/>
+        </size>
+        <id name="Id">
+            <int name="IdField" type="uint8" />  
+        </id>
+        <value name="Version" interfaces="Interface" interfaceFieldName="SomeName">
+            <int name="VersionField" type="uint16" /> 
+        </value>
+        <payload name="Data" />
+    </frame>
+</schema>
+----
+Even if the protocol version is communicated in one of the messages and the 
+real <<frames-frames, framing>> doesn't really contain any version information,
+it still should be defined with similar <<frames-value, &lt;value&gt; >> layer, but
+marked as **pseudo**.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" version="5">
+    <interface name="Interface">
+        <int field="SomeName" type="uint16" semanticType="version" /> 
+    </interface>
+    
+    <frame name="Frame">
+        <size name="Size">
+            <int name="SizeField" type="uint16" serOffset="2"/>
+        </size>
+        <id name="Id">
+            <int name="IdField" type="uint8" />  
+        </id>
+        <value name="Version" interfaces="Interface" interfaceFieldName="SomeName" pseudo="true">
+            <int name="VersionField" type="uint16" /> 
+        </value>
+        <payload name="Data" />
+    </frame>
+</schema>
+----
+The generated code is expected to allow external assignment of the protocol
+version information (once it's known) to inner data structures of appropriate
+<<frames-value, &lt;value&gt; >> framing layer, which in turn is responsible to
+re-assign the relevant version information to every subsequent message object when it's 
+created, but before the message payload being read.
+
+=== Version of the Fields and Messages ===
+Every <<messages-messages, message>> and <<fields-fields, field>> support
+the following properties, wich can be used to supply version related information.
+
+* **sinceVersion** - Version when the message / field has been introduced.
+* **deprecated** - Version when the message / field has been deprecated.
+* **removed** - Indication that deprecated message / field must be removed from
+serialization and code generation.
+
+=== Version Dependency of the Code ===
+The generated code is expected to be version dependent (i.e. presence of some
+messages / fields is determined by the reported version value), if **at least** one
+of the defined <<interfaces-interfaces, &lt;interface&gt; >>-es contains
+version field (marked by **semanticType="version"**).
+
+If none of the interfaces has such field, then the generated code cannot be
+version dependent and all the version related properties become for documentation
+purposes only and cannot influence the presence of the messages / fields. In
+such cases the code generator is expected to receive required protocol version in 
+its command line parameters and generate code for requested protocol version.
+
+=== Compatibility Recommendation ===
+In case **CommsDSL** is used to define new protocol developed from scratch and
+backward / forward compatibility of the protocol is a desired feature, then 
+there are few simple rules below, following of which can insure such compatibility.
+
+* Use <<frames-size, &lt;size&gt; >> layer in the transport 
+<<frames-frames, framing>> to report remaining length of the message.
+* Use <<frames-value, &lt;value&gt; >> layer to report protocol version
+in the transport <<frames-frames, framing>> or define special "connect" 
+message that is sent to establish connection and report protocol version
+(mark the <<frames-value, &lt;value&gt; >> layer to be **pseudo**).
+* Always add new <<fields-fields, fields>> at the end of the 
+<<messages-messages, &lt;message&gt; >>. Don't forget to specify their
+version using **sinceVersion** property.
+* Don't **remove** deprecated <<fields-fields, fields>>.
+* Always add new <<fields-fields, fields>> at the end of the
+<<fields-list, &lt;list&gt; >> element.
+* Add element serialization length report before every
+element of the <<fields-list, &lt;list&gt; >> field (using 
+**elemLengthPrefix** property).
+* In case **elemFixedLength** <<intro-properties, property>> is 
+assigned for the <<fields-list, &lt;list&gt; >> (to avoid
+redundant report of the same element length before every element), never
+add variable length <<fields-fields, fields>> to the element of the list.
+

@@ -1,0 +1,25 @@
+[[appendix-interface]]
+=== Properties of &lt;interface&gt; ===
+Refer to <<interfaces-interfaces, Interfaces>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**name**|<<intro-names, name>> string|1|yes||Name of the interface.
+|**description**|string|1|no||Human readable description of the interface.
+|**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Interface definition from which fields need to be copied.
+|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<interfaces-interfaces, &lt;interface&gt; >>.
+|===
+
+
+Extra child XML elements allowed:
+
+[cols="^.^28,^.^10,62", options="header"]
+|===
+|XML Element|DSL Version ^.^|Description
+
+|**&lt;fields&gt;**|1|Wraps member fields.
+|**&lt;alias&gt;**|3|Alias names for other member fields. See <<aliases-aliases, Aliases>> for more info.
+|===

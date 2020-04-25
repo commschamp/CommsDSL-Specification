@@ -1,0 +1,75 @@
+[[fields-fields]]
+== Fields ==
+Any **field** can be defined as independent element inside the **&lt;fields&gt;**
+child of the <<intro-schema-def, &lt;schema&gt; >> or a <<intro-namespaces, &lt;ns&gt; >>.
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="SomeField" type="uint8" />
+        ...
+    </fields>
+</schema>
+----
+It can also be defined as a member of a message.
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="SomeMessage" id="1">
+        <int name="SomeField" type="uint8" />
+        ...
+    </message>
+</schema>
+----
+Field that is defined as a child of **&lt;fields&gt;** node of the 
+<<intro-schema-def, &lt;schema&gt; >> or 
+<<intro-namespaces, &lt;ns&gt; >> can be referenced by other fields to avoid
+duplication of the same definition.
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="ns1">
+        <int name="SomeField" type="uint8" />
+        <ref name="AliasToField" field="ns1.SomeField" />
+    </ns>
+    <message name="SomeMessage" id="1">
+        <ref name="Mem1" field="ns1.SomeField"" />
+        ...
+    </message>
+</schema>
+----
+
+The available fields are described in details in the sections to follow. They are:
+
+* <<fields-enum, &lt;enum&gt; >> - Enumeration field.
+* <<fields-int, &lt;int&gt; >> - Integral value field.
+* <<fields-set, &lt;set&gt; >> - Bitset (bitmask) field.
+* <<fields-bitfield, &lt;bitfield&gt; >> - Bitfield field.
+* <<fields-bundle, &lt;bundle&gt; >> - Bundle field.
+* <<fields-string, &lt;string&gt; >> - String field.
+* <<fields-data, &lt;data&gt; >> - Raw data field.
+* <<fields-list, &lt;list&gt; >> - List of other fields.
+* <<fields-float, &lt;float&gt; >> - Floating point value field.
+* <<fields-ref, &lt;ref&gt; >> - Reference to (alias of) other field.
+* <<fields-optional, &lt;optional&gt; >> - Optional field.
+* <<fields-variant, &lt;variant&gt; >> - Variant field.
+
+
+All this fields have <<fields-common, common>> as well as their own specific set of 
+properties.
+
+include::common.txt[]
+include::enum.txt[]
+include::int.txt[]
+include::set.txt[]
+include::bitfield.txt[]
+include::bundle.txt[]
+include::string.txt[]
+include::data.txt[]
+include::list.txt[]
+include::float.txt[]
+include::ref.txt[]
+include::optional.txt[]
+include::variant.txt[]
+include::references.txt[]
+

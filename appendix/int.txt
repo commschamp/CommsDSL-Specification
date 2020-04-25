@@ -1,0 +1,44 @@
+[[appendix-int]]
+=== Properties of &lt;int&gt; Field ===
+The **&lt;int&gt;** field has all the <<appendix-fields, common>> properties as
+well as ones listed below. Refer to <<fields-int, &lt;int&gt; Field>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**type**|"int8", "uint8", "int16", "uint16", "int32", "uint32", "int64", "uint64", "intvar", "uintvar"|1|yes||Underlying primitive type.
+|**defaultValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|1|no|0|Default value. Must fit the underlying **type**.
+|**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
+|**length**|<<intro-numeric, unsigned>>|1|no|length of **type**|Forced serialization length.
+|**bitLength**|<<intro-numeric, unsigned>>|1|no|length of **type** in bits|Serialization length in bits, applicable only to a member of <<fields-bitfield, &lt;bitfield&gt; >>.
+|**serOffset**|<<intro-numeric, numeric>>|1|no|0|Extra value that needs to be added to the field's value when the latter is being serialized.
+|**signExt**|<<intro-boolean, bool>>|1|no|true|Enable / Disable sign extension of the signed value when **length** property is used to reduce the default serialization length.
+|**scaling**|"<<intro-numeric, numeric>> / <<intro-numeric, numeric>>"|1|no|1/1|Scaling ratio.
+|**units**|<<appendix-units, units>>|1|no||Units of the value.
+|**validRange**|"[ <<intro-numeric, numeric>>, <<intro-numeric, numeric>> ]"|1|no||Range of valid values.
+|**validValue**|<<intro-numeric, numeric>>|1|no||Valid value.
+|**validMin**|<<intro-numeric, numeric>>|1|no||Valid minimal value. All the numbers above it are considered to be valid.
+|**validMax**|<<intro-numeric, numeric>>|1|no||Valid maximal value. All the numbers below it are considered to be valid.
+|**validCheckVersion**|<<intro-boolean, bool>>|1|no|false|Take into account protocol version when generating code for field's value validity check.
+|**displayDecimals**|<<intro-numeric, numeric>>|1|no|0|Indicates to GUI analysis tools to display this field as floating point value with specified number of digits after the fraction point.
+|**displayOffset**|<<intro-numeric, numeric>>|1|no|0|Indicates to GUI analysis tools to add specified offset value to a field's value when displaying it.
+|**nonUniqueSpecialsAllowed**|<<intro-boolean, bool>>|2|no|false|Allow non unique **&lt;special&gt;**-s.
+|**displaySpecials**|<<intro-boolean, bool>>|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.
+|===
+
+==== Properties of &lt;special&gt; Child Element of &lt;int&gt; Field ====
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**name**|<<intro-names, name>> string|1|yes||Name of the value.
+|**val**|<<intro-numeric, numeric>>|1|yes||Numeric value.
+|**description**|string|1|no||Human readable description of the value.
+|**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which value was introduced.
+|**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which value was deprecated. +
+Must be greater than value of **sinceVersion**.
+|**displayName**|string|2|no||Name to display in various analysis tools.
+|===
+

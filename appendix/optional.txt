@@ -1,0 +1,41 @@
+[[appendix-optional]]
+=== Properties of &lt;optional&gt; Field ===
+The **&lt;optional&gt;** field has all the <<appendix-fields, common>> properties as
+well as ones listed below. Refer to <<fields-optional, &lt;optional&gt; Field>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**field**|<<fields-fields, field>>|1|no||Wrapped field.
+|**defaultMode**|"tentative", "missing", "exist"|1|no|tentative|Default mode of the field. See also <<appendix-optional-default-mode, Default Mode Strings>> below.
+|**cond**|string|1|no||Condition when the field exists.
+|**displayExtModeCtrl**|<<intro-boolean, bool>>|1|no|false|Disable manual update of the mode in GUI analysis tools.
+|===
+
+Inner field must be specified using **field** property or as 
+child XML element. 
+
+Extra child XML elements allowed:
+
+[cols="^.^28,^.^10,62", options="header"]
+|===
+|XML Element|DSL Version ^.^|Description
+|**&lt;field&gt;**|1|Wraps member field.
+|**&lt;cond&gt;**|1|Condition when field exists.
+|**&lt;and&gt;**|1|Logical "and" of conditions.
+|**&lt;or&gt;**|1|Logical "or" of conditions.
+|===
+
+[[appendix-optional-default-mode]]
+==== Default Mode Strings ====
+[cols="^.^30,70", options="header"]
+|===
+|Mode ^.^|Accepted Values (case insensitive)
+
+|Tentative|"tentative", "tent", "t"
+|Missing|"missing", "miss", "m"
+|Exist|"exist", "exists", "e"
+|===
+
