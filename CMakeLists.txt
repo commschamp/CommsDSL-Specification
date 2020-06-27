@@ -6,7 +6,7 @@ if (NOT A2X_EXECUTABLE)
     message(FATAL_ERROR "a2x is not found")
 endif ()
 
-set (VERSION "v3.1")
+set (VERSION "v3.1.1")
 set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.txt")
 
 add_custom_target("pdf" ALL
