@@ -1,7 +1,7 @@
 [[schema-schema]] 
 == Schema ==
 Schema definition may contain various global (protocol-wide) 
-[properties](../intro/properties.md).
+<<intro-properties, properties>>.
 
 === Protocol Name ===
 The protocol name is defined using **name** property. It may contain any

@@ -22,7 +22,7 @@ of message payload.
     </frame>
 </schema>
 ----
-The **&lt;value&gt;** layer has all the [common](common.md) properties
+The **&lt;value&gt;** layer has all the <<frames-common, common>> properties
 as well as extra properties and elements described below.
 
 ==== Interfaces ====
