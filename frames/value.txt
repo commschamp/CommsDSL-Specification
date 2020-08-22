@@ -61,6 +61,9 @@ names of the supported interfaces.
     </frame>
 </schema>
 ----
+In case the whole protocol schema contains no more than one **&lt;interface&gt;** 
+definition, then the usage of the **interfaces** property is not necessary.
+
 In addition to specifying the interfaces themselves, there is a need to
 specify the field name in the interface(s), that will hold the processed value,
 using **interfaceFieldName** <<intro-properties, property>>.
