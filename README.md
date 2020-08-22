@@ -1,13 +1,13 @@
 # Introduction
 This document contains specification of **D**omain **S**pecific **L**anguage (DSL),
-called **CommsDSL**, for [CommsChampion Ecosystem](https://arobenko.github.io/cc),
+called **CommsDSL**, for [CommsChampion Ecosystem](https://commschamp.github.io),
 used to define custom binary protocols. The defined schema files are intended
-to be parsed and used by [commsdsl](https://github.com/arobenko/commsdsl) library and code
+to be parsed and used by [commsdsl](https://github.com/commschamp/commsdsl) library and code
 generation application(s).
 
-The PDF can be downloaded from [release](https://github.com/arobenko/CommsDSL-Specification/releases)
+The PDF can be downloaded from [release](https://github.com/commschamp/CommsDSL-Specification/releases)
 artifacts of this project. The online HTML documentation is hosted on
-[github pages](https://arobenko.github.io/commsdsl_spec).
+[github pages](https://commschamp.github.io/commsdsl_spec).
 
 The specification is written using [asciidoc](http://asciidoc.org/) and buildable
 using [CMake](https://cmake.org/)

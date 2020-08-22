@@ -110,7 +110,7 @@ There are protocols that put some information, common to all the messages, such 
 protocol version and/or extra flags, into the framing information instead of message payload.
 This information needs to be accessible when message payload is being read or
 message object is being handled by the application. The 
-https://github.com/arobenko/comms_champion#comms-library[COMMS Library]
+https://github.com/commschamp/comms_champion#comms-library[COMMS Library]
 handles these cases by having a common interface class for all the messages, which
 contains this extra information. In order to support such cases, the **CommsDSL** 
 introduces optional node **&lt;interface&gt;** (described in detail in 
