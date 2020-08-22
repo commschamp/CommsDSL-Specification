@@ -1,7 +1,7 @@
-CommsDSL Specification v3.1.1
+CommsDSL Specification v3.1.2
 ===========================
 Alex Robenko
-v3.1.1, 2020-06
+v3.1.2, 2020-08
 :doctype: article
 :numbered!:
 :sectnums!:
