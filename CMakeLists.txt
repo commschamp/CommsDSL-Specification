@@ -21,7 +21,7 @@ add_custom_target("pdf" ALL
 
 add_custom_target("site" ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/site
-    COMMAND ${ASCIIDOCTOR_EXE} -D ${CMAKE_CURRENT_BINARY_DIR}/site ${MAIN_FILE}
+    COMMAND ${ASCIIDOCTOR_EXE} -D ${CMAKE_CURRENT_BINARY_DIR}/site -o index.html ${MAIN_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
-
+file(INSTALL images DESTINATION site)
