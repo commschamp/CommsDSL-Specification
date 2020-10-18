@@ -20,6 +20,7 @@ jobs:
         run: |
           gem install asciidoctor
           gem install asciidoctor-pdf
+          gem install rouge
       - name: Configure CMake
         shell: bash
         working-directory: ${{runner.workspace}}/build
