@@ -32,14 +32,10 @@ jobs:
         shell: bash
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: cmake --build . --config $BUILD_TYPE
-      - name: show dir
-        run: |
-          cd ${{runner.workspace}}/build
-          ls
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: deploy # The branch the action should deploy to.
-          FOLDER: ${{runner.workspace}}/build # The folder the action should deploy.
+          FOLDER: ${{runner.workspace}}/build/site # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
