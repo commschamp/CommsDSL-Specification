@@ -25,4 +25,4 @@ add_custom_target("site" ALL
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 file(INSTALL images DESTINATION site)
-file(INSTALL README.md DESTINATION site)
+file(INSTALL site/README.md DESTINATION site)

@@ -1,6 +1,3 @@
----
-permalink: /index.html
----
 # Introduction
 This document contains specification of **D**omain **S**pecific **L**anguage (DSL),
 called **CommsDSL**, for [CommsChampion Ecosystem](https://commschamp.github.io),
