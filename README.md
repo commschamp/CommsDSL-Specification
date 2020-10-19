@@ -12,6 +12,25 @@ artifacts of this project. The online HTML documentation is hosted on
 The specification is written using [asciidoc](http://asciidoc.org/) and buildable
 using [CMake](https://cmake.org/)
 
+# Toolchain setup
+
+For a more detailed version go to https://asciidoctor.org/#installation
+
+## Newest asciidoctor version
+For asciidoctor the ruby version 2.7 is necessary.
+
+Head over to the ruby install instructions https://www.ruby-lang.org/de/documentation/installation/. Note for windows: If you already have [chocolatey](https://chocolatey.org/) installed, you simply can run `choco install ruby`
+
+
+
+Install asciidoctor, asciidoctor-pdf and the syntax highlighter with:
+```
+$> gem install asciidoctor
+$> gem install asciidoctor-pdf
+$> gem install rouge
+```
+
+
 # How to Build
 ```
 $> mkdir build && cd build
