@@ -9,7 +9,7 @@ The PDF can be downloaded from [release](https://github.com/commschamp/CommsDSL-
 artifacts of this project. The online HTML documentation is hosted on
 [github pages](https://commschamp.github.io/commsdsl_spec).
 
-The specification is written using [asciidoc](http://asciidoc.org/) and buildable
+The specification is written using [asciidoctor](https://asciidoctor.org) and buildable
 using [CMake](https://cmake.org/)
 
 # Toolchain setup
