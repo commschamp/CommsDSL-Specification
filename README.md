@@ -19,7 +19,7 @@ For a more detailed version go to https://asciidoctor.org/#installation
 ## Newest asciidoctor version
 For asciidoctor the ruby version 2.7 is necessary.
 
-Head over to the ruby install instructions https://www.ruby-lang.org/de/documentation/installation/. Note for windows: If you already have [chocolatey](https://chocolatey.org/) installed, you simply can run `choco install ruby`
+Head over to the ruby install instructions https://www.ruby-lang.org/en/documentation/installation/. Note for windows: If you already have [chocolatey](https://chocolatey.org/) installed, you simply can run `choco install ruby`
 
 
 
