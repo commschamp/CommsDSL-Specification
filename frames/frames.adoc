@@ -108,12 +108,12 @@ properties.
 
 Use <<appendix-frame, properties table>> for future references.
 
-include::common.txt[]
-include::payload.txt[]
-include::id.txt[]
-include::size.txt[]
-include::sync.txt[]
-include::checksum.txt[]
-include::value.txt[]
-include::custom.txt[]
+include::common.adoc[]
+include::payload.adoc[]
+include::id.adoc[]
+include::size.adoc[]
+include::sync.adoc[]
+include::checksum.adoc[]
+include::value.adoc[]
+include::custom.adoc[]
 

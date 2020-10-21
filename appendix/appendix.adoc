@@ -1,0 +1,28 @@
+[[appendix-appendix]]
+== Appendix ==
+This chapter contains list of properties for all the elements described earlier
+in this document for a quick reference.
+
+include::schema.adoc[]
+include::fields.adoc[]
+include::enum.adoc[]
+include::int.adoc[]
+include::set.adoc[]
+include::bitfield.adoc[]
+include::bundle.adoc[]
+include::string.adoc[]
+include::data.adoc[]
+include::list.adoc[]
+include::float.adoc[]
+include::ref.adoc[]
+include::optional.adoc[]
+include::variant.adoc[]
+include::units.adoc[]
+include::message.adoc[]
+include::interface.adoc[]
+include::alias.adoc[]
+include::frame.adoc[]
+include::layers.adoc[]
+include::checksum.adoc[]
+include::value.adoc[]
+include::custom.adoc[]
