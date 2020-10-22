@@ -1,6 +1,6 @@
-= CommsDSL Specification v3.1.2
+= CommsDSL Specification v3.1.3
 Alex Robenko
-v3.1.2, 2020-08
+v3.1.3, 2020-10
 :doctype: article
 :toc: left
 :source-highlighter: rouge
