@@ -11,7 +11,7 @@ if (NOT ASCIIDOCTOR_PDF_EXE)
     message(FATAL_ERROR "asciidoctor-pdf is not found")
 endif ()
 
-set (VERSION "v3.1.2")
+set (VERSION "v3.1.3")
 set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.adoc")
 
 add_custom_target("pdf" ALL
@@ -25,4 +25,3 @@ add_custom_target("site" ALL
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 file(INSTALL images DESTINATION site)
-file(INSTALL site/README.md DESTINATION site)
