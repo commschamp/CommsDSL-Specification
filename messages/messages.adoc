@@ -51,6 +51,8 @@ It is highly recommended to define "message ID" numeric values as external
     </message>
 </schema> 
 ----
+**NOTE**, that **&lt;enum&gt;** `MsgId` is marked to contain numeric IDs of the 
+messages by having `semanticType="messageId"` property assigned.
 
 === Description ===
 It is possible to provide a description of the message about what it is and

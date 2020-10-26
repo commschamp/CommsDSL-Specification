@@ -112,8 +112,8 @@ of the specified field with specified value is true. The *compare_op* can be:
 of the specified fields is true. 
 
 **[red]#NOTE#**, that XML doesn't allow usage of `<`
-or `>` symbols in condition values directly. They need to be substituted with `&lt;` and
-`&gt;` strings respectively.
+or `>` symbols in condition values directly. They need to be substituted with `\&lt;` and
+`\&gt;` strings respectively.
 
 For example, there are 2 normal fields followed by a third optional one. The
 latter exists, only if value of **F1** is less than value of **F2**

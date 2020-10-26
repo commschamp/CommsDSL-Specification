@@ -41,7 +41,7 @@ names of the supported interfaces.
     
     <interface name="Interface2">
         <int name="Version" type="uint8" semanticType="version" />
-        <set name="Flags"> length="1">
+        <set name="Flags" length="1">
             ...
         </set>
     </interface>
@@ -77,7 +77,7 @@ using **interfaceFieldName** <<intro-properties, property>>.
     
     <interface name="Interface2">
         <int name="Version" type="uint8" semanticType="version" />
-        <set name="Flags"> length="1">
+        <set name="Flags" length="1">
             ...
         </set>
     </interface>
@@ -149,9 +149,9 @@ is not important. It is recommended to define it right before the **&lt;payload&
 layer.
 
 As part of processing *Connect* message in the example above, the client code
-is expected to retrieve the value of the *ProtocolVersion* field and report
+is expected to retrieve the value of the _ProtocolVersion_ field and report
 it to the pseudo **&lt;value&gt;** layer within the processing frame. For 
-all the subsequent messaged, the pseudo **&lt;value&gt;** layer is responsible 
+all the subsequent messages, the pseudo **&lt;value&gt;** layer is responsible 
 to assign appropriate value (version in the example above) to the newly created 
 message object before message payload gets read. This is because such values 
 may have an influence on how the *read* operation is executed (existence of 

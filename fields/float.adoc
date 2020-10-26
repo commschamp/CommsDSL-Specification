@@ -269,8 +269,8 @@ Adding such information is possible only when the property is defined as
 XML child element.
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"? version="10">
-<schema ...>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
     <fields>
         <float name="SomeFloatField" type="float">
              <validRange value="[0.0, 10.0]" />
@@ -294,8 +294,8 @@ protocol by using **validCheckVersion** <<intro-properties, property>>, which
 is set to **true**.
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"? version="10">
-<schema ...>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
     <fields>
         <float name="SomeFloatField" type="float" validCheckVersion="true">
              <validRange value="[0.0, 10.0]" />

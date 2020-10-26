@@ -29,7 +29,7 @@ must be specified followed by a **.** (dot) and name of the chosen **&lt;validVa
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of the *SomeIntField* will be **5**.
+In the example above the **defaultValue** of the _SomeIntField_ will be **5**.
 
 When <<fields-enum, &lt;enum&gt; >> is referenced by its name, its **defaultValue** 
 is taken.
@@ -51,9 +51,9 @@ is taken.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of the *SomeIntField* is **10**, the
-value of the *S1* special is **5** (equals to **defaultValue** of *SomeEnumField*),
-and value of the *S2* special is **0**.
+In the example above the **defaultValue** of the _SomeIntField_ is **10**, the
+value of the _S1_ special is **5** (equals to **defaultValue** of _SomeEnumField_),
+and value of the _S2_ special is **0**.
 
 Floating point fields can also reference values defined in 
 <<fields-enum, &lt;enum&gt; >> fields.
@@ -100,12 +100,12 @@ field can be referenced by other numeric fields.
     </fields>
 </schema>
 ----
-In the example above **defaultValue** of *SomeEnumField* is **0**, 
-**validValue** *Val1* equals to **5**, and **validValue** *Val2* equals to
+In the example above **defaultValue** of _SomeEnumField_ is **0**, 
+**validValue** _Val1_ equals to **5**, and **validValue** _Val2_ equals to
 **10**.
 
-Also the **defaultValue** of *SomeFloatField* is **5.0**, while
-value of its *S1* special is **10.0**.
+Also the **defaultValue** of _SomeFloatField_ is **5.0**, while
+value of its _S1_ special is **10.0**.
 
 ==== Referencing Values Defined in **&lt;set&gt;**-s ====
 The **defaultValue** property of any element of the <<fields-set, &lt;set&gt; >> field
@@ -127,11 +127,11 @@ can also be referenced.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeOtherSetField* is **false**
-(same as **defaultValue** of *SomeSetField*), the **reservedValue** of
-*SetOtherField* is **true** (same as **defaultValue** of *SomeSetField.B0*), and
-the **defaultValue** of *SomeOtherSetField.B5" is **false** (same as 
-**defaultValue** of *SomeSetField.B1*).
+In the example above the **defaultValue** of _SomeOtherSetField_ is **false**
+(same as **defaultValue** of _SomeSetField_), the **reservedValue** of
+*SetOtherField* is **true** (same as **defaultValue** of _SomeSetField.B0_), and
+the **defaultValue** of _SomeOtherSetField.B5_ is **false** (same as 
+**defaultValue** of _SomeSetField.B1_).
 
 Other numeric fields, such as <<fields-enum, &lt;enum&gt; >>, <<fields-int, &lt;int&gt; >>,
 and <<fields-float, &lt;float&gt; >> can also reference boolean values of <<fields-set, &lt;set&gt; >>,
@@ -150,7 +150,7 @@ which will result in numeric values been either **0** or **1**.
     </fields>
 </schema>
 ----
-The definition above will result in **defaultValue** of *SomeFloatField* to be
+The definition above will result in **defaultValue** of _SomeFloatField_ to be
 **1.0**.
 
 ==== Referencing Values Defined in **&lt;float&gt;**-s ====
@@ -172,8 +172,8 @@ used in **defaultValue** property and/or as **&lt;special&gt;** value.
     </fields>
 </schema>
 ----
-In the example above **defaultValue** of *SomeOtherFloatField* is **inf**, 
-while value of *SomeOtherFloatField.S1* special is **nan**.
+In the example above **defaultValue** of _SomeOtherFloatField_ is **inf**, 
+while value of _SomeOtherFloatField.S1_ special is **nan**.
 
 ==== Referencing Values Defined in **&lt;string&gt;**-s ====
 When referencing values of <<fields-string, &lt;string&gt; >> fields there is a need
@@ -191,7 +191,7 @@ must be reported if referenced field is not found.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeOtherString* field is
+In the example above the **defaultValue** of _SomeOtherString_ field is
 **hello**.
 
 If there is a need to define a genuine string value that starts with `^` character,
@@ -205,7 +205,7 @@ then there is a need to escape it with `\`.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeOtherString* field is
+In the example above the **defaultValue** of _SomeOtherString_ field is
 **^SomeString**.
 
 The question may arise what if a genuine value string needs to start with `\^`.
@@ -219,7 +219,7 @@ In this case just add additional `\` at the front.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeOtherString* field is
+In the example above the **defaultValue** of _SomeOtherString_s field is
 **\^SomeString**. 
 
 The bottom line: any **prefix** sequence of `\` followed by the `^` will
@@ -235,10 +235,10 @@ other character used in the middle, the string value remains as is.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *String1* field is
+In the example above the **defaultValue** of _String1_ field is
 **\\SomeString** because there is no `^` character after `\` and 
-the **defaultValue** of *String2* field is **\.\^SomeString** because
-the sequence of `\` is interrupted by `.`. 
+the **defaultValue** of _String2_ field is **\.\^SomeString** because
+the sequence of `\` is interrupted by `.` (dot). 
 
 **NOTE**, that string referenced can be useful when <<fields-enum, &lt;enum&gt; >>
 field is used to specify numeric message IDs.
@@ -267,7 +267,7 @@ field is used to specify numeric message IDs.
 ----
 In the example above the **displayName** property of a message is
 expected to be the same as **displayName** property of appropriate
-**&lt;validValue&gt;** of *MsgId* enum. Referencing common value insures
+**&lt;validValue&gt;** of _MsgId_ enum. Referencing common value insures
 that the change to the name (if happens) propagates to appropriate fields.
 
 ==== Referencing Values Defined in **&lt;data&gt;**-s ====
@@ -287,7 +287,7 @@ external reference.
     </fields>
 </schema>
 ----
-The **defaultValue** of *SomeOtherData* will be `0x12 0x34 0x56`.
+The **defaultValue** of _SomeOtherData_ will be `0x12 0x34 0x56`.
 
 ==== Referencing Values via **&lt;ref&gt;**-s ====
 The <<fields-ref, &lt;ref&gt;>> field is there to create an alias to other field. The
@@ -306,8 +306,8 @@ if it was retrieved from the referenced field.
     </fields>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeOtherInt* is **5**, same as
-the value of *SomeInt.S1*.
+In the example above the **defaultValue** of _SomeOtherInt_ is **5**, same as
+the value of _SomeInt.S1_.
 
 ==== Referencing Values in Namespaces ====
 In case referenced field resides in a namespace, add it to the reference string
@@ -353,7 +353,7 @@ The **CommsDSL** also allows referencing values from member fields of a
     </ns>
 </schema>
 ----
-In the example above the **defaultValue** of *SomeIntField* is **5**.
+In the example above the **defaultValue** of _SomeIntField_ is **5**.
 
 ==== Referencing Values in &lt;optional&gt;-s; ====
 There are two forms of <<fields-optional, &lt;optional&gt; >> fields. One references

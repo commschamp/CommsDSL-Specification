@@ -1,0 +1,21 @@
+= CommsDSL Specification v3.1.3
+Alex Robenko
+v3.1.3, 2020-10
+:doctype: article
+:toc: left
+:source-highlighter: rouge
+:title-page:
+:numbered!:
+:sectnums!:
+:revinfo!:
+
+
+include::intro/intro.adoc[]
+include::schema/schema.adoc[]
+include::fields/fields.adoc[]
+include::messages/messages.adoc[]
+include::interfaces/interfaces.adoc[]
+include::aliases/aliases.adoc[]
+include::frames/frames.adoc[]
+include::versioning/versioning.adoc[]
+include::appendix/appendix.adoc[]

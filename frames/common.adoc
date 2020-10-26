@@ -43,7 +43,7 @@ generated class. The <<intro-properties, property>> is **description**.
 
 ==== Inner Field ====
 Every layer, except for <<frames-payload, &lt;payload&gt; >>, needs to specify
-its inner <<fields-fields, fields>> it wraps. The field can be specified
+its inner <<fields-fields, field>> it wraps. The field can be specified
 as XML child element.
 [source,xml]
 ----
@@ -57,6 +57,7 @@ as XML child element.
     </frame>
 </schema>
 ----
+
 If there is any other <<intro-properties, property>> defined as XML child
 of the layer, then the inner field must be wrapped in 
 **&lt;field&gt;** XML element for separation.

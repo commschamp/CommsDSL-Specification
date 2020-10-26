@@ -76,7 +76,7 @@ traffic reuse the same byte occupied by the `SomeEnum` field, like below.
                 <validValue name="V2" val="1" />
                 <validValue name="V3" val="2" />
             </enum>
-            <int name="SomeInt" type="uint8" bitLength="6"
+            <int name="SomeInt" type="uint8" bitLength="6" />
         </bitfield>
         ...
     </message>
@@ -95,7 +95,7 @@ like this:
                 <enum name="SomeEnum" type="uint8" bitLength="2">
                     ...
                 </enum>
-                <int name="SomeInt" type="uint8" bitLength="6"
+                <int name="SomeInt" type="uint8" bitLength="6" />
             </bitfield>
             ...
         </fields>

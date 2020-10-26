@@ -5,10 +5,10 @@ protocol by using **version** property of the <<schema-schema, schema>>
 element.
 
 Other elements, such as <<fields-fields, fields>> or 
-<<messages-messages, messages>> allow specification of version they were
+<<messages-messages, messages>> allow specification of version in which they were
 introduced by using **sinceVersion** property. It is also possible to provide
 an information about version since which the element has been deprecated using
-**deprecated** property. Usage of **deprecated** property is just an indication for
+**deprecated** property. Usage of the **deprecated** property is just an indication for
 developers that the element should not be used any more. The code generator may
 introduce this information as a comment in the generated code. However, it does **NOT** remove
 a deprecated <<fields-fields, field>> from being serialized to preserve

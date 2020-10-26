@@ -64,7 +64,7 @@ of the **&lt;variant&gt;**, then all the members must be wrapped in
 </schema>
 ----
 
-Another quite popular example of is to have heterogeneous list of 
+Another quite popular example is to have a heterogeneous list of 
 TLV (type / length / value) triplets.
 [source,xml]
 ----
