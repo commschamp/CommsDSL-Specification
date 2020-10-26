@@ -74,7 +74,7 @@ of the **&lt;interface&gt;**, then all the fields must be wrapped in
         <fields>
             <int name="Version" type="uint8" semanticType="version" />
         </fields>
-    </message>
+    </interface>
 </schema>
 ----
 

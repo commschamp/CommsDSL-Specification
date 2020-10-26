@@ -31,12 +31,12 @@ use the same name in different <<intro-namespaces, namespaces>> or different
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="1">
-        <int name="F1"> type="uint8" />
+        <int name="F1" type="uint8" />
         ...
     </message>
 
     <message name="Msg2" id="2">
-        <int name="F1"> type="int32" />
+        <int name="F1" type="int32" />
         ...
     </message>
 </schema>

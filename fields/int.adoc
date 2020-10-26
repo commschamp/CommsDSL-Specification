@@ -378,8 +378,8 @@ Adding such information is possible only when the property is defined as
 XML child element.
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"? version="10">
-<schema ...>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
     <fields>
         <int name="SomeIntField" type="uint8">
              <validRange value="[0, 10]" />
@@ -404,8 +404,8 @@ protocol by using **validCheckVersion** <<intro-properties, property>>, which
 is set to **true**.
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"? version="10">
-<schema ...>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
     <fields>
         <int name="SomeIntField" type="uint8" validCheckVersion="true">
              <validRange value="[0, 10]" />

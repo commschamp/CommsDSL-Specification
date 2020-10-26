@@ -2,6 +2,7 @@
 == Fields ==
 Any **field** can be defined as independent element inside the **&lt;fields&gt;**
 child of the <<intro-schema-def, &lt;schema&gt; >> or a <<intro-namespaces, &lt;ns&gt; >>.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -12,6 +13,7 @@ child of the <<intro-schema-def, &lt;schema&gt; >> or a <<intro-namespaces, &lt;
 </schema>
 ----
 It can also be defined as a member of a message.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
@@ -25,6 +27,7 @@ Field that is defined as a child of **&lt;fields&gt;** node of the
 <<intro-schema-def, &lt;schema&gt; >> or 
 <<intro-namespaces, &lt;ns&gt; >> can be referenced by other fields to avoid
 duplication of the same definition.
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

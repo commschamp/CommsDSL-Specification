@@ -32,7 +32,7 @@ by multiple messages. Such fields are defined as children of **&lt;fields&gt;** 
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <fields>
-        <int name="SomeField> type="uint8" />
+        <int name="SomeField" type="uint8" />
         ...
     </fields>
 </schema>

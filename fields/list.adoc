@@ -209,7 +209,7 @@ to specify a field that will prefix every element of the list.
     <fields>
         <list name="List1">
             <element>
-                <bundle name="Element>
+                <bundle name="Element">
                     ...
                 </bundle>
             </element>
@@ -223,7 +223,7 @@ to specify a field that will prefix every element of the list.
 
         <int name="ExternalElemLengthPrefix" type="uint8" />
         <list name="List2" count="16" elemLengthPrefix="ExternalElemLengthPrefix">
-            <bundle name="Element>
+            <bundle name="Element">
                 ...
             </bundle>
         </list>

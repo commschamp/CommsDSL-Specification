@@ -105,7 +105,7 @@ serialization and code generation.
 The generated code is expected to be version dependent (i.e. presence of some
 messages / fields is determined by the reported version value), if **at least** one
 of the defined <<interfaces-interfaces, &lt;interface&gt; >>-es contains
-version field (marked by **semanticType="version"**).
+version field (marked by `semanticType="version"`).
 
 If none of the interfaces has such field, then the generated code cannot be
 version dependent and all the version related properties become for documentation

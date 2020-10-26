@@ -50,7 +50,7 @@ field (using **reuse** property) and change some of them after the copy. For exa
 <schema ...>
     <fields>
         <int name="SomeIntField" type="uint8" defaultValue="3" />
-        <bitfield name="SomeBitfield>
+        <bitfield name="SomeBitfield">
             <int name="Member1" reuse="SomeIntField" bitLength="3" />
             <int name="Member2" type="uint8" defaultValue="10" bitLength="5" />
         </bitfield>

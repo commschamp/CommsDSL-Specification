@@ -4,8 +4,8 @@ This field serves as reference (alias) to other fields. It can be used
 to avoid duplication of field definition for multiple messages.
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"? version="10">
-<schema ...>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
     <fields>
         <int name="SomeIntField" type="uint8" defaultValue="Special2">
             <displayName value="Some Int Field" />
