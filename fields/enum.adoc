@@ -142,6 +142,29 @@ use **length** property to specify custom serialization length.
 <<fields-enum-underlying-type, underlying type>> (**intvar** and **uintvar**), 
 it means **maximum** allowed length.
 
+Some protocols allow (de)serialization of the **&lt;enum&gt;** field value having less bytes
+in the buffer than is required by its <<fields-enum-underlying-type, underlying type>> serialization. 
+Usually the length of such an **&lt;enum&gt;**
+field is specified externally, by the preceding "length" field in TLV (type-length-value) triplet
+(explained in detail in <<fields-variant, &lt;variant&gt; Field>> section). In order to allow code
+generator to handle such cases use **availableLengthLimit** <<intro-properties, property>>
+with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <enum name="SomeEnumField" type="uint32" availableLengthLimit="true">
+            <validValue name="Val1" val="0x0" />
+            <validValue name="Val2" val="0x0a0b" />
+            <validValue name="Val3" val="0xffffff" />
+        </enum>
+    </fields>
+</schema>
+----
+Note, that the code generator is responsible to allow external limiting serialization length for such fields
+before **write** operation takes place.
+
 ==== Length in Bits ====
 **&lt;enum&gt;** field can be a member of <<fields-bitfield, &lt;bitfield&gt; >> field.
 In this case the serialization length may be specified in bits using **bitLength**
