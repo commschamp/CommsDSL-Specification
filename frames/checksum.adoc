@@ -31,6 +31,7 @@ The checksum calculation algorithm must be specified using **alg**
 <<intro-properties, property>>. Supported values are:
 
 * **sum** - Sum of all the bytes.
+* **xor** - Exclusive OR (XOR) of all the bytes.
 * **crc-ccitt** (aliases: **crc_ccitt**) - https://en.wikipedia.org/wiki/Cyclic_redundancy_check[CRC-16-CCITT]
 where polynomial is `0x1021`, initial value is `0xffff`, final XOR value is `0`, and no reflection of bytes.
 * **crc-16** (aliases: **crc_16**) - https://en.wikipedia.org/wiki/Cyclic_redundancy_check[CRC-16-IBM],
