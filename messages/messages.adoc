@@ -189,6 +189,26 @@ appended to copied ones.
 ----
 In the example above *Msg2* will have 2 fields: *F1* and *F2*.
 
+Since version *4.0* of the *CommsDSL*, the *copyFieldsFrom* property allows copying
+fields from the global **&lt;bundle&gt;** field as well.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="B1">
+            <int name="F1" type="uint32" />
+            <int name="F2" type="uint16" />
+        </bundle>
+    </fields>
+    
+    <message name="Msg1" id="1" copyFieldsFrom="B1">
+        <int name="F3" type="uint16" />
+    </message>
+</schema>
+----
+In the example above *Msg1* will have 3 fields: *F1*, *F2*, and *F3*.
+
 [[messages-ordering]]
 === Ordering ===
 There are protocols that may define various forms of the same message, 

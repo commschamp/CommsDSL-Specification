@@ -9,8 +9,8 @@ for detailed description.
 
 |**name**|<<intro-names, name>> string|1|yes||Name of the interface.
 |**description**|string|1|no||Human readable description of the interface.
-|**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Interface definition from which fields need to be copied.
-|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<interfaces-interfaces, &lt;interface&gt; >>.
+|**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Interface or bundle field definition from which fields need to be copied.
+|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<interfaces-interfaces, &lt;interface&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
 |===
 
 
