@@ -20,6 +20,7 @@ Must be greater than value of **sinceVersion**.
 |**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
 |**customizable**|<<intro-boolean, bool>>|1|no|false|Mark the message to allow compile time customization regardless of code generator's level of customization.
 |**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<messages-messages, &lt;message&gt; >>.
+|**validateMinLength**|<<intro-numeric, numeric>>|4|no|N/A|Specify expected minimal serialization length of the message fields.
 |===
 
 Extra child XML elements allowed:
