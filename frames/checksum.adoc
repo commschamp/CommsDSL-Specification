@@ -26,6 +26,7 @@ present at the end of the <<frames-frames, frame>>.
 The **&lt;checksum&gt;** layer has all the <<frames-common, common>> properties
 as well as extra properties and elements described below.
 
+[[frames-checksum-algorithm]]
 ==== Checksum Algorithm ====
 The checksum calculation algorithm must be specified using **alg**
 <<intro-properties, property>>. Supported values are:
@@ -76,6 +77,7 @@ The provided name of the custom algorithm can be used by the code generator
 to locate the required external implementation file and use appropriate 
 class / function name when the calculation functionality needs to be invoked.
 
+[[frames-checksum-calculation-area]]
 ==== Calculation Area ====
 The **checksum** layer definition must also specify the layers, data of which is
 used to calculate the checksum. It is done using **from** property that is
@@ -129,6 +131,7 @@ of **from**) to specify layers for checksum calculation.
 </schema>
 ----
 
+[[frames-checksum-verification-order]]
 ==== Checksum Verification Order ====
 The default behavior of the **&lt;checksum&gt;** layer is to perform calculation
 after all relevant layers and their fields have been successfully read and
@@ -161,5 +164,43 @@ verification use **verifyBeforeRead** <<intro-properties, property>> with
     </frame>
 </schema>
 ----
+**WARNING**: Incorrect use of **verifyBeforeRead** <<intro-properties, property>> can be dangerous especially
+for the cases when the **&lt;checksum&gt;** follows **&lt;payload&gt;**. The 
+order of framing layers processing is NOT pre-determined, it's up to the code generator to choose. In cases when
+**&lt;checksum&gt;** covers the **&lt;size&gt;** in its checksum calculation area and the **verifyBeforeRead** property
+value is set to **true**, the checksum calculation happens right away assuming that the checksum value is located 
+__at the end of the input buffer__ rather than bound by the value of the **&lt;size&gt;** layer field.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <sync name="Sync">
+            ...
+        </sync>
+        <size name="Size">
+            ...
+        </size>
+        <id name="Id">
+            ...  
+        </id>
+        <payload name="Data" />
+        
+        <!-- Incorrect and dangerous -->
+        <checksum name="Checksum" alg="crc-16" from="Size" verifyBeforeRead="true">
+            <int name="ChecksumField" type="uint16" />
+        </checksum>        
+    </frame>
+</schema>
+----
+Such assumption is obviously incorrect when stream communication I/O link is used (like RS-232 or TCP/IP) and multiple 
+as well as partial messages can reside in the input buffer at the same time. However, in cases like
+datagram communication I/O link (like UDP/IP) when the messages are received in full and processed one by one,
+the assumption of having checksum value location at the end of the input
+buffer may be correct.
+
+The bottom line, set the **verifyBeforeRead** property value only when you know what you're doing. 
+It's an optimization feature in vast majority of cases.
+Make the code work correctly without it first and only add it to improve runtime performance.
 
 Use <<appendix-checksum, properties table>> for future references.
