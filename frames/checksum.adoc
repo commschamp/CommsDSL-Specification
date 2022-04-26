@@ -139,6 +139,12 @@ is already processed, so the right location of checksum value is known,
 and it is not included in checksum calculation. To force immediate checksum
 verification use **verifyBeforeRead** <<intro-properties, property>> with
 <<intro-boolean, boolean>> value.
+
+**NOTE:** **verifyBeforeRead** is probably not appropriate for a stream-based 
+transport where there may be partial or multiple frames in the receive buffer as 
+the checksum will be calculated over all available bytes which will lead to data 
+being discarded. It is designed to support datagram or queue type transports 
+through which whole candidate messages are handled one at a time.
 [source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
