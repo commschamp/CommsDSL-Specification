@@ -4,6 +4,7 @@ Every field is different, and defines its own properties and/or other aspects.
 However, there are common properties, that are applicable to every field. 
 They are summarized below.
 
+[[fields-common-name]]
 ==== Name ====
 Every field must define it's <<intro-names, name>>, which is expected to be 
 used by a code generator when defining a relevant class. The name is defined
@@ -18,6 +19,7 @@ using **name** <<intro-properties, property>>.
 </schema>
 ----
 
+[[fields-common-description]]
 ==== Description ====
 It is possible to provide a description of the field about what it is and
 how it is expected to be used. This description is only for documentation
@@ -39,6 +41,7 @@ generated class. The <<intro-properties, property>> is **description**.
 </schema>
 ----
 
+[[fields-common-reusing-other-fields]]
 ==== Reusing Other Fields ====
 Sometimes two different fields are very similar, but differ in one particular
 aspect. **CommsDSL** allows copying all the properties from previously defined
@@ -65,6 +68,7 @@ The **reuse** is allowed only from the field of the same **kind**. For example,
 it is **NOT** allowed for <<fields-enum, &lt;enum&gt; >> field to reuse definition of
 <<fields-int, &lt;int&gt; >>, only other <<fields-enum, &lt;enum&gt; >>.
 
+[[fields-common-forcing-generation]]
 ==== Forcing Generation ====
 By default the code generator is expected not to generate code for fields that
 are not <<intro-references, referenced>> by any other field to reduce amount of 
@@ -82,6 +86,7 @@ has been introduced with <<intro-boolean, boolean>> value.
 </schema>
 ----
 
+[[fields-common-display-properties]]
 ==== Display Properties ====
 **CommsDSL** supports generation of not only field's serialization and
 value access functionality, but also of various GUI protocol visualization, debugging and
@@ -141,6 +146,7 @@ value.
 </schema>
 ----
 
+[[fields-common-versioning]]
 ==== Versioning ====
 **CommsDSL** allows providing an information in what version the field was added
 to a particular message, as well as in what version it was deprecated, and whether
@@ -180,6 +186,7 @@ should be ignored by the code generator. It is allowed when field is a member
 of a <<messages-messages, &lt;message&gt; >> or a 
 <<fields-bundle, &lt;bundle&gt; >> field.
 
+[[fields-common-failing-read-of-the-field-on-invalid-value]]
 ==== Failing Read of the Field on Invalid Value ====
 Some fields may specify what values are considered to be valid, and there may
 be a need to fail the **read** operation in case the received value is invalid.
@@ -217,6 +224,7 @@ operation doesn't fail. The **order** property of the message specifies in
 what order the messages with the same ID must be read. It described in more
 detail in <<messages-messages, Messages>> chapter.
 
+[[fields-common-pseudo-fields]]
 ==== Pseudo Fields ====
 Sometimes there may be a need to have "psuedo" fields, which are implemented
 using proper field abstration, and are handled as
@@ -235,6 +243,7 @@ value.
 </schema>
 ----
 
+[[fields-common-customizable-fields]]
 ==== Customizable Fields ====
 The code generator is expected to allow some level of compile time customization of the 
 generated code, such as choosing different data structures and/or adding/replacing
@@ -254,6 +263,7 @@ customizable at compile time.
 </schema>
 ----
 
+[[fields-common-semantic-type]]
 ==== Semantic Type ====
 Sometimes code generator may generate a bit different (or better) code for fields that are
 used for some particular purpose. To specify such purpose use **semanticType**
@@ -288,5 +298,45 @@ was introduced in **v2.0** of **CommsDSL** specification.
     </fields>
 </schema>
 ----
+
+[[fields-common-ensuring-overriding-code-injection]]
+==== Ensuring Overriding Code Injection  ====
+In some cases the **CommsDSL** may be insufficient to express the the protocol definition in correct way.
+To handle such cases the code generator is expected to allow injection of the custom / overriding code
+to fix / replace the default implementation produced by the code generator. 
+
+The code generator is expected to generate the default code for the following operations:
+
+* **read** - Reading the field's value from the input buffer
+* **write** - Writing the field's value to the output buffer
+* **refresh** - Update the field's value to a consistent state. Note, that in some composite fields 
+like <<fields-bundle, &lt;bundle&gt; >>, values of internal members may depend on the values of other 
+members creating the situation where the whole state may be inconsistent / incorrect. Invoking the **refresh** operation is 
+expected to update the values of inner fields to bring the field into a consistent / correct state.
+* **length** - Returning the serialization length of the field.
+* **valid** - Returning whether the field's value is valid.
+* **name** - Returning the name of the field.
+
+To ensure visibility and/or help with forcing the injection of the correcting code, 
+the **CommsDSL** provides the following <<intro-properties, properties>>.
+
+* **readOverride** - Control the overriding code injection for the **read** operation.
+* **writeOverride** - Control the overriding code injection for the **write** operation.
+* **refreshOverride** - Control the overriding code injection for the **refresh** operation.
+* **lengthOverride** - Control the overriding code injection for the **length** operation.
+* **validOverride** - Control the overriding code injection for the **valid** operation.
+* **nameOverride** - Control the overriding code injection for the **name** operation.
+
+The value of the <<intro-properties, properties>> above can be one of the following:
+
+* **any** (default) - Inject the overriding code if available, use the code generated by default if not.
+* **replace** - The default code code is incorrect, replace it with the provided one. The code generator is expected
+to report a failure in case the overriding code is unavailable.
+* **extend** - The default code is still incorrect, but the code generator is expected to 
+produce it (with some minor renaming to avoid names clashing) to allow reuse and extension in the overriding code. The code generator is expected
+to report a failure in case the overriding code is unavailable.
+* **none** - The code generator is expected to ignore the overriding code if it's available and 
+produce the one generated by default instead.
+
 
 Use <<appendix-fields, properties table>> for future references.

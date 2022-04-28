@@ -26,7 +26,7 @@ for detailed description.
 |**displayOffset**|<<intro-numeric, numeric>>|1|no|0|Indicates to GUI analysis tools to add specified offset value to a field's value when displaying it.
 |**nonUniqueSpecialsAllowed**|<<intro-boolean, bool>>|2|no|false|Allow non unique **&lt;special&gt;**-s.
 |**displaySpecials**|<<intro-boolean, bool>>|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.
-|**defaultValidValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|4|no|N/A|Convenience bunding of the **defaultValue** and **validValue** into a single property.
+|**defaultValidValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|4|no||Convenience bunding of the **defaultValue** and **validValue** into a single property.
 |**availableLengthLimit**|<<intro-boolean, bool>>|4|no|false|Allow having less bytes in the buffer than required by the **type** when performing (de)serialization.
 |===
 
