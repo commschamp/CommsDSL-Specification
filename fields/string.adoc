@@ -13,8 +13,11 @@ as well as extra properties and elements described below.
 </schema>
 ----
 Such definition of the **&lt;string&gt;** does **NOT** have any limit on
-the length of the string, and will consume all the available data in the 
-input buffer.
+the length of the string, and will consume all the __available__ bytes in the 
+input buffer. Note, that the __available__ bytes may be bound by the 
+<<frames-size, &lt;size&gt; >> layer of the <<frames-frames, &lt;frame&gt; >> or 
+other means. It does NOT necessarily mean that all the bytes received from the I/O link
+will be consumed.
 
 ==== Default Value ====
 The default value of the **&lt;string&gt;** field when constructed can be specified
