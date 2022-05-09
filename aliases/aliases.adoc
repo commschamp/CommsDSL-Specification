@@ -129,8 +129,8 @@ the generated code as a comment for the relevant access functions.
 ----
 
 === More on Aliases in &lt;message&gt;-es ===
-When a new <<messages-messages, &lt;message&gt; >> is defined it can
-copy all the fields from other already defined <<messages-messages, &lt;message&gt; >>
+When a new <<messages-messages, &lt;message&gt; >> is defined, it can
+copy all the fields from other already defined <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>
 (using **copyFieldsFrom** <<intro-properties, property>>).
 By default all the <<aliases-aliases, &lt;alias&gt; >> definitions are also copied.
 It is possible to modify this default behavior by using **copyFieldsAliases** 
@@ -154,7 +154,7 @@ It is possible to modify this default behavior by using **copyFieldsAliases**
 Similar to <<messages-messages, &lt;message&gt; >>-es 
 <<interfaces-interfaces, &lt;interface&gt; >> can also use **copyFieldsFrom** 
 <<intro-properties, property>> to copy its field from some other 
-<<interfaces-interfaces, &lt;interface&gt; >> definition and have all
+<<interfaces-interfaces, &lt;interface&gt; >> or <<fields-bundle, &lt;bundle&gt; >> definition and have all
 the aliases copied by default. The control of such default copying behavior
 is also done by using **copyFieldsAliases** 
 <<intro-properties, property>> with <<intro-boolean, boolean>> value.

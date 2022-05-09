@@ -54,6 +54,7 @@ It is highly recommended to define "message ID" numeric values as external
 **NOTE**, that **&lt;enum&gt;** `MsgId` is marked to contain numeric IDs of the 
 messages by having `semanticType="messageId"` property assigned.
 
+[[messages-description]]
 === Description ===
 It is possible to provide a description of the message about what it is and
 how it is expected to be used. This description is only for documentation
@@ -74,6 +75,7 @@ generated class. The <<intro-properties, property>> is **description**.
 </schema>
 ----
 
+[[messages-display-name]]
 === Display Name ===
 When various analysis tools display message details, the preference is to 
 display proper space separated name (which is defined using **displayName**
@@ -116,6 +118,7 @@ of **&lt;enum&gt;** that lists numeric IDs of the messages:
 </schema>
 ----
 
+[[messages-fields]]
 === Fields ===
 Every **&lt;message&gt;** has zero or more <<fields-fields, fields>> that 
 can be specified as child XML elements.
@@ -186,6 +189,27 @@ appended to copied ones.
 ----
 In the example above *Msg2* will have 2 fields: *F1* and *F2*.
 
+Since version *4.0* of the *CommsDSL*, the *copyFieldsFrom* property allows copying
+fields from the global **&lt;bundle&gt;** field as well.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="B1">
+            <int name="F1" type="uint32" />
+            <int name="F2" type="uint16" />
+        </bundle>
+    </fields>
+    
+    <message name="Msg1" id="1" copyFieldsFrom="B1">
+        <int name="F3" type="uint16" />
+    </message>
+</schema>
+----
+In the example above *Msg1* will have 3 fields: *F1*, *F2*, and *F3*.
+
+[[messages-ordering]]
 === Ordering ===
 There are protocols that may define various forms of the same message, 
 which share the same numeric ID, but are differentiated by a serialization 
@@ -217,6 +241,7 @@ with the same numeric ID.
 All the **order** values for the same numeric ID must be unique, but not necessarily
 sequential.
 
+[[messages-versioning]]
 === Versioning ===
 **CommsDSL** allows providing an information in what version the message was added
 to the protocol, as well as in what version it was deprecated, and whether
@@ -287,6 +312,7 @@ The main consideration for what format to choose should be whether the platforms
 support for the message should or should **NOT** be added automatically when
 new **&lt;platform&gt;** is defined.
 
+[[messages-sender]]
 === Sender ===
 In most protocols there are uni-directional messages. The **CommsDSL**
 allows definition of entity that sends a particular message using **sender**
@@ -313,6 +339,24 @@ and/or data structures to be used for *client* and/or *server* implementation.
 In the example above *Msg1* and *Msg2* are uni-directional messages, while
 *Msg3* is bi-directional.
 
+[[messages-message-length-validation]]
+=== Message Length Validation ===
+Many protocol specifications provide expected serialization length of the message. In order to
+prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to 
+validate the specified message length during the schema file parsing. To perform such a 
+check use **validateMinLength** <<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" validateMinLength="6" ...>
+        <int name="F1" type="uint32" />
+        <int name="F2" type="uint16" />
+    </message>
+</schema> 
+----
+
+[[messages-customization]]
 === Customization ===
 The code generator is expected to allow some level of compile time customization of the 
 generated code, such as enable/disable generation of particular virtual functions. 
@@ -332,10 +376,50 @@ customizable at compile time.
 </schema>
 ----
 
+[[messages-alias-to-fields]]
 === Alias Names to Member Fields ===
 Sometimes an existing member field may be renamed and/or moved. It is possible to
 create alias names for the fields to keep the old client code being able to compile
 and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
+
+[[messages-ensuring-serialization-length]]
+=== Ensuring Serialization Length ===
+Many protocol specifications indicate the expected message serialization length, especially
+when message has fixed length. The **CommsDSL** allows specifying expected minimal length
+using **validateMinLength** property with <<intro-numeric, unsigned>> value to help avoid some copy-paste or typo errors 
+at the time of schema parsing rather than debugging generated incorrect code.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1" validateMinLength="6">
+        <int name="F1" type="uint32" />
+        <int name="F2" type="int16" />
+        <optional name="F3" defaultMode="exist">
+            <int name="F3Field" type="uint8" />
+        </optional>
+    </message>
+</schema>
+----
+Note, that <<fields-optional, &lt;optional&gt; >> field is always expected to have 0 minimal length regardless
+of its <<fields-optional-existence-conditions, existence conditions>>.
+
+Also note, that the value of **validateMinLength** is the expected serialization length of 
+message fields __without__ the fields of the <<frames-frames, &lt;frame&gt; >>.
+
+[[messages-ensuring-overriding-code-injection]]
+=== Ensuring Overriding Code Injection  ===
+Similar to <<fields-common-ensuring-overriding-code-injection, fields>> the default code
+generation for the <<messages-messages, &lt;message&gt; >> definition may be incomplete or incorrect. The code generator 
+is expected to allow injection of the overriding code to allow replacing or extension of 
+the default one.
+
+The code generator is expected to produce the same operations / functionality as with fields.
+It's **read**, **write**, **refresh**, **length**, **valid**, and **name**. The same
+overriding control properties can be apply to the <<messages-messages, &lt;message&gt;-s>>
+(**readOverride**, **writeOverride**, **refreshOverride**, **lengthOverride**, **validOverride**,
+and **nameOverride**) with the same values (**any**, **replace**, **extend**, **none**).
+
 
 Use <<appendix-message, properties table>> for future references.
 

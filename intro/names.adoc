@@ -3,7 +3,7 @@
 Almost every element has a required **name** <<intro-properties, property>>. Provided
 value will be used to generate appropriate classes and/or relevant access functions.
 As the result, the chosen names must be only alphanumeric and
-`_' (underscore) characters, but also mustn't start with a number.
+'_' (underscore) characters, but also mustn't start with a number.
 The provided value is case sensitive. However, the code generator is allowed
 to change the case of to first letter of the provided value. It is up to the
 code generator to choose whether to use **camelCase** or **PascalCase** when

@@ -90,7 +90,7 @@ property or other construct.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-<schema name="MyProtocol" dslVersion="3">
+<schema name="MyProtocol" dslVersion="4">
     ...
 </schema>
 ----

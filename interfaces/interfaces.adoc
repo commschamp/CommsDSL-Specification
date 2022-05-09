@@ -98,6 +98,23 @@ extra fields when needed.
 ----
 In the example above *Interface2* will have **2** fields: "Version" and "Flags". 
 
+Since version *4.0* of the *CommsDSL* the *copyFieldsFrom* property allows copying
+fields  from the global **&lt;bundle&gt;** field as well.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <bundle name="B1">
+        <int name="Version" type="uint8" semanticType="version" />
+        <set name="Flags" length="1">
+            ...
+        </set>        
+    </bundle>
+        
+    <interface name="Interface1" copyFieldsFrom="B1" />
+</schema>
+----
+
 If the protocol doesn't have any extra values delivered in message framing, then
 the whole definition of the  **&lt;interface&gt;** XML element can be omitted.
 If no **&lt;interface&gt;** node has been added to the protocol schema, then 

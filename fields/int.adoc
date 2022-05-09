@@ -34,6 +34,7 @@ The variable length types are encoded using **Base-128** form, such as
 https://en.wikipedia.org/wiki/LEB128[LEB128] for *little* endian or similar for
 *big* endian.
 
+[[fields-int-special-values]]
 ==== Special Values ====
 Some protocol may assign a special meaning for some values. For example, some
 field specifies configuration of some timer duration, when **0** value means
@@ -90,6 +91,7 @@ property. It is done as protection against copy-paste errors. However,
 </schema>
 ----
 
+[[fields-int-default-value]]
 ==== Default Value ====
 The default value of the **&lt;int&gt;** field when constructed can be specified
 using **defaultValue** property. If not specified, defaults to **0**.
@@ -117,6 +119,7 @@ The default value can also be specified using the name of one of the
 </schema>
 ----
 
+[[fields-int-endian]]
 ==== Endian ====
 The default serialization endian of the protocol is specified in **endian**
 property of the <<schema-schema, schema>>. It is possible to override the
@@ -151,6 +154,27 @@ use **length** property to specify custom serialization length.
 <<fields-int-underlying-type, underlying types>> (**intvar** and **uintvar**), 
 it means **maximum** allowed length.
 
+Some protocols allow (de)serialization of the **&lt;int&gt;** field value having less bytes
+in the buffer than is required by its <<fields-int-underlying-type, underlying type>> serialization. 
+Usually the length of such an **&lt;int&gt;**
+field is specified externally, by the preceding "length" field in TLV (type-length-value) triplet
+(explained in detail in <<fields-variant, &lt;variant&gt; Field>> section). In order to allow code
+generator to handle such cases use **availableLengthLimit** <<intro-properties, property>>
+with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="SomeIntField" type="uint32" availableLengthLimit="true" />
+    </fields>
+</schema>
+----
+Note, that the code generator is responsible to allow external limiting serialization length for such fields
+before **write** operation takes place.
+
+
+[[fields-int-length-bits]]
 ==== Length in Bits ====
 **&lt;int&gt;** field can be a member of <<fields-bitfield, &lt;bitfield&gt; >> field.
 In this case the serialization length may be specified in bits using **bitLength**
@@ -196,7 +220,7 @@ serialization.
 **NOTE**, that value of **serOffset** property must fit into the underlying type
 defined using **type** property.
 
-
+[[fields-int-sign-extension]]
 ==== Sign Extension ====
 When limiting <<fields-int-serialization-length, serialization length>> using **length** 
 property, the performed **read** operation is expected to sign 
@@ -267,6 +291,7 @@ It is possible to omit the **denominator** value.
 ----
 In the example above it is equivalent to having **scaling="4/1"** defined.
 
+[[fields-int-units]]
 ==== Units ====
 Protocols quite often specify what units are being transfered. The **CommsDSL**
 provides **units** <<intro-properties, property>> to specify this information.
@@ -301,6 +326,7 @@ The code generator may generate code that allows retrieval of proper
 (floating point) value of either **degrees** or **radians**, while all the
 scaling and conversion math is done automatically.
 
+[[fields-int-valid-values]]
 ==== Valid Values ====
 Many protocols specify ranges of values the field is allowed to have and how
 client code is expected to behave on reception of invalid values. The code
@@ -393,6 +419,7 @@ The **sinceVersion** and **deprecated** properties are described in detail as
 <<fields-common, Common Properties of Fields>>.
 
 
+[[fields-int-version-based-validity]]
 ==== Version Based Validity ====
 The code generator is expected to generate functionality checking that 
 **&lt;int&gt;** field contains a valid value. By default if the field's value 
@@ -416,6 +443,26 @@ is set to **true**.
 </schema>
 ----
 
+[[fields-int-single-valid-value]]
+==== Single Valid Value ====
+Sometimes the **&lt;int&gt;** field has only one valid value and it must be initialized with it. The
+**defaultValidValue** <<intro-properties, property>> can be used as a replacement to the combination of 
+**defaultValue** and **validValue** ones having to specify the same value:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
+    <fields>
+        <int name="SomeIntField" type="uint8" defaultValidValue="1" failOnInvalid="true" ... />
+        
+        <!-- Instead of:
+        <int name="SomeIntField" type="uint8" defaultValue="1" validValue="1" failOnInvalid="true" ... />
+        -->        
+    </fields>
+</schema>
+----
+
+[[fields-int-extra-display-properties]]
 ==== Extra Display Properties ====
 When <<fields-int-scaling, scaling>> information is specified, it is possible to notify 
 GUI analysis tools that value of **&lt;int&gt;** field should be displayed as
