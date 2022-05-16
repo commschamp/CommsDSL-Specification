@@ -16,6 +16,7 @@ for detailed description.
 |**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
 |**nonUniqueAllowed**|<<intro-boolean, bool>>|1|no|false|Allow non unique **&lt;bit&gt;**-s.
 |**validCheckVersion**|<<intro-boolean, bool>>|1|no|false|Take into account protocol version when generating code for field's value validity check.
+|**availableLengthLimit**|<<intro-boolean, bool>>|4|no|false|Allow having less bytes in the buffer than required by the **type** or **length** when performing (de)serialization.
 |===
 
 ==== Properties of &lt;bit&gt; Child Element of &lt;set&gt; Field ====
