@@ -273,16 +273,6 @@ Available semantic types are:
 
 * **messageId** - Used to specify what type/field is used for holding numeric 
 message ID. Applicable to <<fields-enum, &lt;enum&gt; >> fields.
-* **version** - Used to specify that the field is used to hold protocol version.
-Applicable to <<fields-int, &lt;int&gt; >> field (or <<fields-ref, &lt;ref&gt; >> referening
-an <<fields-int, &lt;int&gt; >>).
-* **length** - Used to specify that the field holds total serialization length 
-of the subsequent fields. Applicable to <<fields-int, &lt;int&gt; >> field 
-(or  <<fields-ref, &lt;ref&gt; >> referening an <<fields-int, &lt;int&gt; >>). 
-The **length** semantic type makes sense only for 
-a member of <<fields-bundle, &lt;bundle&gt; >> field and should be ignored in
-all other cases. The **length** semantic type
-was introduced in **v2.0** of **CommsDSL** specification.
 
 [source,xml]
 ----
@@ -295,6 +285,47 @@ was introduced in **v2.0** of **CommsDSL** specification.
             <validValue name="Msg3" val="0x03" />
             ...
         </enum>
+    </fields>
+</schema>
+----
+
+* **version** - Used to specify that the field is used to hold protocol version.
+Applicable to <<fields-int, &lt;int&gt; >> field (or <<fields-ref, &lt;ref&gt; >> referening
+an <<fields-int, &lt;int&gt; >>).
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <int name="Version" type="uint8" semanticType="version" />
+    </fields>
+</schema>
+----
+
+* **length** - Introduced in **v2.0** of **CommsDSL** specification. 
+Used to specify that the field holds total serialization length 
+of the **subsequent** fields. Usually applicable to <<fields-int, &lt;int&gt; >> field 
+(or  <<fields-ref, &lt;ref&gt; >> referencing an <<fields-int, &lt;int&gt; >>). 
+Since **v4.1** of **CommsDSL**, the **length** semantic type can be set for other
+complex fields, such as <<fields-bundle, &lt;bundle&gt; >> or <<fields-bitfield, &lt;bitfield&gt; >>.
+However, in such case the code generator may expect injection of custom code
+(see <<fields-common-ensuring-overriding-code-injection, Ensuring Overriding Code Injection>> section below)
+to override the value retrieval to make sure that the value is numeric.
+In most cases the **length** semantic type is expected to be used for 
+a member of <<fields-bundle, &lt;bundle&gt; >> field to limit the serialization length
+of the member fields that follow.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="CompositeField" >
+            <int name="Type" type="uint8" ... />
+            <int name="Length" type="uint16" semanticType="length" />
+            <string name="Value" />
+        </bundle>
     </fields>
 </schema>
 ----
