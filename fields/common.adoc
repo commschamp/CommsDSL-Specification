@@ -338,8 +338,9 @@ to fix / replace the default implementation produced by the code generator.
 
 The code generator is expected to generate the default code for the following operations:
 
-* **read** - Reading the field's value from the input buffer
-* **write** - Writing the field's value to the output buffer
+* **value** - Set/Get field's value functionality.
+* **read** - Reading the field's value from the input buffer.
+* **write** - Writing the field's value to the output buffer.
 * **refresh** - Update the field's value to a consistent state. Note, that in some composite fields 
 like <<fields-bundle, &lt;bundle&gt; >>, values of internal members may depend on the values of other 
 members creating the situation where the whole state may be inconsistent / incorrect. Invoking the **refresh** operation is 
@@ -351,6 +352,7 @@ expected to update the values of inner fields to bring the field into a consiste
 To ensure visibility and/or help with forcing the injection of the correcting code, 
 the **CommsDSL** provides the following <<intro-properties, properties>>.
 
+* **valueOverride** - Control the overriding code injection for the **value** operation(s).
 * **readOverride** - Control the overriding code injection for the **read** operation.
 * **writeOverride** - Control the overriding code injection for the **write** operation.
 * **refreshOverride** - Control the overriding code injection for the **refresh** operation.

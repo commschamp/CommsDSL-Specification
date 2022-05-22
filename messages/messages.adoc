@@ -414,11 +414,23 @@ generation for the <<messages-messages, &lt;message&gt; >> definition may be inc
 is expected to allow injection of the overriding code to allow replacing or extension of 
 the default one.
 
-The code generator is expected to produce the same operations / functionality as with fields.
-It's **read**, **write**, **refresh**, **length**, **valid**, and **name**. The same
+The code generator is expected to produce the same operations / functionality as with fields (excluding **value**).
+
+* **read** - Reading all the message fields from the input buffer.
+* **write** - Writing all the message fields to the output buffer.
+* **refresh** - Bringing message fields to a consistent state. Note, that values of some member fields 
+may depend on the values of other ones creating the situation where the whole state may be inconsistent / incorrect. 
+Invoking the **refresh** operation is 
+expected to update the values of member fields to bring the message contents into a consistent / correct state.
+* **length** - Returning the serialization length of the message fields.
+* **valid** - Returning whether values of all the message fields are valid.
+* **name** - Returning the name of the message.
+
+The same
 overriding control properties can be apply to the <<messages-messages, &lt;message&gt;-s>>
 (**readOverride**, **writeOverride**, **refreshOverride**, **lengthOverride**, **validOverride**,
 and **nameOverride**) with the same values (**any**, **replace**, **extend**, **none**).
+
 
 
 Use <<appendix-message, properties table>> for future references.
