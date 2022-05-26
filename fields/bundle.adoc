@@ -53,6 +53,7 @@ of the **&lt;bundle&gt;**, then all the members must be wrapped in
 </schema>
 ----
 
+[[fields-bundle-reusing-other-bundle]]
 ==== Reusing Other Bundle ====
 Like any other field, **&lt;bundle&gt;** supports **reuse** of any other **&lt;bundle&gt;**.
 Such reuse copies all the fields from original **&lt;bundle&gt;** in addition
@@ -75,6 +76,95 @@ to all the properties. Any new defined member field gets **appended** to the cop
 ----
 In the example above *SomeOtherBundle* has **3** member fields: *F1*, *F2*, and *F3*.
 
+[[fields-bundle-replacing-member-fields]]
+==== Replacing Member Fields ====
+It is possible to replace some of the copied member fields after 
+<<fields-common-reusing-other-fields, reuse>> using **&lt;replace&gt;**
+child node, which wraps the replacing fields.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bundle name="SomeBundle">
+            <int name="Mem1" type="uint8" />
+            <enum name="Mem2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </bundle>
+        
+        <bundle name="SomeOtherBundle" reuse="SomeBundle">
+            <replace>
+                <set name="Mem2" type="uint8">
+                    <bit name="B0" idx="0" />
+                    <bit name="B1" idx="1" />
+                </set>
+            </replace>
+        </bundle>
+    </fields>
+</schema>
+----
+
+The replacing field must have the same name as the reused member field it is
+replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
+the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
+is not important, the order of the fields is determined by the original 
+**&lt;bundle&gt;** field, which was <<fields-common-reusing-other-fields, reused>>.
+
+It is possible to combine **&lt;replace&gt;**-ing copied member fields and extending
+the **&lt;bundle&gt;** with new fields. 
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bundle name="SomeBundle">
+            <int name="Mem1" type="uint8" />
+            <enum name="Mem2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </bundle>
+        
+        <bundle name="SomeOtherBundle" reuse="SomeBundle">
+            <replace>
+                <set name="Mem2" type="uint8">
+                    <bit name="B0" idx="0" />
+                    <bit name="B1" idx="1" />
+                </set>
+            </replace>
+            <members>
+                <int name="Mem3" type="uint16" />
+            </members>
+        </bundle>
+    </fields>
+</schema>
+----
+
+
+The example above is equivalent to defining `SomeOtherBundle` **&lt;bundle&gt;** field
+in the following way.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bundle name="SomeOtherBundle">
+            <int name="Mem1" type="uint8" />
+            <set name="Mem2" type="uint8">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Mem3" type="uint16" />
+        </bundle>
+    </fields>
+</schema>
+----
+
+
+[[fields-bundle-alias-names]]
 ==== Alias Names to Member Fields ====
 Sometimes an existing member field may be renamed and/or moved. It is possible to
 create alias names for the fields to keep the old client code being able to compile

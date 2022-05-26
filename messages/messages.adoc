@@ -2,6 +2,7 @@
 == Messages ==
 Every message is defined using **&lt;message&gt;** XML element.
 
+[[messages-messages-message-name]]
 === Message Name ===
 Every message definition must specify its <<intro-names, name>> using
 **name** <<intro-properties, property>>.
@@ -208,6 +209,77 @@ fields from the global **&lt;bundle&gt;** field as well.
 </schema>
 ----
 In the example above *Msg1* will have 3 fields: *F1*, *F2*, and *F3*.
+
+It is also possible to replace some of the fields after copying using 
+**&lt;replace&gt;** child node.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <int name="F1" type="uint32" />
+        <int name="F2" type="uint8" />
+    </message>
+    
+    <message name="Msg2" id="2" copyFieldsFrom="Msg1">
+        <replace>
+            <enum name="F2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </replace>
+    </message>
+</schema>
+----
+The replacing field must have the same name as the copied member field it is
+replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
+the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
+is not important, the order of the fields is determined by the original 
+**&lt;message&gt;** or **&lt;bundle&gt;** field, member fields of which were
+copied.
+
+It is possible to combine **&lt;replace&gt;**-ing copied fields and extending
+the **&lt;message&gt;** with new fields. 
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <int name="F1" type="uint32" />
+        <int name="F2" type="uint8" />
+    </message>
+    
+    <message name="Msg2" id="2" copyFieldsFrom="Msg1">
+        <replace>
+            <enum name="F2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </replace>
+        <fields>
+            <int name="F3" type="uint16" />
+        </fields>
+    </message>
+</schema>
+----
+
+The example above is equivalent to defining `Msg2` **&lt;message&gt;**
+in the following way.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <message name="Msg2" id="2">
+        <int name="F1" type="uint32" />    
+        <enum name="F2" type="uint8">
+            <validValue name="V0" val="0" />
+            <validValue name="V1" val="1" />
+        </enum>
+        <int name="F3" type="uint16" />
+    </message>
+</schema>
+----
 
 [[messages-ordering]]
 === Ordering ===
