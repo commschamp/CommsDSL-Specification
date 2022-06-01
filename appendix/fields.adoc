@@ -8,7 +8,7 @@ Refer to <<fields-common, Common Properties of Fields>> chapter for detailed des
 
 |**name**|<<intro-names, name>> string|1|yes||Name of the field.
 |**description**|string|1|no||Human readable description of the field.
-|**reuse**|<<intro-references, reference>> string|1|no||Field definition of which to copy.
+|**reuse**|<<intro-references, reference>> string|1|no||Field, definition of which to copy.
 |**displayName**|string|1|no||Name of the field to display. If empty, the code generator must use value of property **name** instead. In order to force empty name to display, use "_" (underscore).
 |**displayReadOnly**|<<intro-boolean, bool>>|1|no|false|Disable modification of the field in visual analysis tool(s).
 |**displayHidden**|<<intro-boolean, bool>>|1|no|false|Don't display field at all in visual analysis tool(s).
@@ -31,4 +31,5 @@ Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
+|**copyOverrideCodeFrom**|<<intro-references, reference>> string|4|no||Specify field, injected overriding code of which needs to be copied.
 |===

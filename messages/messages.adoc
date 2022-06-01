@@ -503,7 +503,43 @@ overriding control properties can be apply to the <<messages-messages, &lt;messa
 (**readOverride**, **writeOverride**, **refreshOverride**, **lengthOverride**, **validOverride**,
 and **nameOverride**) with the same values (**any**, **replace**, **extend**, **none**).
 
+[[messages-copying-overriding-code]]
+=== Copying Overriding Code ===
+In some cases different messages may have the **same** overriding code that needs to be injected. In 
+order to minimize the copy-paste of the code, the CommsDSL introduces the 
+**copyOverrideCodeFrom** property with a <<intro-references, reference>> value indicating
+another message, overriding code of which needs to be applied to the message being defined.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" readOverride="replace" refreshOverride="replace">
+        ...
+    </message>
+        
+    <message name="Msg2" copyOverrideCodeFrom="Msg1">
+            ...
+    </message>
+</schema>
+----
+Note, that **copyOverrideCodeFrom** property is applied before any **xOverride**
+ones described in <<messages-ensuring-overriding-code-injection, previous section>>.
+It means that some portion of copied code can be cleared.
 
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+    <message name="Msg1" ... nameOverride="replace">
+        ...
+    </message>
+        
+    <message name="Msg2" copyOverrideCodeFrom="Msg1" nameOverride="none">
+            ...
+    </message>
+</schema>
+----
 
 Use <<appendix-message, properties table>> for future references.
 
