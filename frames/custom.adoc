@@ -1,7 +1,7 @@
 [[frames-custom]]
 === &lt;custom&gt; Layer ===
 The **&lt;custom&gt;** layer represent any other protocol specific layer, 
-functionality of which cannot be impelemented using other provided layers.
+functionality of which cannot be implemented using other provided layers.
 The code generator must allow injection of the externally implemented code
 of the layer functionality when generating code relevant to the 
 transport <<frames-frames, framing>>.
@@ -27,14 +27,13 @@ transport <<frames-frames, framing>>.
 The **&lt;value&gt;** layer has all the <<frames-common, common>> properties
 as well as extra properties and elements described below.
 
-==== ID Replacement ====
-Most protocol frames are expected to use <<frames-id, &lt;id&gt; >> layer to
-process numeric ID of the message. However, there are protocols that may
-use the same field not only for numeric ID, but also for some extra flags.
-In this case <<frames-id, &lt;id&gt; >> layer cannot be used, because it expects the
-whole field to be dedicated to storage of the numeric ID. In such case
-**&lt;custom&gt;** layer needs to be used but marked as one replacing the 
-<<frames-id, &lt;id&gt; >> with **idReplacement** <<intro-properties, property>>.
+[[frames-custom-semantic-layer-type]]
+==== Semantic Layer Type ====
+In most cases the **&lt;custom&gt;** layer is used to replace one of the layers
+specified earlier, default implementation / definition of which doesn't provide
+the necessary functionality. To provide the code generator with the purpose of
+the **&lt;custom&gt;** layer use **semanticLayerType** property.
+
 [source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -43,7 +42,7 @@ whole field to be dedicated to storage of the numeric ID. In such case
         <size name="Size">
             ...
         </size>
-        <custom name="IdAndFlags" idReplacement="true">
+        <custom name="IdAndFlags" semanticLayerType="id">
             <bitfield name="IdAndFlagsField">
                 <int name="Id" type="uint16" bitLength="12" />
                 <set name="Flags" bitLength="4">
@@ -55,5 +54,39 @@ whole field to be dedicated to storage of the numeric ID. In such case
     </frame>
 </schema>
 ----
+
+The value of the **semanticLayerType** property is one of the supported layers
+covered in this chapter: **payload**, **id**, **size**, **sync**, **checksum**, 
+**value**, and **custom** (default).
+
+Such meta-information may help with the correct code generation and reduce amount of 
+custom code injection (or eliminate it altogether).
+
+[[frames-custom-replacing-checksum-layer]]
+==== Replacing &lt;checksum&gt; Layer ====
+The <<frames-checksum, &lt;checksum&gt; >> layer requires specification of the
+<<frames-checksum-calculation-area, area>> on which the checksum is calculated. 
+It is performed using **from** or **until** properties. When **&lt;custom&gt;**
+layer replaces **&lt;checksum&gt;** (by using `semanticLayerType="checksum"`), 
+such area is specified using **checksumFrom** or **checksumUntil** properties.
+
+[source, xml]
+----
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <size name="Size">
+            ...
+        </size>
+        <id name="Id">
+            ...
+        </id>
+        <payload name="Data" />
+        <custom name="Checksum" semanticLayerType="checksum" checksumFrom="Size">
+            <int name="ChecksumField" type="uint16" />
+        </custom>
+    </frame>
+</schema>
+----
+
 
 Use <<appendix-custom, properties table>> for future references.
