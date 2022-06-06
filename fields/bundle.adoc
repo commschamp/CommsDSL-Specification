@@ -54,7 +54,7 @@ of the **&lt;bundle&gt;**, then all the members must be wrapped in
 ----
 
 [[fields-bundle-reusing-other-bundle]]
-==== Reusing Other Bundle ====
+==== Reusing Other &lt;bundle&gtp ====
 Like any other field, **&lt;bundle&gt;** supports **reuse** of any other **&lt;bundle&gt;**.
 Such reuse copies all the fields from original **&lt;bundle&gt;** in addition
 to all the properties. Any new defined member field gets **appended** to the copied ones.

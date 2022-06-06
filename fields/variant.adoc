@@ -5,6 +5,7 @@ It can hold only one field at a time out of the provided list of supported
 <<fields-fields, fields>>. The **&lt;variant&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
+[[fields-variant-member-fields]]
 ==== Member Fields ====
 The **&lt;variant&gt;** field is there to support heterogeneous lists of fields.
 The classic example would be a list of *key-value* pairs, where numeric *key*
@@ -154,6 +155,100 @@ be the last member field of the **&lt;variant&gt;** field and has
 non-failing read of its *Type* (**failOnInvalid** property has been set
 to **false**).
 
+[[fields-variant-reusing-other-bundle]]
+==== Reusing Other &lt;variant&gt; ====
+Like any other field, **&lt;variant&gt;** supports **reuse** of any other **&lt;variant&gt;**.
+Such reuse copies all the fields from original **&lt;variant&gt;** in addition
+to all the properties. Any new defined member field gets **appended** to the copied ones.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big" version="2">
+    <fields>
+        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+
+        <variant name="Property">
+            <bundle name="Prop1">
+                <int reuse="Type" defaultValue="0" validValue="0" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint32" />
+            </bundle>
+            
+            <bundle name="Prop2">
+                <int reuse="Type" defaultValue="1" validValue="1" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint64" />
+            </bundle>
+        </variant>
+        
+        <variant name="Property2" reuse="Property">
+            <bundle name="Prop3">
+                <int reuse="Type" defaultValue="0" validValue="0" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <string name="Value" />
+            </bundle>
+        </variant>        
+        
+    </fields>
+</schema>
+----
+In the example above *Property2* has **3** member fields: *Prop1*, *Prop2*, and *Prop3*.
+
+[[fields-variant-replacing-member-fields]]
+==== Replacing Member Fields ====
+It is possible to replace some of the copied member fields after 
+<<fields-common-reusing-other-fields, reuse>> using **&lt;replace&gt;**
+child node, which wraps the replacing fields.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+
+        <variant name="Property">
+            <bundle name="Prop1">
+                <int reuse="Type" defaultValue="0" validValue="0" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint32" />
+            </bundle>
+            
+            <bundle name="Prop2">
+                <int reuse="Type" defaultValue="1" validValue="1" />
+                <int name="Length" type="uint16" semanticType="length" />
+                <int name="Value" type="uint64" />
+            </bundle>
+        </variant>
+        
+        <variant name="Property2" reuse="Property">
+            <replace>
+                <bundle name="Prop2">
+                    <int reuse="Type" defaultValue="1" validValue="1" />
+                    <int name="Length" type="uint16" semanticType="length" />
+                    <enum name="Value" type="uint8">
+                        ...
+                    </enum>
+                </bundle>            
+            </replace>
+            </members>
+                <bundle name="Prop3">
+                    <int reuse="Type" defaultValue="0" validValue="0" />
+                    <int name="Length" type="uint16" semanticType="length" />
+                    <string name="Value" />
+                </bundle>
+            </members>
+        </variant>  
+    </fields>
+</schema>
+----
+
+The replacing field must have the same name as the reused member field it is
+replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
+the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
+is not important, the order of the fields is determined by the original 
+**&lt;variant&gt;** field, which was <<fields-common-reusing-other-fields, reused>>.
+
+[[fields-variant-default-member]]
 ==== Default Member ====
 When **&lt;variant&gt;** field is constructed, it should not hold any
 field and when serialized, it mustn't produce any output. 
