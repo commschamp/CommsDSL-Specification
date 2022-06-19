@@ -31,5 +31,5 @@ Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
-|**copyOverrideCodeFrom**|<<intro-references, reference>> string|4|no||Specify field, injected overriding code of which needs to be copied.
+|**copyOverrideCodeFrom**|<<intro-references, reference>> string|5|no||Specify field, injected overriding code of which needs to be copied.
 |===

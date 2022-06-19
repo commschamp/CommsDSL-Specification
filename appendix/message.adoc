@@ -27,7 +27,7 @@ Must be greater than value of **sinceVersion**.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
-|**copyOverrideCodeFrom**|<<intro-references, reference>> string|4|no||Specify message, injected overriding code of which needs to be copied.
+|**copyOverrideCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, injected overriding code of which needs to be copied.
 |===
 
 Extra child XML elements allowed:
@@ -38,5 +38,5 @@ Extra child XML elements allowed:
 
 |**&lt;fields&gt;**|1|Wraps member fields.
 |**&lt;alias&gt;**|3|Alias names for other member fields. See <<aliases-aliases, Aliases>> for more info.
-|**&lt;replace&gt;**|4|Wraps replacing fields after copying using **copyFieldsFrom** property.
+|**&lt;replace&gt;**|5|Wraps replacing fields after copying using **copyFieldsFrom** property.
 |===

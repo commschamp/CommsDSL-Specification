@@ -1,6 +1,6 @@
-= CommsDSL Specification v4.1
+= CommsDSL Specification v5.0
 Alex Robenko
-v4.1, 2022-06
+v5.0, 2022-07
 :doctype: article
 :toc: left
 :source-highlighter: rouge
