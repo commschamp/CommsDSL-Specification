@@ -118,8 +118,7 @@ of the specified fields is true.
 or `>` symbols in condition values directly. They need to be substituted with `\&lt;` and
 `\&gt;` strings respectively.
 
-For example, there are 2 normal fields followed by a third optional one. The
-latter exists, only if value of **F1** is less than value of **F2**
+For example:
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -128,6 +127,30 @@ latter exists, only if value of **F1** is less than value of **F2**
         <int name="F1" type="uint16" />
         <int name="F2" type="uint16" />
         <optional name="F3" defaultMode="exists" cond="$F1 &lt; $F2">
+            <int name="WrappedF3" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+The `F3` above exists, only if value of **F1** is less than value of **F2**
+
+Deep (nested) conditions are also expected to be supported by the code generator:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <bitfield name="F1">
+            <int name="Mem1" type="uint8" bitLength="6"/>
+            <set name="Mem2" bitLength="2">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+        </fitfield>
+        <optional name="F2" defaultMode="missing" cond="$F1.Mem2.B0">
+            <int name="WrappedF2" type="uint32" />
+        </optional>
+        <optional name="F3" defaultMode="exists" cond="!$F1.Mem2.B1">
             <int name="WrappedF3" type="uint32" />
         </optional>
     </fields>
