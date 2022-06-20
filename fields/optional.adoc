@@ -5,6 +5,7 @@ the serialization of the latter may be skipped if it is marked as "missing".
 The **&lt;optional&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
+[[fields-optional-inner-field]]
 ==== Inner (Wrapped) Field ====
 Every **&lt;optional&gt;** must specify its inner <<fields-fields, field>>. The
 wrapped field can be defined as XML child of the **&lt;optional&gt;** definition.
@@ -49,6 +50,7 @@ specified as inner (wrapped) field type using **field** <<intro-properties, prop
 </schema>
 ----
 
+[[fields-optional-default-mode]]
 ==== Default Mode ====
 Every **&lt;optional&gt;** field has 3 modes: **tenative** (default), **exist**,
 and **missing**. The **exist** and **missing** modes are self explanatory. 
@@ -88,7 +90,7 @@ using **cond** <<intro-properties, property>>.
             <bit name="Val1Exists" idx="0" />
         </set>
         <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
-            <int name="WrappedVal1" type="uint32" />
+            <int name="ActVal1" type="uint32" />
         </optional>
     </fields>
 </schema>
@@ -132,6 +134,7 @@ latter exists, only if value of **F1** is less than value of **F2**
 </schema>
 ----
 
+[[fields-optional-multiple-existence-conditions]]
 ==== Multiple Existence Conditions ====
 The **CommsDSL** also allows usage of multiple existence condition statements. However,
 they need to be wrapped by either **&lt;and&gt;** or **&lt;or&gt;** 
@@ -164,6 +167,32 @@ In the example the **F3** field exists in one of the following conditions:
 * Value of **F1** is 0.
 * Value of **F1** is 1 and value of **F2** is not 0.
 
+[[fields-optional-missing-on-failed-read]]
+==== Missing On Failed Read ====
+Some protocols may require to skip the optional field (mark it as missing) in case its read operation
+fails, instead of failing the read operation of the whole message. Such functionality can be achieved
+using **missingOnReadFail** <<intro-properties, property>> with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        ...
+        <optional name="Val1" defaultMode="tentative" missingOnReadFail="true">
+            <int name="ActVal1" type="uint8" validRange="[0, 10]" failOnInvalid="true" />
+        </optional>
+        <int name="Val2" ... />
+        ...
+    </fields>
+</schema>
+----
+In the example above the `ActVal1` uses **failOnInvalid** property to fail its read operation
+in case the received value is not in range `[0, 10]`. As the result the read operation of the
+`Val1` field also fails. It must be marked as "missing" and
+the read operation of the message must continue with reading the value of `Val2` from the same
+place in the input buffer.
+
+[[fields-optional-extra-display-property]]
 ==== Extra Display Property ====
 By default GUI protocol analysis tools should allow manual update of the
 **&lt;optional&gt;** field mode. However, if the mode is controlled by the 
@@ -182,7 +211,7 @@ with <<intro-boolean, boolean>> value.
         <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
             <displayExtModeCtrl value="true" />
             <field>
-                <int name="WrappedVal1" type="uint32" />
+                <int name="ActVal1" type="uint32" />
             </field>
         </optional>
     </fields>
