@@ -4,7 +4,7 @@ The **&lt;optional&gt;** field has all the <<appendix-fields, common>> propertie
 well as ones listed below. Refer to <<fields-optional, &lt;optional&gt; Field>> chapter
 for detailed description. 
 
-[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+[cols="^.^27,^.^11,^.^8,^.^8,^.^10,36", options="header"]
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
@@ -13,6 +13,7 @@ for detailed description.
 |**cond**|string|1|no||Condition when the field exists.
 |**displayExtModeCtrl**|<<intro-boolean, bool>>|1|no|false|Disable manual update of the mode in GUI analysis tools.
 |**missingOnReadFail**|<<intro-boolean, bool>>|5|no|false|Mark the field as "missing" if its read operation fails.
+|**missingOnInvalid**|<<intro-boolean, bool>>|5|no|false|Mark the field as "missing" if the field's value is invalid.
 |===
 
 Inner field must be specified using **field** property or as 
