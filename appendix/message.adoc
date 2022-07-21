@@ -27,7 +27,7 @@ Must be greater than value of **sinceVersion**.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
-|**copyOverrideCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, injected overriding code of which needs to be copied.
+|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, overriding or other extra code of which needs to be copied.
 |===
 
 Extra child XML elements allowed:
