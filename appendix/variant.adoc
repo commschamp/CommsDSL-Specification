@@ -1,3 +1,4 @@
+<<<
 [[appendix-variant]]
 === Properties of &lt;variant&gt; Field ===
 The **&lt;variant&gt;** field has all the <<appendix-fields, common>> properties as

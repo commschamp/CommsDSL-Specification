@@ -1,3 +1,5 @@
+
+<<<
 [[schema-schema]] 
 == Schema ==
 Schema definition may contain various global (protocol-wide) 
@@ -85,7 +87,7 @@ For example version **1.5** can be defined and used throughout the schema as **0
 === DSL Version ===
 As this specification evolves over time it can introduce new properties or
 other elements. It is possible to pin the version of the **DSL** as the schema's
-property. It is a **major** version of this specification.
+property. It is a <<intro-version, major version>> of this specification.
 If code generator expects earlier version of the schema it should
 report an error (or at least a warning). 
 

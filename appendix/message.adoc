@@ -1,3 +1,4 @@
+<<<
 [[appendix-message]]
 === Properties of &lt;message&gt; ===
 Refer to <<messages-messages, Messages>> chapter

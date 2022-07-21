@@ -48,3 +48,97 @@ separated by a **.** (dot).
     </ns>
 </schema>
 ----
+
+[[intro-references-distinguish]]
+==== Distinguish Reference From Value ====
+Many schema elements have <<intro-properties, properties>> (described in details later) which can contain
+an actual value or a reference to other field's value. In most cases it is clear which one it is.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <enum name="E1" type="uint8">
+            <validValue name="V1" val="10" />
+        </enum>
+        <int name="I1" defaultValue="0" />
+        <int name="I2" defaultValue="E1.V1" />
+    </fields>
+</schema>
+----
+
+In the example above **defaultValue** of the __I1__ is __0__. The assignment of the
+**defaultValue** of the __I2__ is referencing value __V1__ of the __E1__ <<fields-enum, &lt;enum&gt; >> field,
+which is __10__.
+
+However, there can be a case when such distinction is not clear (happens for the
+<<fields-enum, &lt;string&gt; >> field). In such case the reference to external field needs to be prefixed with `^` character.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="S1" defaultValue="hello" />
+        <string name="S2" defaultValue="^S1" />
+    </fields>
+</schema>
+----
+
+In the example above both __S1__ and __S2__ have the same **defaultValue** which is __hello__.
+
+
+[[intro-references-intra-schema]]
+==== References to Elements in Other Schema ====
+
+In case of <<intro-multiple-schemas, multiple schemas>>, referencing a field defined in another schema requires
+prefixing the reference string with `@` and schema name:
+
+[source,xml]
+----
+<!-- First schema -->
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot1">
+    <ns name="ns1">
+        <fields>
+            <int name="SomeField" type="uint8" />
+        </fields>
+
+        <message name="SomeMessage" id="1">
+            <ref field="ns1.SomeField" />
+        </message>
+    </ns>
+</schema>
+
+<!-- Second schema -->
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot2">
+    <message name="SomeMessage" id="1">
+        <ref field="@Prot1.ns1.SomeField" />
+    </message>
+</schema>
+----
+
+It is allowed (but not required) to use `@` with schema name prefix when referencing fields in the same schema.
+
+[[intro-references-to-siblings]]
+==== References to Sibling Elements ====
+In case of using <<fields-optional, &lt;optional&gt; >> field <<fields-optional-existence-conditions, conditions>> the
+referenced fields are not global ones, but a siblings. Such sibling reference needs to be prefixed with `$` character.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <set name="Flags">
+            <bit name="Val1Exists" idx="0" />
+        </set>
+        <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
+            <int name="ActVal1" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+
+Use <<appendix-reference, prefix table>> for future references.

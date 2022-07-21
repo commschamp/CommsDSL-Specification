@@ -1,3 +1,4 @@
+<<<
 [[appendix-alias]]
 === Properties of &lt;alias&gt; ===
 Refer to <<aliases-aliases, Aliases>> chapter for detailed description. 

@@ -1,3 +1,4 @@
+[[intro-version]]
 === Specification Version ===
 This document is versioned using https://semver.org/[Semantic Versioning].
 
