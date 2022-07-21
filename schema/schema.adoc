@@ -3,6 +3,7 @@
 Schema definition may contain various global (protocol-wide) 
 <<intro-properties, properties>>.
 
+[[schema-name]]
 === Protocol Name ===
 The protocol name is defined using **name** property. It may contain any
 alphanumeric character, but mustn't start with a number. 
@@ -20,6 +21,7 @@ The code generator is expected to use the specified name as main namespace
 for the protocol definition, unless new name is provided via command line
 parameters.
 
+[[schema-endian]]
 === Endian ===
 Default endian for the protocol can be defined using **endian** property. Supported
 values are either **big** or **little** (case insensitive). Defaults to **little**.
@@ -34,6 +36,7 @@ The **endian** property of any subsequently defined <<fields-fields, field>>
 will default to the specified value, but can be overridden using
 its own **endian** property. 
 
+[[schema-description]]
 === Description ===
 It is possible to provide a human readable description of the protocol definition
 just for documentation purposes. The description is provided using **description**
@@ -53,6 +56,7 @@ long multiline description it is recommended to define it as a text child elemen
 </schema>
 ----
 
+[[schema-version]]
 === Protocol (Schema) Version ===
 As was mentioned in <<intro-protocol-versioning, Protocol Versioning>> section,
 **CommsDSL** supports (but doesn't enforce) versioning of the schema / protocol.
@@ -77,20 +81,23 @@ For example version **1.5** can be defined and used throughout the schema as **0
 </schema>
 ----
 
+[[schema-dsl-version]]
 === DSL Version ===
 As this specification evolves over time it can introduce new properties or
-other elements. It is possible to specify the version of the **DSL** as the schema's
-property. If code generator expects earlier version of the schema it should
+other elements. It is possible to pin the version of the **DSL** as the schema's
+property. It is a **major** version of this specification.
+If code generator expects earlier version of the schema it should
 report an error (or at least a warning). 
 
 The DSL version is specified using **dslVersion** property with unsigned integral
-value. Defaults to **0**, which means any version of code generator will try to
+value. When **dslVersion** value is **0** (default), it means "any version".
+In this case the code generator will try to
 parse the schema and will report error / warning in case it encounters unrecognized
 property or other construct.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-<schema name="MyProtocol" dslVersion="4">
+<schema name="MyProtocol" dslVersion="5">
     ...
 </schema>
 ----
