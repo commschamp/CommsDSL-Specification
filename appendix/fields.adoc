@@ -34,4 +34,5 @@ Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
 |**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify field, overriding or other extra code of which needs to be copied.
+|**reuseCode**|<<intro-boolean, bool>>|5|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |===

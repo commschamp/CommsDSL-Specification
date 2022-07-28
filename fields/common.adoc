@@ -412,4 +412,33 @@ It means that some portion of copied code can be cleared.
 </schema>
 ----
 
+In case of <<fields-common-reusing-other-fields, reusing>> other field definition, only the field
+definition properties are copied. The extra code that the original field might inject is **NOT** included
+in such copy by default. The copying of injected code must be specified explicitly using
+**copyCodeFrom** property descirbed above, or to avoid repetition of the
+<<intro-references, reference>> string, another **reuseCode** property with
+boolean value can be used in addition to **reuse** one.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <ns name="ns1">
+            <bundle name="ComplexLength" valueOverride="replace" semanticType="length">
+                <!-- Requires extra code for length value calculation to be injected -->
+                ...
+            </bitfield>
+
+            <bitfield name="ComplexLength1" reuse="ns1.ComplexLength" copyCodeFrom="ns1.ComplexLength">
+                <!-- Copies all the extra code injected to ComplexLength in addition to its properties -->
+            </bitfield>
+
+            <bitfield name="ComplexLength2" reuse="ns1.ComplexLength" reuseCode="true">
+                <!-- Equivalent to ComplexLength1 -->
+            </bitfield>
+        </ns>
+    </fields>
+</schema>
+----
+
 Use <<appendix-fields, properties table>> for future references.
