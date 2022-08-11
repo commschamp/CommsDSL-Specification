@@ -1,3 +1,4 @@
+<<<
 [[appendix-schema]]
 === Properties of &lt;schema&gt; ===
 Refer to <<schema-schema, Schema>> chapter for detailed description.

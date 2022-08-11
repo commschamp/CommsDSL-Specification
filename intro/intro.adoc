@@ -1,7 +1,8 @@
+[[intro-intro]]
 == Introduction ==
-This document contains specification of **D**omain **S**pecific **L**anguage (DSL),
-called **CommsDSL**, for https://commschamp.github.io[CommsChampion Ecosystem],
-used to define custom binary protocols. The defined schema files are intended
+This document contains specification of **D**omain **S**pecific **L**anguage (DSL)
+for https://commschamp.github.io[CommsChampion Ecosystem], called **CommsDSL**.
+It is used to define custom binary protocols. The defined schema files are intended
 to be parsed and used by https://github.com/commschamp/commsdsl[commsdsl] library and code
 generation application(s).
 
@@ -18,6 +19,7 @@ image:images/cc-by-nd.png[Creative Commons Attribution-NoDerivatives 4.0 Interna
 include::version.adoc[]
 include::schema_def.adoc[]
 include::multiple_files.adoc[]
+include::multiple_schemas.adoc[]
 include::namespaces.adoc[]
 include::platforms.adoc[]
 include::references.adoc[]

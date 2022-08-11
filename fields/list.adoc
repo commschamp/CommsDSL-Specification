@@ -72,6 +72,7 @@ an element using **element** <<intro-properties, property>>.
 </schema>
 ----
 
+[[fields-list-fixed-count]]
 ==== Fixed Count ====
 If the defined list must contain predefined number of elements, use **count**
 <<intro-properties, property>> to provide the required information.
@@ -160,6 +161,7 @@ The code generator is expected to take the existence of such detached prefix
 into account and generate correct code for various field operations
 (read, write, etc...).
 
+[[fields-list-length-prefix]]
 ==== Length Prefix ====
 There are protocols that prefix a list with **serialization length** rather
 than number of elements. In this case use **lengthPrefix** instead of **countPrefix**.
@@ -195,9 +197,40 @@ the <<fields-list-count-prefix, Count Prefix>> section.
 </schema>
 ----
 
-**NOTE**, that **count**, **countPrefix** and **lengthPrefix** properties
+[[fields-list-term-suffix]]
+==== Termination Suffix ====
+There are protocols that use special byte(s) to terminate a list instead of 
+prefixing it with number of elements or serialization length. Specifying termination
+suffix field is supported using **termSuffix** property. Just like with 
+<<fields-list-count-prefix, countPrefix>>, and <<fields-list-length-prefix, lengthPrefix>>,
+the termination suffix can be specified as a child XML node or referenced when
+defined externally.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <list name="List1">
+            <element>
+                <int name="Element" type="uint32" />
+            </element>
+            <termSuffix>
+                <int name="TermSuffix" type="uint8" defaultValue="0"/>
+            </termSuffix>
+        </list>
+        
+        <int name="ExternalTermSuffix" type="uint8" />
+        <list name="List2" termSuffix="ExternalTermSuffix">
+            <int name="Element" type="uint32" />
+        </list>
+    </fields>
+</schema>
+----
+
+**NOTE**, that **count**, **countPrefix**, **lengthPrefix**, and **termSuffix** properties
 are mutually exclusive, i.e. cannot be used together.
 
+[[fields-list-element-length-prefix]]
 ==== Element Length Prefix ====
 Some protocols prefix every element with its serialization length for the 
 forward / backward compatibility of the protocol. If there is such need, use **elemLengthPrefix**

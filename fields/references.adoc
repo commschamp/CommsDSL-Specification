@@ -8,6 +8,7 @@ In general, when the other field is referenced its **defaultValue** is taken,
 unless inner value is referenced, such as **validValue** of the <<fields-enum, &lt;enum&gt; >>
 field or **special** value of the <<fields-int, &lt;int&gt; >> field.
 
+[[fields-references-enum]]
 ==== Referencing Values Defined in **&lt;enum&gt;**-s ====
 Any specified **&lt;validValue&gt;** can be referenced by other numeric fields 
 (not only **&lt;enum&gt;**) when specifying <<intro-numeric, numeric>> 
@@ -75,6 +76,7 @@ Floating point fields can also reference values defined in
 </schema>
 ----
 
+[[fields-references-int]]
 ==== Referencing Values Defined in **&lt;int&gt;**-s ====
 Similar to <<fields-enum, &lt;enum&gt; >> the inner value of <<fields-int, &lt;int&gt; >>
 field can be referenced by other numeric fields.
@@ -107,6 +109,7 @@ In the example above **defaultValue** of _SomeEnumField_ is **0**,
 Also the **defaultValue** of _SomeFloatField_ is **5.0**, while
 value of its _S1_ special is **10.0**.
 
+[[fields-references-set]]
 ==== Referencing Values Defined in **&lt;set&gt;**-s ====
 The **defaultValue** property of any element of the <<fields-set, &lt;set&gt; >> field
 can also be referenced.
@@ -153,6 +156,7 @@ which will result in numeric values been either **0** or **1**.
 The definition above will result in **defaultValue** of _SomeFloatField_ to be
 **1.0**.
 
+[[fields-references-float]]
 ==== Referencing Values Defined in **&lt;float&gt;**-s ====
 Similar to <<fields-int, &lt;int&gt; >> it is possible to reference <<fields-float, &lt;float&gt; >> values 
 used in **defaultValue** property and/or as **&lt;special&gt;** value.
@@ -175,6 +179,7 @@ used in **defaultValue** property and/or as **&lt;special&gt;** value.
 In the example above **defaultValue** of _SomeOtherFloatField_ is **inf**, 
 while value of _SomeOtherFloatField.S1_ special is **nan**.
 
+[[fields-references-string]]
 ==== Referencing Values Defined in **&lt;string&gt;**-s ====
 When referencing values of <<fields-string, &lt;string&gt; >> fields there is a need
 to differentiate between a reference to external field and a genuine string
@@ -283,7 +288,7 @@ external reference.
 <schema ...>
     <fields>
         <data name="SomeData" defaultValue="12 34 56" />
-        <string name="SomeOtherData" defaultValue="^SomeData" />
+        <data name="SomeOtherData" defaultValue="^SomeData" />
     </fields>
 </schema>
 ----
@@ -316,7 +321,7 @@ as well. The same <<intro-references, referencing>> rules apply.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <ns name="ns1"
+    <ns name="ns1">
         <fields>
             <enum name="SomeEnumField" type="uint8">
                 <validValue name="Val1" val="0" />
@@ -337,7 +342,7 @@ The **CommsDSL** also allows referencing values from member fields of a
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <ns name="ns1"
+    <ns name="ns1">
         <fields>
             <bundle name="SomeBundle">
                 <enum name="SomeEnumMember" type="uint8">
@@ -393,3 +398,32 @@ internally as a child element, can.
 </schema>
 ----
 **NOTE** that there is a need to reference internal member field by name.
+
+==== Referencing Values in Different Schemas ====
+In case referenced field resides in a different schema
+(**&lt;schema&gt;** node having different **name** property), prefix the reference string with the `@` + schema name.
+The same <<intro-references, referencing>> rules apply.
+[source,xml]
+----
+<!-- First file -->
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot1">
+    <ns name="ns1">
+        <fields>
+            <enum name="SomeEnumField" type="uint8">
+                <validValue name="Val1" val="0" />
+                <validValue name="Val2" val="5" />
+                <validValue name="Val3" val="10"/>
+            </enum>
+        </fields>
+    </ns>
+</schema>
+
+<!-- Second file -->
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot2">
+    <fields>
+        <int name="SomeIntField" type="uint32" defaultValue="@Prot1.ns1.SomeEnumField.Val2" />
+    </fields>
+</schema>
+----

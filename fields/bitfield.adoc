@@ -14,6 +14,7 @@ Since **v2** of the specification it is also allowed to use
 The **&lt;bitfield&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
+[[fields-bitfield-member-fields]]
 ==== Member Fields ====
 Member fields need to be listed as children XML elements of the **&lt;bitfield&gt;**.
 Every such member is expected to use **bitLength** property to specify its
@@ -69,6 +70,7 @@ of the **&lt;bitfield&gt;**, then all the members must be wrapped in
 </schema>
 ----
 
+[[fields-bitfield-endian]]
 ==== Endian ====
 When serializing, the **&lt;bitfield&gt;** object needs to combine the
 values of all the members into single unsigned raw value of appropriate length,
@@ -82,6 +84,60 @@ is overridden using extra **endian** property of the **&lt;bitfield&gt;** field.
     <fields>
         <bitfield name="SomeBitfield" endian="little">
             ...
+        </bitfield>
+    </fields>
+</schema>
+----
+
+[[fields-bitfield-replacing-member-fields]]
+==== Replacing Member Fields ====
+It is possible to replace some of the copied member fields after 
+<<fields-common-reusing-other-fields, reuse>> using **&lt;replace&gt;**
+child node, which wraps the replacing fields.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bitfield name="SomeBitfield" endian="little">
+            <int name="Mem1" type="uint8" bitLength="4" />
+            <enum name="Mem2" type="uint8" bitLength="4">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </bitfield>
+        
+        <bitfield name="SomeOtherBitfield" reuse="SomeBitfield">
+            <replace>
+                <set name="Mem2" type="uint8" bitLength="4">
+                    <bit name="B0" idx="0" />
+                    <bit name="B1" idx="1" />
+                </set>
+            </replace>
+        </bitfield>
+    </fields>
+</schema>
+----
+The replacing field must have the same name as the reused member field it is
+replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
+the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
+is not important, the order of the fields is determined by the original 
+**&lt;bitfield&gt;** field, which was <<fields-common-reusing-other-fields, reused>>.
+
+The example above is equivalent to defining `SomeOtherBitfield` **&lt;bitfield&gt;** field
+in the following way.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bitfield name="SomeOtherBitfield">
+            <int name="Mem1" type="uint8" bitLength="4" />
+            <set name="Mem2" type="uint8" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
         </bitfield>
     </fields>
 </schema>

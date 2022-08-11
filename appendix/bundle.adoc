@@ -1,3 +1,4 @@
+<<<
 [[appendix-bundle]]
 === Properties of &lt;bundle&gt; Field ===
 The **&lt;bundle&gt;** field has all the <<appendix-fields, common>> properties as
@@ -19,4 +20,5 @@ Extra child XML elements allowed:
 
 |**&lt;members&gt;**|1|Wraps member fields.
 |**&lt;alias&gt;**|3|Alias names for other member fields. See <<aliases-aliases, Aliases>> for more info.
+|**&lt;replace&gt;**|5|Wraps replacing member fields after copying using **reuse** property.
 |===

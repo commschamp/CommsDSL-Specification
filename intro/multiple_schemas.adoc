@@ -1,0 +1,40 @@
+[[intro-multiple-schemas]]
+=== Multiple Schemas ===
+The **CommsDSL** also allows definition of multiple protocols with different schema
+names. The rules described in previous <<intro-multiple-files, Multiple Files>> section
+still apply. The first file that introduces a schema with a specific name must define all
+the properties that cannot be overridden by other files defining a **&lt;schema&gt;** node
+with the same **name**.
+
+For example, the following definitions with different properties are allowed because they define different protocols:
+
+First processed file:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot1" endian="big" version="2">
+    ...
+</schema>
+----
+Second processed file:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot2" endian="little" version="1">
+    ...
+</schema>
+----
+
+Any other **&lt;schema&gt;** node in the subsequent file(s) must not change any of the relevant
+properties in case other **&lt;schema&gt;** node with the same **name** has already been processed before.
+
+Third processed file:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="Prot1">
+    <!-- No properties have been overridden -->
+    ...
+</schema>
+----
+

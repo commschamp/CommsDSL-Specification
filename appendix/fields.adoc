@@ -1,3 +1,5 @@
+
+<<<
 [[appendix-fields]]
 === Common Properties of Fields ===
 Refer to <<fields-common, Common Properties of Fields>> chapter for detailed description. 
@@ -8,7 +10,7 @@ Refer to <<fields-common, Common Properties of Fields>> chapter for detailed des
 
 |**name**|<<intro-names, name>> string|1|yes||Name of the field.
 |**description**|string|1|no||Human readable description of the field.
-|**reuse**|<<intro-references, reference>> string|1|no||Field definition of which to copy.
+|**reuse**|<<intro-references, reference>> string|1|no||Field, definition of which to copy.
 |**displayName**|string|1|no||Name of the field to display. If empty, the code generator must use value of property **name** instead. In order to force empty name to display, use "_" (underscore).
 |**displayReadOnly**|<<intro-boolean, bool>>|1|no|false|Disable modification of the field in visual analysis tool(s).
 |**displayHidden**|<<intro-boolean, bool>>|1|no|false|Don't display field at all in visual analysis tool(s).
@@ -24,10 +26,13 @@ Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**customizable**|<<intro-boolean, bool>>|1|no|false|Mark the field to allow compile time customization regardless of code generator's level of customization.
 |**semanticType**|"none", "messageId", "version", "length"|1|no|none|Specify semantic type of the field. It allows code generator to generate special code for special cases. Value "length" was introduced in **v2** of this specification.
 |**forceGen**|<<intro-boolean, bool>>|3|no|false|Force generation of field's code regardless of it's being referenced or not.
+|**valueOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **value** operation.
 |**readOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **read** operation.
 |**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
 |**refreshOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **refresh** operation.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
+|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify field, overriding or other extra code of which needs to be copied.
+|**reuseCode**|<<intro-boolean, bool>>|5|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |===

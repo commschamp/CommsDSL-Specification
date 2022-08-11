@@ -1,7 +1,10 @@
+
+<<<
 [[messages-messages]]
 == Messages ==
 Every message is defined using **&lt;message&gt;** XML element.
 
+[[messages-messages-message-name]]
 === Message Name ===
 Every message definition must specify its <<intro-names, name>> using
 **name** <<intro-properties, property>>.
@@ -209,6 +212,77 @@ fields from the global **&lt;bundle&gt;** field as well.
 ----
 In the example above *Msg1* will have 3 fields: *F1*, *F2*, and *F3*.
 
+It is also possible to replace some of the fields after copying using 
+**&lt;replace&gt;** child node.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <int name="F1" type="uint32" />
+        <int name="F2" type="uint8" />
+    </message>
+    
+    <message name="Msg2" id="2" copyFieldsFrom="Msg1">
+        <replace>
+            <enum name="F2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </replace>
+    </message>
+</schema>
+----
+The replacing field must have the same name as the copied member field it is
+replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
+the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
+is not important, the order of the fields is determined by the original 
+**&lt;message&gt;** or **&lt;bundle&gt;** field, member fields of which were
+copied.
+
+It is possible to combine **&lt;replace&gt;**-ing copied fields and extending
+the **&lt;message&gt;** with new fields. 
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <int name="F1" type="uint32" />
+        <int name="F2" type="uint8" />
+    </message>
+    
+    <message name="Msg2" id="2" copyFieldsFrom="Msg1">
+        <replace>
+            <enum name="F2" type="uint8">
+                <validValue name="V0" val="0" />
+                <validValue name="V1" val="1" />
+            </enum>
+        </replace>
+        <fields>
+            <int name="F3" type="uint16" />
+        </fields>
+    </message>
+</schema>
+----
+
+The example above is equivalent to defining `Msg2` **&lt;message&gt;**
+in the following way.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <message name="Msg2" id="2">
+        <int name="F1" type="uint32" />    
+        <enum name="F2" type="uint8">
+            <validValue name="V0" val="0" />
+            <validValue name="V1" val="1" />
+        </enum>
+        <int name="F3" type="uint16" />
+    </message>
+</schema>
+----
+
 [[messages-ordering]]
 === Ordering ===
 There are protocols that may define various forms of the same message, 
@@ -414,12 +488,60 @@ generation for the <<messages-messages, &lt;message&gt; >> definition may be inc
 is expected to allow injection of the overriding code to allow replacing or extension of 
 the default one.
 
-The code generator is expected to produce the same operations / functionality as with fields.
-It's **read**, **write**, **refresh**, **length**, **valid**, and **name**. The same
+The code generator is expected to produce the same operations / functionality as with fields (excluding **value**).
+
+* **read** - Reading all the message fields from the input buffer.
+* **write** - Writing all the message fields to the output buffer.
+* **refresh** - Bringing message fields to a consistent state. Note, that values of some member fields 
+may depend on the values of other ones creating the situation where the whole state may be inconsistent / incorrect. 
+Invoking the **refresh** operation is 
+expected to update the values of member fields to bring the message contents into a consistent / correct state.
+* **length** - Returning the serialization length of the message fields.
+* **valid** - Returning whether values of all the message fields are valid.
+* **name** - Returning the name of the message.
+
+The same
 overriding control properties can be apply to the <<messages-messages, &lt;message&gt;-s>>
 (**readOverride**, **writeOverride**, **refreshOverride**, **lengthOverride**, **validOverride**,
 and **nameOverride**) with the same values (**any**, **replace**, **extend**, **none**).
 
+[[messages-copying-injected-code]]
+=== Copying Injected Code ===
+In some cases different messages may have the **same** overriding or other extra code that needs to be injected. In
+order to minimize the copy-paste of the code, the CommsDSL introduces the 
+**copyCodeFrom** property with a <<intro-references, reference>> value indicating
+another message, overriding code of which needs to be applied to the message being defined.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" readOverride="replace" refreshOverride="replace">
+        ...
+    </message>
+        
+    <message name="Msg2" copyCodeFrom="Msg1">
+            ...
+    </message>
+</schema>
+----
+Note, that **copyCodeFrom** property is applied before any **xOverride**
+ones described in <<messages-ensuring-overriding-code-injection, previous section>>.
+It means that some portion of copied code can be cleared.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+    <message name="Msg1" ... nameOverride="replace">
+        ...
+    </message>
+        
+    <message name="Msg2" copyCodeFrom="Msg1" nameOverride="none">
+            ...
+    </message>
+</schema>
+----
 
 Use <<appendix-message, properties table>> for future references.
 

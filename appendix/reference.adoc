@@ -1,0 +1,14 @@
+[[appendix-reference]]
+=== Reference Prefix ===
+Lists available prefixes allowing distinction of different <<intro-references, references>>.
+
+[cols="^.^10,^.^20,70", options="header"]
+|===
+|Prefix Character|DSL Version|Description
+
+||1|Regular reference to a field within the same schema.
+|`$`|1|Reference to a sibling field.
+|`^`|2|Reference to a field when it's not possible to distinguish between value and reference.
+|`@`|5|Reference to a field in a different schema.
+|===
+

@@ -11,7 +11,7 @@ if (NOT ASCIIDOCTOR_PDF_EXE)
     message(FATAL_ERROR "asciidoctor-pdf is not found")
 endif ()
 
-set (VERSION "v4.0")
+set (VERSION "v5.0")
 set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.adoc")
 
 add_custom_target("pdf" ALL

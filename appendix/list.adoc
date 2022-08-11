@@ -1,3 +1,4 @@
+<<<
 [[appendix-list]]
 === Properties of &lt;list&gt; Field ===
 The **&lt;list&gt;** field has all the <<appendix-fields, common>> properties as
@@ -14,5 +15,6 @@ for detailed description.
 |**lengthPrefix**|<<fields-fields, field>> or <<intro-references, reference>>|1|no||Prefix field containing serialization length of the list. Cannot be used tegether with **count** or **countPrefix**.
 |**elemLengthPrefix**|<<fields-fields, field>>|1|no||Prefix field containing serialization length of the list **element**.
 |**elemFixedLength**|<<intro-boolean, bool>>|1|no|false|Indication of whether list has and will allways have fixed length element, so **elemLengthPrefix** prefixes only the first element and not the rest.
+|**termSuffix**|<<fields-fields, field>>|5|no||Suffix field terminating the list.
 |===
 
