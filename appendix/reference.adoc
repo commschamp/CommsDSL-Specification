@@ -10,5 +10,6 @@ Lists available prefixes allowing distinction of different <<intro-references, r
 |`$`|1|Reference to a sibling field.
 |`^`|2|Reference to a field when it's not possible to distinguish between value and reference.
 |`@`|5|Reference to a field in a different schema.
+|`%`|6|Reference to a field in an <<interfaces-interfaces, &lt;interface&gt; >>.
 |===
 

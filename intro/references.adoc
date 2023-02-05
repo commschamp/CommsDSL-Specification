@@ -141,4 +141,28 @@ referenced fields are not global ones, but a siblings. Such sibling reference ne
 </schema>
 ----
 
+[[intro-references-to-interface-fields]]
+==== References to Interface Fields ====
+Some properties support references to the member fields of an <<interfaces-interfaces, &lt;interface&gt; >>.
+Such reference needs to be prefixed with `%` character.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <set name="Flags" length="1">
+            <bit name="B0" idx="0" />
+            <bit name="B1" idx="1" />
+        </set>
+    </interface>
+
+    <message name="Msg1" id="1">
+        <optional name="Val1" defaultMode="missing" cond="%Flags.B0">
+            <int name="ActVal1" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+
 Use <<appendix-reference, prefix table>> for future references.
