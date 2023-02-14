@@ -418,7 +418,9 @@ In the example above *Msg1* and *Msg2* are uni-directional messages, while
 Many protocol specifications provide expected serialization length of the message. In order to
 prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to 
 validate the specified message length during the schema file parsing. To perform such a 
-check use **validateMinLength** <<intro-properties, property>>.
+check use **validateMinLength** <<intro-properties, property>> with <<intro-numeric, unsigned>> value.
+It can help to avoid some copy-paste or typo errors
+at the time of schema parsing rather than debugging generated incorrect code.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -444,28 +446,6 @@ customizable at compile time.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <message name="Msg1" id="1" customizable="true">
-        ...
-    </message>
-</schema>
-----
-
-[[messages-alias-to-fields]]
-=== Alias Names to Member Fields ===
-Sometimes an existing member field may be renamed and/or moved. It is possible to
-create alias names for the fields to keep the old client code being able to compile
-and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
-
-[[messages-ensuring-serialization-length]]
-=== Ensuring Serialization Length ===
-Many protocol specifications indicate the expected message serialization length, especially
-when message has fixed length. The **CommsDSL** allows specifying expected minimal length
-using **validateMinLength** property with <<intro-numeric, unsigned>> value to help avoid some copy-paste or typo errors 
-at the time of schema parsing rather than debugging generated incorrect code.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
     <message name="Msg1" id="1" validateMinLength="6">
         <int name="F1" type="uint32" />
         <int name="F2" type="int16" />
@@ -478,8 +458,14 @@ at the time of schema parsing rather than debugging generated incorrect code.
 Note, that <<fields-optional, &lt;optional&gt; >> field is always expected to have 0 minimal length regardless
 of its <<fields-optional-existence-conditions, existence conditions>>.
 
-Also note, that the value of **validateMinLength** is the expected serialization length of 
+Also note, that the value of **validateMinLength** is the expected serialization length of
 message fields __without__ the fields of the <<frames-frames, &lt;frame&gt; >>.
+
+[[messages-alias-to-fields]]
+=== Alias Names to Member Fields ===
+Sometimes an existing member field may be renamed and/or moved. It is possible to
+create alias names for the fields to keep the old client code being able to compile
+and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
 
 [[messages-ensuring-overriding-code-injection]]
 === Ensuring Overriding Code Injection  ===
@@ -532,7 +518,6 @@ It means that some portion of copied code can be cleared.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <fields>
     <message name="Msg1" ... nameOverride="replace">
         ...
     </message>
@@ -542,6 +527,84 @@ It means that some portion of copied code can be cleared.
     </message>
 </schema>
 ----
+
+[[messages-construct-requirements]]
+=== Extra Construction Requirements ===
+In some cases the message object construction may require updating some
+fields in its <<interfaces-interfaces, &lt;interface&gt; >>. The
+**CommsDSL** provides such an ability using the **construct** property.
+The reference to the interface field is performed using the same syntax
+as the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... construct="%Flags.Bits.B0">
+        ...
+    </message>
+
+    <message name="Msg2" ... construct="%Flags.Extra = 2">
+        ...
+    </message>
+
+</schema>
+----
+
+In the example above `Msg1` constructor must set `Flags.Bits.B0` bit, while `Msg2`
+constructor must assign `2` to the `Flags.Extra` field.
+
+To perform multiple updates to the interface fields the `<construct>` child node with its single `<and>` child node must be used.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ...>
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+The `<construct>` nodes are very similar to the `<cond>` ones used to describe multiple
+<<fields-optional-existence-conditions, existence conditions>> of the <<fields-optional, &lt;optional&gt; >>
+field, but with some limitations:
+
+- Only bit sets and equality statements are supported.
+- Only `<and>` nodes are supported.
+
+**WARNING**: The **CommsDSL** specification supports multiple interfaces and doesn't impose any restriction
+on how they are used in the end application. The schema parser is responsible to do
+a check that **any** (not all) of the previously encountered **&lt;interface&gt;**-es contains
+the referenced field. The code generator may also not impose many restrictions on such references.
+Usage of the wrong **&lt;interface&gt;** class with the missing referenced
+field in the end application may result in compilation errors.
 
 Use <<appendix-message, properties table>> for future references.
 
