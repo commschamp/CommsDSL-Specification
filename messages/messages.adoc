@@ -530,11 +530,12 @@ It means that some portion of copied code can be cleared.
 
 [[messages-construct-requirements]]
 === Extra Construction Requirements ===
-In some cases the message object construction may require updating some
+In some cases the message object construction may require updating
 fields in its <<interfaces-interfaces, &lt;interface&gt; >>. The
 **CommsDSL** provides such an ability using the **construct** property.
 The reference to the interface field is performed using the same syntax
-as the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+as with the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>,
+i.e. using `%` prefix.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -605,6 +606,122 @@ a check that **any** (not all) of the previously encountered **&lt;interface&gt;
 the referenced field. The code generator may also not impose many restrictions on such references.
 Usage of the wrong **&lt;interface&gt;** class with the missing referenced
 field in the end application may result in compilation errors.
+
+[[messages-read-conditions]]
+=== Extra Read Conditions ===
+The **read** operation of every <<messages-messages, &lt;message&gt; >> means invoking
+the **read** operation for every one of its member fields. However, there may be cases
+when preliminary evaluation of the <<interfaces-interfaces, &lt;interface&gt; >> fields
+needs to be performed. To do so the **readCond** property referencing appropriate
+<<interfaces-interfaces, &lt;interface&gt; >> fields can be used. The syntax is
+the same as with the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... readCond="!%Flags.Bits.B1">
+        ...
+    </message>
+
+    <message name="Msg2" ...>
+        <readCond>
+            <or>
+                <readCond value="%Flags.Bits.B0">
+                <and>
+                    <readCond value="!%Flags.Bits.B1">
+                    <readCond value="%Flags.Extra = 1">
+                </and>
+            </or>
+        </readCond>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+In case of multiple conditions the **readCond** needs to be specified
+as the `<readCond>` child node with single `<and>` or `<or>` immediate child.
+Nested `<and>` and/or `<or>` conditions are allowed in the same way as with the
+<<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+The only difference is that the inner child nodes must be named `readCond` instead of `cond`.
+
+Quite often the <<messages-read-conditions>> (**readCond**) are the same as the <<messages-construct-requirements>> (**construct**).
+To avoid unnecessary statements duplication there is **constructAsReadCond** property with
+<<intro-boolean, boolean>> value to force copying **construct** value(s) to the **readCond**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... constructAsReadCond="true">
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+It is equivalent to
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ...>
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <readCond>
+            <and>
+                <readCond value="%Flags.Bits.B0">
+                <readCond value="!%Flags.Bits.B1">
+                <readCond value="%Flags.Extra = 1">
+            </and>
+        </readCond>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
 
 Use <<appendix-message, properties table>> for future references.
 
