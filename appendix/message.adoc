@@ -31,7 +31,9 @@ Must be greater than value of **sinceVersion**.
 |**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, overriding or other extra code of which needs to be copied.
 |**construct**|string|6|no||Construction requirement.
 |**readCond**|string|6|no||Extra read operation condition.
+|**validCond**|string|6|no||Extra validity check operation condition.
 |**constructAsReadCond**|bool|6|no|false|Copy **construct** value(s) to **readCond**.
+|**constructAsValidCond**|bool|6|no|false|Copy **construct** value(s) to **validCond**.
 |===
 
 Extra child XML elements allowed:
@@ -45,4 +47,5 @@ Extra child XML elements allowed:
 |**&lt;replace&gt;**|5|Wraps replacing fields after copying using **copyFieldsFrom** property.
 |**&lt;construct&gt;**|6|Multiple construction requirements.
 |**&lt;readCond&gt;**|6|Multiple extra read operation conditions.
+|**&lt;validCond&gt;**|6|Multiple extra validity check operation conditions.
 |===
