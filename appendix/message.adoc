@@ -8,32 +8,32 @@ for detailed description.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
-|**name**|<<intro-names, name>> string|1|yes||Name of the message.
-|**id**|<<intro-numeric, numeric>>|1|yes||Numeric ID of the message.
-|**description**|string|1|no||Human readable description of the message.
-|**displayName**|string|1|no||Name of the message to display. If empty, the code generator must use value of property **name** instead.
-|**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Message or bundle field definition from which fields need to be copied.
-|**order**|<<intro-numeric, numeric>>|1|no|0|Relative order of the messages with the same **id**.
-|**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which message was introduced.
-|**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which message was deprecated. +
-Must be greater than value of **sinceVersion**.
-|**removed**|<<intro-boolean, bool>>|1|no|false|Indicates whether deprecated message has been removed from being supported.
-|**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
-|**customizable**|<<intro-boolean, bool>>|1|no|false|Mark the message to allow compile time customization regardless of code generator's level of customization.
-|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
-|**validateMinLength**|<<intro-numeric, numeric>>|4|no||Specify expected minimal serialization length of the message fields.
-|**readOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **read** operation.
-|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
-|**refreshOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **refresh** operation.
-|**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
-|**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
-|**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
-|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, overriding or other extra code of which needs to be copied.
 |**construct**|string|6|no||Construction requirement.
-|**readCond**|string|6|no||Extra read operation condition.
-|**validCond**|string|6|no||Extra validity check operation condition.
 |**constructAsReadCond**|bool|6|no|false|Copy **construct** value(s) to **readCond**.
 |**constructAsValidCond**|bool|6|no|false|Copy **construct** value(s) to **validCond**.
+|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, overriding or other extra code of which needs to be copied.
+|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
+|**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Message or bundle field definition from which fields need to be copied.
+|**customizable**|<<intro-boolean, bool>>|1|no|false|Mark the message to allow compile time customization regardless of code generator's level of customization.
+|**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which message was deprecated. +
+Must be greater than value of **sinceVersion**.
+|**description**|string|1|no||Human readable description of the message.
+|**displayName**|string|1|no||Name of the message to display. If empty, the code generator must use value of property **name** instead.
+|**id**|<<intro-numeric, numeric>>|1|yes||Numeric ID of the message.
+|**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
+|**name**|<<intro-names, name>> string|1|yes||Name of the message.
+|**nameOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **name** retrieval.
+|**order**|<<intro-numeric, numeric>>|1|no|0|Relative order of the messages with the same **id**.
+|**readCond**|string|6|no||Extra read operation condition.
+|**readOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **read** operation.
+|**refreshOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **refresh** operation.
+|**removed**|<<intro-boolean, bool>>|1|no|false|Indicates whether deprecated message has been removed from being supported.
+|**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
+|**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which message was introduced.
+|**validateMinLength**|<<intro-numeric, numeric>>|4|no||Specify expected minimal serialization length of the message fields.
+|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
+|**validCond**|string|6|no||Extra validity check operation condition.
+|**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |===
 
 Extra child XML elements allowed:
@@ -42,10 +42,10 @@ Extra child XML elements allowed:
 |===
 |XML Element|DSL Version ^.^|Description
 
-|**&lt;fields&gt;**|1|Wraps member fields.
 |**&lt;alias&gt;**|3|Alias names for other member fields. See <<aliases-aliases, Aliases>> for more info.
-|**&lt;replace&gt;**|5|Wraps replacing fields after copying using **copyFieldsFrom** property.
 |**&lt;construct&gt;**|6|Multiple construction requirements.
+|**&lt;fields&gt;**|1|Wraps member fields.
 |**&lt;readCond&gt;**|6|Multiple extra read operation conditions.
+|**&lt;replace&gt;**|5|Wraps replacing fields after copying using **copyFieldsFrom** property.
 |**&lt;validCond&gt;**|6|Multiple extra validity check operation conditions.
 |===

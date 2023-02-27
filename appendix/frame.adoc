@@ -8,8 +8,8 @@ for detailed description.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
-|**name**|<<intro-names, name>> string|1|yes||Name of the frame.
 |**description**|string|1|no||Human readable description of the frame.
+|**name**|<<intro-names, name>> string|1|yes||Name of the frame.
 |===
 
 Extra child XML elements allowed:

@@ -8,7 +8,7 @@ Introduced in DSL version **3**.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
-|**name**|<<intro-names, name>> string|3|yes||Name of the alias.
 |**description**|string|3|no||Human readable description of the alias.
 |**field**|relative <<intro-references, reference>> string|3|yes||Reference to the aliased field, must start with `$` character.
+|**name**|<<intro-names, name>> string|3|yes||Name of the alias.
 |===
