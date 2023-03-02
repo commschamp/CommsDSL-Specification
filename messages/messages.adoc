@@ -824,5 +824,47 @@ to the **constructAsReadCond** property described <<messages-read-conditions, ab
 </schema>
 ----
 
+[[messages-fail-read-on-invalid]]
+=== Failing Read on Invalid Contents ===
+In the <<messages-valid-conditions, previous section>> it was shown that the `<message>`
+can have extra conditions for its payload to be valid. Sometimes these extra conditions are
+required to be taken into account during the **read** operation and the latter should
+fail in case the message contents are invalid. To support such case the
+**failOnInvalid** <<intro-properties, property>> with boolean value should be used
+(the same way as with <<fields-common-failing-read-of-the-field-on-invalid-value, fields>>).
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ... failOnInvalid="true">
+        <fields>
+            <int name="F1" type="uint8" />
+            <int name="F2" type="uint8" />
+        </fields>
+        <validCond>
+            <or>
+                <validCond value="$F1 = 0" />
+                <validCond value="$F2 != F1" />
+            </or>
+        </validCond>
+    </message>
+</schema>
+----
+
+The **failOnInvalid** property for the `<message>` can also be used to fail the **read** operation in
+case any of the member fields has an invalid value.
+
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ... failOnInvalid="true">
+        <int name="F1" type="uint8" validRange="[0, 10]" />
+    </message>
+</schema>
+----
+
 Use <<appendix-message, properties table>> for future references.
 

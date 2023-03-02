@@ -19,6 +19,7 @@ for detailed description.
 Must be greater than value of **sinceVersion**.
 |**description**|string|1|no||Human readable description of the message.
 |**displayName**|string|1|no||Name of the message to display. If empty, the code generator must use value of property **name** instead.
+|**failOnInvalid**|<<intro-boolean, bool>>|6|no|false|Fail *read* operation if any of the fields have invalid value or **validCond** conditions are not true.
 |**id**|<<intro-numeric, numeric>>|1|yes||Numeric ID of the message.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**name**|<<intro-names, name>> string|1|yes||Name of the message.
