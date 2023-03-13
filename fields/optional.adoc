@@ -99,7 +99,7 @@ using **cond** <<intro-properties, property>>.
 that is a member of a <<fields-bundle, &lt;bundle&gt; >> or a 
 <<messages-messages, &lt;message&gt; >>. The **cond** expression 
 specifies condition when the **&lt;optional&gt;** field exists, and must always
-reference other **sibling** field. Such reference is always prefixed with **$** character
+reference other **sibling** field. Such reference is always prefixed with `$` character
 to indicate that the field is a **sibling** of the **&lt;optional&gt;** and 
 not some external field.
 
@@ -156,6 +156,40 @@ Deep (nested) conditions are also expected to be supported by the code generator
     </fields>
 </schema>
 ----
+
+Since **v6.0** of this specification referencing of the member fields of an <<interfaces-interfaces, &lt;interface&gt; >>
+is also supported. Such reference is prefixed with the `%` character and it works in exactly the same way
+as the reference to a sibling field described above.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <int name="Mem1" type="uint8" bitLength="6"/>
+            <set name="Mem2" bitLength="2">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+        </fitfield>
+    </interface>
+
+    <message name="Msg1" id="1">
+        <optional name="F1" defaultMode="missing" cond="%Flags.Mem2.B0">
+            <int name="WrappedF1" type="uint32" />
+        </optional>
+        <optional name="F2" defaultMode="exists" cond="!%Flags.Mem2.B1">
+            <int name="WrappedF2" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+**WARNING**: The **CommsDSL** specification supports multiple interfaces and doesn't impose any restriction
+on how they are used in the end application. The schema parser is responsible to do
+a check that **any** (not all) of the previously encountered **&lt;interface&gt;**-es contains
+the referenced field. The code generator may also not impose many restrictions on such references.
+Usage of the wrong **&lt;interface&gt;** class with the missing referenced
+field in the end application may result in compilation errors.
 
 [[fields-optional-multiple-existence-conditions]]
 ==== Multiple Existence Conditions ====

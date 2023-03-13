@@ -9,7 +9,7 @@ for detailed description.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
-|**field**|<<intro-references, reference>>|1|yes||Reference to other field.
 |**bitLength**|<<intro-numeric, unsigned>>|2|no|length in bits|Serialization length in bits, applicable only to a member of <<fields-bitfield, &lt;bitfield&gt; >> and when referencing a field that can be a member of <<fields-bitfield, &lt;bitfield&gt; >>.
+|**field**|<<intro-references, reference>>|1|yes||Reference to other field.
 |===
 

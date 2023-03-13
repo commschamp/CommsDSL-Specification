@@ -418,7 +418,9 @@ In the example above *Msg1* and *Msg2* are uni-directional messages, while
 Many protocol specifications provide expected serialization length of the message. In order to
 prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to 
 validate the specified message length during the schema file parsing. To perform such a 
-check use **validateMinLength** <<intro-properties, property>>.
+check use **validateMinLength** <<intro-properties, property>> with <<intro-numeric, unsigned>> value.
+It can help to avoid some copy-paste or typo errors
+at the time of schema parsing rather than debugging generated incorrect code.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -444,28 +446,6 @@ customizable at compile time.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <message name="Msg1" id="1" customizable="true">
-        ...
-    </message>
-</schema>
-----
-
-[[messages-alias-to-fields]]
-=== Alias Names to Member Fields ===
-Sometimes an existing member field may be renamed and/or moved. It is possible to
-create alias names for the fields to keep the old client code being able to compile
-and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
-
-[[messages-ensuring-serialization-length]]
-=== Ensuring Serialization Length ===
-Many protocol specifications indicate the expected message serialization length, especially
-when message has fixed length. The **CommsDSL** allows specifying expected minimal length
-using **validateMinLength** property with <<intro-numeric, unsigned>> value to help avoid some copy-paste or typo errors 
-at the time of schema parsing rather than debugging generated incorrect code.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
     <message name="Msg1" id="1" validateMinLength="6">
         <int name="F1" type="uint32" />
         <int name="F2" type="int16" />
@@ -478,8 +458,14 @@ at the time of schema parsing rather than debugging generated incorrect code.
 Note, that <<fields-optional, &lt;optional&gt; >> field is always expected to have 0 minimal length regardless
 of its <<fields-optional-existence-conditions, existence conditions>>.
 
-Also note, that the value of **validateMinLength** is the expected serialization length of 
+Also note, that the value of **validateMinLength** is the expected serialization length of
 message fields __without__ the fields of the <<frames-frames, &lt;frame&gt; >>.
+
+[[messages-alias-to-fields]]
+=== Alias Names to Member Fields ===
+Sometimes an existing member field may be renamed and/or moved. It is possible to
+create alias names for the fields to keep the old client code being able to compile
+and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
 
 [[messages-ensuring-overriding-code-injection]]
 === Ensuring Overriding Code Injection  ===
@@ -532,13 +518,350 @@ It means that some portion of copied code can be cleared.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
-    <fields>
     <message name="Msg1" ... nameOverride="replace">
         ...
     </message>
         
     <message name="Msg2" copyCodeFrom="Msg1" nameOverride="none">
             ...
+    </message>
+</schema>
+----
+
+[[messages-construct-requirements]]
+=== Extra Construction Requirements ===
+In some cases the message object construction may require updating
+fields in its <<interfaces-interfaces, &lt;interface&gt; >>. The
+**CommsDSL** provides such an ability using the **construct** property.
+The reference to the interface field is performed using the same syntax
+as with the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>,
+i.e. using `%` prefix.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... construct="%Flags.Bits.B0">
+        ...
+    </message>
+
+    <message name="Msg2" ... construct="%Flags.Extra = 2">
+        ...
+    </message>
+
+</schema>
+----
+
+In the example above `Msg1` constructor must set `Flags.Bits.B0` bit, while `Msg2`
+constructor must assign `2` to the `Flags.Extra` field.
+
+To perform multiple updates to the interface fields the `<construct>` child node with its single `<and>` child node must be used.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ...>
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+The `<construct>` nodes are very similar to the `<cond>` ones used to describe multiple
+<<fields-optional-existence-conditions, existence conditions>> of the <<fields-optional, &lt;optional&gt; >>
+field, but with some limitations:
+
+- Only bit sets and equality statements are supported.
+- Only `<and>` nodes are supported.
+
+**WARNING**: The **CommsDSL** specification supports multiple interfaces and doesn't impose any restriction
+on how they are used in the end application. The schema parser is responsible to do
+a check that **any** (not all) of the previously encountered **&lt;interface&gt;**-es contains
+the referenced field. The code generator may also not impose many restrictions on such references.
+Usage of the wrong **&lt;interface&gt;** class with the missing referenced
+field in the end application may result in compilation errors.
+
+[[messages-read-conditions]]
+=== Extra Read Conditions ===
+The **read** operation of every <<messages-messages, &lt;message&gt; >> means invoking
+the **read** operation for every one of its member fields. However, there may be cases
+when preliminary evaluation of the <<interfaces-interfaces, &lt;interface&gt; >> fields
+needs to be performed. To do so the **readCond** property referencing appropriate
+<<interfaces-interfaces, &lt;interface&gt; >> fields can be used. The syntax is
+the same as with the <<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... readCond="!%Flags.Bits.B1">
+        ...
+    </message>
+
+    <message name="Msg2" ...>
+        <readCond>
+            <or>
+                <readCond value="%Flags.Bits.B0">
+                <and>
+                    <readCond value="!%Flags.Bits.B1">
+                    <readCond value="%Flags.Extra = 1">
+                </and>
+            </or>
+        </readCond>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+In case of multiple conditions the **readCond** needs to be specified
+as the `<readCond>` child node with a single `<and>` or `<or>` immediate child.
+Nested `<and>` and/or `<or>` conditions are allowed in the same way as with the
+<<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+The only difference is that the inner child nodes must be named `readCond` instead of `cond`.
+
+Quite often the <<messages-read-conditions>> (**readCond**) are the same as the <<messages-construct-requirements>> (**construct**).
+To avoid unnecessary statements duplication there is **constructAsReadCond** property with
+<<intro-boolean, boolean>> value to force copying **construct** value(s) to the **readCond**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... constructAsReadCond="true">
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+It is equivalent to
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ...>
+        <construct>
+            <and>
+                <construct value="%Flags.Bits.B0">
+                <construct value="!%Flags.Bits.B1">
+                <construct value="%Flags.Extra = 1">
+            </and>
+        </construct>
+        <readCond>
+            <and>
+                <readCond value="%Flags.Bits.B0">
+                <readCond value="!%Flags.Bits.B1">
+                <readCond value="%Flags.Extra = 1">
+            </and>
+        </readCond>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+
+[[messages-valid-conditions]]
+=== Extra Validity Conditions ===
+The **valid** operation of every <<messages-messages, &lt;message&gt; >> means invoking
+the **valid** operation for every one of its member fields. However, the valid values
+of fields may be interdependent. There may be a need to introduce extra validity checks
+on the message contents. To do so the **validCond** property referencing appropriate
+<<interfaces-interfaces, &lt;interface&gt; >> fields and/or fields of the
+<<messages-messages, &lt;message&gt; >> itself can be used. The syntax is
+the same as with the <<fields-optional, &lt;optional&gt; >> field's
+<<fields-optional-existence-conditions, existence conditions>>.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+
+    <message name="Msg1" ... validCond="!%Flags.Bits.B1">
+        ...
+    </message>
+</schema>
+----
+
+In case of multiple conditions the **validCond** needs to be specified
+as the `<validCond>` child node with a single `<and>` or `<or>` immediate child.
+Nested `<and>` and/or `<or>` conditions are allowed in the same way as with the
+<<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+The only difference is that the inner child nodes must be named `validCond` instead of `cond`.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+
+    <message name="Msg1" ... >
+        <fields>
+            <int name="F1" type="uint8" />
+            <int name="F2" type="uint8" />
+        </fields>
+        <validCond>
+            <and>
+                <validCond value="!%Flags.Bits.B1" />
+                <or>
+                    <validCond value="$F1 = 0" />
+                    <validCond value="$F2 != F1" />
+                </or>
+            </and>
+        </validCond>
+    </message>
+</schema>
+----
+
+Quite often the <<messages-valid-conditions>> (**validCond**) are the same as the <<messages-construct-requirements>> (**construct**).
+To avoid unnecessary statements duplication there is **constructAsValidCond** property with
+<<intro-boolean, boolean>> value to force copying **construct** value(s) to the **validCond**, similar
+to the **constructAsReadCond** property described <<messages-read-conditions, above>>.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface">
+        <bitfield name="Flags">
+            <set name="Bits" bitLength="4">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+            <int name="Extra" type="uint8" bitLength="4" />
+        </bitfield>
+    </interface>
+
+    <message name="Msg1" ... constructAsValidCond="true">
+        <construct>
+            ...
+        </construct>
+        <fields>
+            ...
+        </fields>
+    </message>
+</schema>
+----
+
+[[messages-fail-read-on-invalid]]
+=== Failing Read on Invalid Contents ===
+In the <<messages-valid-conditions, previous section>> it was shown that the `<message>`
+can have extra conditions for its payload to be valid. Sometimes these extra conditions are
+required to be taken into account during the **read** operation and the latter should
+fail in case the message contents are invalid. To support such case the
+**failOnInvalid** <<intro-properties, property>> with boolean value should be used
+(the same way as with <<fields-common-failing-read-of-the-field-on-invalid-value, fields>>).
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ... failOnInvalid="true">
+        <fields>
+            <int name="F1" type="uint8" />
+            <int name="F2" type="uint8" />
+        </fields>
+        <validCond>
+            <or>
+                <validCond value="$F1 = 0" />
+                <validCond value="$F2 != F1" />
+            </or>
+        </validCond>
+    </message>
+</schema>
+----
+
+The **failOnInvalid** property for the `<message>` can also be used to fail the **read** operation in
+case any of the member fields has an invalid value.
+
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ... failOnInvalid="true">
+        <int name="F1" type="uint8" validRange="[0, 10]" />
     </message>
 </schema>
 ----
