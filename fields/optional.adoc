@@ -146,7 +146,7 @@ Deep (nested) conditions are also expected to be supported by the code generator
                 <bit name="B0" idx="0" />
                 <bit name="B1" idx="1" />
             </set>
-        </fitfield>
+        </bitfield>
         <optional name="F2" defaultMode="missing" cond="$F1.Mem2.B0">
             <int name="WrappedF2" type="uint32" />
         </optional>
@@ -196,7 +196,7 @@ as the reference to a sibling field described above.
                 <bit name="B0" idx="0" />
                 <bit name="B1" idx="1" />
             </set>
-        </fitfield>
+        </bitfield>
     </interface>
 
     <message name="Msg1" id="1">
