@@ -92,7 +92,7 @@ using **cond** <<intro-properties, property>>.
         <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
             <int name="ActVal1" type="uint32" />
         </optional>
-    </fields>
+    </message>
 </schema>
 ----
 **NOTE**, that **cond** property can be used only for **&lt;optional&gt;** field
@@ -129,7 +129,7 @@ For example:
         <optional name="F3" defaultMode="exists" cond="$F1 &lt; $F2">
             <int name="WrappedF3" type="uint32" />
         </optional>
-    </fields>
+    </message>
 </schema>
 ----
 The `F3` above exists, only if value of **F1** is less than value of **F2**
@@ -153,7 +153,7 @@ Deep (nested) conditions are also expected to be supported by the code generator
         <optional name="F3" defaultMode="exists" cond="!$F1.Mem2.B1">
             <int name="WrappedF3" type="uint32" />
         </optional>
-    </fields>
+    </message>
 </schema>
 ----
 
@@ -178,7 +178,7 @@ actual specified condition is automatically implied.
         <optional name="F3" defaultMode="exists" cond="!$F2.WrappedF2.B1">
             <int name="WrappedF3" type="uint32" />
         </optional>
-    </fields>
+    </message>
 </schema>
 ----
 
@@ -206,7 +206,7 @@ as the reference to a sibling field described above.
         <optional name="F2" defaultMode="exists" cond="!%Flags.Mem2.B1">
             <int name="WrappedF2" type="uint32" />
         </optional>
-    </fields>
+    </message>
 </schema>
 ----
 **WARNING**: The **CommsDSL** specification supports multiple interfaces and doesn't impose any restriction
@@ -215,6 +215,54 @@ a check that **any** (not all) of the previously encountered **&lt;interface&gt;
 the referenced field. The code generator may also not impose many restrictions on such references.
 Usage of the wrong **&lt;interface&gt;** class with the missing referenced
 field in the end application may result in compilation errors.
+
+Since **v6.1** of this specification comparing the size of the collection type fields (
+**&lt;data&gt;**, **&lt;string&gt;**, and **&lt;list&gt;**) is also supported. The size check condition is determined
+by the usage of the `#` character after the one indicating sibling (`$`) or interface (`%`) reference.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <data name="F1">
+            <lengthPrefix>
+                <int name="Length" type="uint8" />
+            </lengthPrefix>
+        </data>
+        <optional name="F2" defaultMode="missing" cond="$#F1 != 0">
+            <int name="ActF1" type="uint32" />
+        </optional>
+    </message>
+</schema>
+----
+In the example above the `F2` field exists if `F1` is not empty, i.e. its size is not `0`.
+
+Also since **v6.1** of this specification check whether the previously encountered **&lt;optional&gt;** field
+exists is also supporting in another **&lt;optional&gt;** field condition. Such check is determined by the
+usage of the `?` character after the one indicating sibling (`$`) or interface (`%`) reference.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <set name="F1">
+            <bit name="B0" idx="0" />
+            <bit name="B1" idx="1" />
+        </set>
+        <optional name="F2" defaultMode="missing" cond="$F1.B0">
+            <set name="ActF2">
+                <bit name="B0" idx="0" />
+                <bit name="B1" idx="1" />
+            </set>
+        </optional>
+        <optional name="F3" defaultMode="exists" cond="!$?F2">
+            <int name="ActF3" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+In the example above `F3` exists when `F2` is missing.
 
 [[fields-optional-multiple-existence-conditions]]
 ==== Multiple Existence Conditions ====
@@ -279,7 +327,7 @@ place in the input buffer.
 Similar to <<fields-optional-missing-on-failed-read, missingOnReadFail>>, but with a bit of different
 flavour, the property **missingOnInvalid** insures that the **&lt;optional&gt;** field is marked as
 "missing" when the held field's value is invalid (applicable to the __refresh__ operation).
-In case of recognition the invalid value
+In case of recognition of the invalid value
 during the __read__ operation, the **&lt;optional&gt;** field must be marked as "missing" and
 reading of the following fields must continue from the place in the input buffer as if the __read__
 operation of the **&lt;optional&gt;** field didn't take place.
