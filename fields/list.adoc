@@ -205,6 +205,12 @@ suffix field is supported using **termSuffix** property. Just like with
 <<fields-list-count-prefix, countPrefix>>, and <<fields-list-length-prefix, lengthPrefix>>,
 the termination suffix can be specified as a child XML node or referenced when
 defined externally.
+
+The termination suffix is determined by the _successful_ read attempt before attempting to read the
+list element. It means that the termination suffix field needs to fail its read operation if it's not
+encountered. In most cases specifying valid value(s) in conjunction with the **failOnInvalid** property
+is sufficient.
+
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -215,11 +221,11 @@ defined externally.
                 <int name="Element" type="uint32" />
             </element>
             <termSuffix>
-                <int name="TermSuffix" type="uint8" defaultValue="0"/>
+                <int name="TermSuffix" type="uint8" defaultValidValue="0" failOnInvalid="true" />
             </termSuffix>
         </list>
         
-        <int name="ExternalTermSuffix" type="uint8" />
+        <int name="ExternalTermSuffix" type="uint8" validRange="[0, 1]" failOnInvalid="true" />
         <list name="List2" termSuffix="ExternalTermSuffix">
             <int name="Element" type="uint32" />
         </list>
@@ -227,7 +233,7 @@ defined externally.
 </schema>
 ----
 
-**NOTE**, that **count**, **countPrefix**, **lengthPrefix**, and **termSuffix** properties
+**NOTE** that **count**, **countPrefix**, **lengthPrefix**, and **termSuffix** properties
 are mutually exclusive, i.e. cannot be used together.
 
 [[fields-list-element-length-prefix]]
