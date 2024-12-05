@@ -148,6 +148,23 @@ It is possible to provide a list of multiple valid values using child nodes.
 </schema>
 ----
 
+When using child nodes to specify the valid values, it is possible (but not necessary) to specify the versions of
+the protocol when the valid value was introduced and when it got deprecated.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <data name="SomeDataField">
+            <validValue value="01 02 03" sinceVersion="1" />
+            <validValue value="aa bb cc" deprecated="5" />
+            <validValue value="12 34 56 78" sinceVersion="3" deprecated="4" />
+            ...
+        </data>
+    </fields>
+</schema>
+----
+
 It is also possible to combine a single XML attribute with other child nodes:
 [source,xml]
 ----
