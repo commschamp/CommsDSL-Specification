@@ -11,8 +11,10 @@ if (NOT ASCIIDOCTOR_PDF_EXE)
     message(FATAL_ERROR "asciidoctor-pdf is not found")
 endif ()
 
-set (VERSION "v6.1")
 set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.adoc")
+file (READ "${MAIN_FILE}" main_file_contents)
+string (REGEX MATCH "v([0-9\.]*)\," _ ${main_file_contents})
+set (VERSION "v${CMAKE_MATCH_1}")
 
 add_custom_target("pdf" ALL
     COMMAND ${ASCIIDOCTOR_PDF_EXE} ${MAIN_FILE}
