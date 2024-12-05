@@ -303,9 +303,9 @@ an <<fields-int, &lt;int&gt; >>).
 </schema>
 ----
 
-* **length** - Introduced in **v2.0** of **CommsDSL** specification. 
-Used to specify that the field holds total serialization length 
-of the **subsequent** fields. Usually applicable to <<fields-int, &lt;int&gt; >> field 
+* **length** - Used to specify that the field holds total serialization length
+of the **subsequent** fields (excluding the length of the field itself).
+Usually applicable to <<fields-int, &lt;int&gt; >> field
 (or  <<fields-ref, &lt;ref&gt; >> referencing an <<fields-int, &lt;int&gt; >>). 
 Since **v5.0** of **CommsDSL**, the **length** semantic type can be set for other
 complex fields, such as <<fields-bundle, &lt;bundle&gt; >> or <<fields-bitfield, &lt;bitfield&gt; >>.
