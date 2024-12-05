@@ -116,4 +116,82 @@ into account and generate correct code for various field operations
 **NOTE**, that **length** and **lengthPrefix** properties
 are mutually exclusive, i.e. cannot be used together.
 
+
+[[fields-data-valid-values]]
+==== Valid Values ====
+Some protocols may specify a narrow range of possible valid data values that
+the field is expected to have. To specify such a valid value use **validValue**
+<<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <data name="SomeDataField" validValue="01 02 03" />
+    </fields>
+</schema>
+----
+
+It is possible to provide a list of multiple valid values using child nodes.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <data name="SomeDataField">
+            <validValue value="01 02 03" />
+            <validValue value="aa bb cc" />
+            <validValue value="12 34 56 78" />
+            ...
+        </data>
+    </fields>
+</schema>
+----
+
+It is also possible to combine a single XML attribute with other child nodes:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <data name="SomeDataField" validValue="01 02 03">
+            <validValue value="aa bb cc" />
+            ...
+        </data>
+    </fields>
+</schema>
+----
+
+When the protocol specification demands haveing a specific data value, then it is possible to
+combine it with the <<fields-common-failing-read-of-the-field-on-invalid-value, failOnInvalid>>
+property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <data name="SomeDataField" validValue="01 02 03" failOnInvalid="true" />
+    </fields>
+</schema>
+----
+
+[[fields-data-single-valid-value]]
+==== Single Valid Value ====
+Sometimes the **&lt;data&gt;** field has only one valid value and it must be initialized with it. The
+**defaultValidValue** <<intro-properties, property>> can be used as a replacement to the combination of
+**defaultValue** and **validValue** ones having to specify the same value:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
+    <fields>
+        <data name="SomeDataField" defaultValidValue="01 02 03" failOnInvalid="true" ... />
+
+        <!-- Instead of:
+        <data name="SomeDataField" defaultValue="01 02 03" validValue="01 02 03" failOnInvalid="true" ... />
+        -->
+    </fields>
+</schema>
+----
+
 Use <<appendix-data, properties table>> for future references.
