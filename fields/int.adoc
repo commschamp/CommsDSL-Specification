@@ -67,7 +67,7 @@ Every **&lt;special&gt;** has extra optional properties:
 * **description** - Extra description and documentation on how to use the value.
 * **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 * **deprecated** - Version of the protocol when the special name / meaning was deprecated.
-* **displayName** - Readable name to display for the special value in protocol debugging and visualization tools.
+* **displayName** - Human readable name of the value.
 
 All these extra properties are described in detail in 
 <<fields-common, Common Properties of Fields>>.

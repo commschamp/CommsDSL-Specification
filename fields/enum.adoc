@@ -63,7 +63,7 @@ in any order, not necessarily sorted.
 Every **&lt;validValue&gt;** has extra optional properties:
 
 * **description** - Extra description and documentation on how to use the value.
-* **displayName** - String specifying how to name the value in various analysis tools.
+* **displayName** - Human readable name of the value.
 * **sinceVersion** - Version of the protocol when the value was introduced.
 * **deprecated** - Version of the protocol when the value was deprecated.
 

@@ -31,7 +31,7 @@ for detailed description.
 |**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which value was deprecated. +
 Must be greater than value of **sinceVersion**.
 |**description**|string|1|no||Human readable description of the value.
-|**displayName**|string|2|no||Name to display in various analysis tools.
+|**displayName**|string|2|no||Human readable name of the value.
 |**name**|<<intro-names, name>> string|1|yes||Name of the value.
 |**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which value was introduced.
 |**val**|floating point value, **nan**, **inf**, **-inf**|1|yes||Numeric value.

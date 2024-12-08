@@ -81,7 +81,7 @@ generated class. The <<intro-properties, property>> is **description**.
 [[messages-display-name]]
 === Display Name ===
 When various analysis tools display message details, the preference is to 
-display proper space separated name (which is defined using **displayName**
+display proper human readable and space separated name (which is defined using **displayName**
 <<intro-properties, property>>) rather than using a <<intro-names, name>>.
 [source,xml]
 ----

@@ -29,7 +29,7 @@ for detailed description.
 |**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which bit was deprecated (became reserved). +
 Must be greater than value of **sinceVersion**.
 |**description**|string|1|no||Human readable description of the bit.
-|**displayName**|string|1|no||Human readable name of the bit to display in various analysis tools.
+|**displayName**|string|1|no||Human readable name of the bit.
 |**idx**|<<intro-numeric, numeric>>|1|yes||Index of the specified bit. Counting starts from least significant bit.
 |**name**|<<intro-names, name>> string|1|yes||Name of the value.
 |**reserved**|<<intro-boolean, bool>>|1|no|false|Mark / Unmark the bit as being reserved.
