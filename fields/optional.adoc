@@ -347,30 +347,5 @@ operation of the **&lt;optional&gt;** field didn't take place.
 </schema>
 ----
 
-[[fields-optional-extra-display-property]]
-==== Extra Display Property ====
-By default GUI protocol analysis tools should allow manual update of the
-**&lt;optional&gt;** field mode. However, if the mode is controlled by the 
-values of other fields, it is possible to disable manual update of the 
-mode by using **displayExtModeCtrl** 
-(stands for "display external mode control") <<intro-properties, property>>
-with <<intro-boolean, boolean>> value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <message name="Msg1" id="1">
-        <set name="Flags">
-            <bit name="Val1Exists" idx="0" />
-        </set>
-        <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
-            <displayExtModeCtrl value="true" />
-            <field>
-                <int name="ActVal1" type="uint32" />
-            </field>
-        </optional>
-    </fields>
-</schema>
-----
 Use <<appendix-optional, properties table>> for future references.
 
