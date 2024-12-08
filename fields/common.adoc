@@ -210,6 +210,23 @@ value.
 </schema>
 ----
 
+[[fields-common-fixed-value-fields]]
+==== Fixed Value (Constant) Fields ====
+It is possible to disallow modification of the field's value by the client application
+using **fixedValue** property with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big" version="5" >
+    <message name="SomeMessage" id="1">
+        <int name="MessageVersion" type="uint8" defaultValue="1" fixedValue="true" />
+        ...
+    </message>
+</schema>
+----
+In the example above the code generator must remove an ability to explicitly modify the field's value
+after its construction. The field's value can still be updated by the **read** operation though.
+
 [[fields-common-customizable-fields]]
 ==== Customizable Fields ====
 The code generator is expected to allow some level of compile time customization of the 

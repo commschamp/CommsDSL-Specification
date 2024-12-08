@@ -16,6 +16,7 @@ Applipable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**description**|string|1|no||Human readable description of the field.
 |**displayName**|string|1|no||Name of the field to display. If empty, the code generator must use value of property **name** instead. In order to force empty name to display, use "_" (underscore).
 |**failOnInvalid**|<<intro-boolean, bool>>|1|no|false|Fail *read* operation if read value is invalid.
+|**fixedValue**|<<intro-boolean, bool>>|7|no|false|Remove an ability to update field's value after the object construction.
 |**forceGen**|<<intro-boolean, bool>>|3|no|false|Force generation of field's code regardless of it's being referenced or not.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.
 |**name**|<<intro-names, name>> string|1|yes||Name of the field.
