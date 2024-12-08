@@ -11,7 +11,6 @@ for detailed description.
 
 |**defaultValue**|floating point value, **nan**, **inf**, **-inf**|1|no|0.0|Default value. Must fit the underlying **type**.
 |**displayDecimals**|<<intro-numeric, numeric>>|1|no|0|Specifies number of digits to be displayed after the fraction point.
-|**displaySpecials**|<<intro-boolean, bool>>|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.
 |**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
 |**nonUniqueSpecialsAllowed**|<<intro-boolean, bool>>|2|no|false|Allow non unique **&lt;special&gt;**-s.
 |**type**|"float", "double"|1|yes||Underlying primitive type

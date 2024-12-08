@@ -323,21 +323,4 @@ with numeric value.
 If value of **displayDecimals** is **0**, then it is up to the displaying application
 to choose how many digits after decimal point to display.
 
-When **&lt;special&gt;** values are specified the protocol analysis tools are 
-expected to display them next to actual numeric value of the field. The **displaySpecials**
-<<intro-properties, property>> with <<intro-boolean, boolean>> value
-is there to control this default behavior.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <float name="SomeFloat" type="float" displaySpecials="false">
-            <special name="S1" val="0.0" />
-            <special name="S2" val="nan" />
-        </int>
-    </fields>
-</schema>
-----
-
 Use <<appendix-float, properties table>> for future references.

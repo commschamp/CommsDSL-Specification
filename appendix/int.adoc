@@ -15,7 +15,6 @@ for detailed description.
 |**defaultValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|1|no|0|Default value. Must fit the underlying **type**.
 |**displayDecimals**|<<intro-numeric, numeric>>|1|no|0|Use specified number of digits after the fraction point when displaying the field's value as floating point.
 |**displayOffset**|<<intro-numeric, numeric>>|1|no|0|Add specified offset value to a field's value when displaying it.
-|**displaySpecials**|<<intro-boolean, bool>>|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.
 |**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
 |**length**|<<intro-numeric, unsigned>>|1|no|length of **type**|Forced serialization length.
 |**nonUniqueSpecialsAllowed**|<<intro-boolean, bool>>|2|no|false|Allow non unique **&lt;special&gt;**-s.
