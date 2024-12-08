@@ -288,26 +288,5 @@ name.
 Negative number as value of **defaultMember** property will force the 
 **&lt;variant&gt;** field not to have a default member.
 
-==== Extra Display Property ====
-By default GUI protocol analysis tools should display the index of the 
-held member when displaying **&lt;variant&gt;** field in "read only" mode.
-However, for some occasions this information may be irrelevant. To hide
-display of index use **displayIdxReadOnlyHidden** 
-<<intro-properties, property>> with <<intro-boolean, boolean>> value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema name="MyProtocol" endian="big">
-    <fields>
-        <variant name="Property" displayIdxReadOnlyHidden="true">
-            <bundle name="Prop1">
-                ...
-            </bundle>
-            ...
-        </variant>
-    </fields>
-</schema>
-----
-
 Use <<appendix-variant, properties table>> for future references.
 

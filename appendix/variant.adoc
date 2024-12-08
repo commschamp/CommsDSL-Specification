@@ -10,7 +10,6 @@ for detailed description.
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
 |**defaultMember**|<<intro-names, name>> or <<intro-numeric, numeric>> index|1|no|-1|Default member. Negative number means no member selected.
-|**displayIdxReadOnlyHidden**|<<intro-boolean, bool>>|1|no|false|Hide active index of the member when field displayed in read-only mode.
 |===
 
 
