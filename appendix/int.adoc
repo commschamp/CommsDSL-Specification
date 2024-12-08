@@ -13,8 +13,8 @@ for detailed description.
 |**bitLength**|<<intro-numeric, unsigned>>|1|no|length of **type** in bits|Serialization length in bits, applicable only to a member of <<fields-bitfield, &lt;bitfield&gt; >>.
 |**defaultValidValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|4|no||Convenience bunding of the **defaultValue** and **validValue** into a single property.
 |**defaultValue**|<<intro-numeric, numeric>> or <<intro-names, name>>|1|no|0|Default value. Must fit the underlying **type**.
-|**displayDecimals**|<<intro-numeric, numeric>>|1|no|0|Indicates to GUI analysis tools to display this field as floating point value with specified number of digits after the fraction point.
-|**displayOffset**|<<intro-numeric, numeric>>|1|no|0|Indicates to GUI analysis tools to add specified offset value to a field's value when displaying it.
+|**displayDecimals**|<<intro-numeric, numeric>>|1|no|0|Use specified number of digits after the fraction point when displaying the field's value as floating point.
+|**displayOffset**|<<intro-numeric, numeric>>|1|no|0|Add specified offset value to a field's value when displaying it.
 |**displaySpecials**|<<intro-boolean, bool>>|2|no|true|Control displaying **&lt;special&gt;** values in analysis tools.
 |**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
 |**length**|<<intro-numeric, unsigned>>|1|no|length of **type**|Forced serialization length.

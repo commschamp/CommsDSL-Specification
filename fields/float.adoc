@@ -308,7 +308,7 @@ is set to **true**.
 
 ==== Extra Display Properties ====
 When displaying the floating point value, held by the **&lt;float&gt;** field,
-GUI analysis tools require knowledge on how many digits after decimal point
+it may be required to specify amount of digits after decimal point
 need to be displayed. To provide this information, use **displayDecimals** <<intro-properties, property>> 
 with numeric value.
 [source,xml]
@@ -320,7 +320,7 @@ with numeric value.
     </fields>
 </schema>
 ----
-If value of **displayDecimals** is **0**, then it is up to the GUI tool
+If value of **displayDecimals** is **0**, then it is up to the displaying application
 to choose how many digits after decimal point to display.
 
 When **&lt;special&gt;** values are specified the protocol analysis tools are 

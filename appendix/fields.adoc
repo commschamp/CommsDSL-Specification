@@ -14,9 +14,7 @@ Refer to <<fields-common, Common Properties of Fields>> chapter for detailed des
 Must be greater than value of **sinceVersion**. +
 Applipable only to members of the <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
 |**description**|string|1|no||Human readable description of the field.
-|**displayHidden**|<<intro-boolean, bool>>|1|no|false|Don't display field at all in visual analysis tool(s).
 |**displayName**|string|1|no||Name of the field to display. If empty, the code generator must use value of property **name** instead. In order to force empty name to display, use "_" (underscore).
-|**displayReadOnly**|<<intro-boolean, bool>>|1|no|false|Disable modification of the field in visual analysis tool(s).
 |**failOnInvalid**|<<intro-boolean, bool>>|1|no|false|Fail *read* operation if read value is invalid.
 |**forceGen**|<<intro-boolean, bool>>|3|no|false|Force generation of field's code regardless of it's being referenced or not.
 |**lengthOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **length** retrieval.

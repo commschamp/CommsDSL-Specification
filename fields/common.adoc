@@ -87,12 +87,7 @@ has been introduced with <<intro-boolean, boolean>> value.
 ----
 
 [[fields-common-display-properties]]
-==== Display Properties ====
-**CommsDSL** supports generation of not only field's serialization and
-value access functionality, but also of various GUI protocol visualization, debugging and
-analysis tools. There are some allowed properties, that indicate how the 
-field is expected to be displayed by such tools.
-
+==== Display Name ====
 The **displayName** property is there to specify proper string of the field's
 name, with spaces, dots and other characters that are not allowed to exist in
 the <<intro-names, name>>.
@@ -114,34 +109,6 @@ If **displayName** is not specified, the code generator must use value of proper
 <schema ...>
     <fields>
         <int name="SomeIntField" displayName="_" ... />
-    </fields>
-</schema>
-----
-
-Sometimes the values of some fields may be controlled by other fields. In this case, it
-could be wise to disable manual update of such fields. To enable/disable such
-behavior use **displayReadOnly** property with <<intro-boolean, boolean>>
-value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <int name="SomeIntField" displayReadOnly="true" ... />
-    </fields>
-</schema>
-----
-
-Also sometimes it can be desirable to completely hide some field 
-from being displayed in the protocol analysis GUI application. In this case
-use **displayHidden** property with <<intro-boolean, boolean>>
-value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <int name="SomeIntField" displayHidden="true" ... />
     </fields>
 </schema>
 ----

@@ -16,7 +16,7 @@ field, member fields need to be listed as children XML elements of the **&lt;var
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
-        <int name="Key" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Key" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             <bundle name="Prop1">
@@ -72,7 +72,7 @@ TLV (type / length / value) triplets.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
-        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Type" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             <bundle name="Prop1">
@@ -108,7 +108,7 @@ preserving forward / backward compatibility of the protocol. For example:
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="2">
     <fields>
-        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Type" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             <bundle name="Prop1">
@@ -135,7 +135,7 @@ introduced in the future versions of the protocol while still operating correctl
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
-        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Type" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             ...
@@ -165,7 +165,7 @@ to all the properties. Any new defined member field gets **appended** to the cop
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big" version="2">
     <fields>
-        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Type" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             <bundle name="Prop1">
@@ -204,7 +204,7 @@ child node, which wraps the replacing fields.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <fields>
-        <int name="Type" type="uint8" failOnInvalid="true" displayReadOnly="true" />
+        <int name="Type" type="uint8" failOnInvalid="true" />
 
         <variant name="Property">
             <bundle name="Prop1">
