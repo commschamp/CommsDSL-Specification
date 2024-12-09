@@ -425,4 +425,36 @@ boolean value can be used in addition to **reuse** one.
 </schema>
 ----
 
+[[fields-common-length-validation]]
+=== Field Length Validation ===
+Many protocol specifications provide expected serialization length of the message or selected fields. In order to
+prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to
+validate the specified field (minimal) length during the schema file parsing. It can be quite useful for the
+composite fields like <<fields-bundle, &lt;bundle&gt; >>. To perform such a
+check use **validateMinLength** <<intro-properties, property>> with <<intro-numeric, unsigned>> value.
+It can help to avoid some copy-paste or typo errors
+at the time of schema parsing rather than debugging generated incorrect code.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bundle name="SomeBundle" validateMinLength="4">
+            <int name="SomeIntMember" type="uint8" />
+            <set name="SomeSetMember" length="1">
+                ...
+            </set>
+            <enum name="SomeEnumMember" type="uint8">
+                ...
+            </enum>
+            <string name="SomeString" validateMinLength="1">
+                <lengthPrefix>
+                    <int name="Length" type="uint8" />
+                </lengthPrefix>
+            </string>
+        </bundle>
+    </fields>
+</schema>
+----
+
 Use <<appendix-fields, properties table>> for future references.

@@ -31,6 +31,7 @@ Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<f
 |**semanticType**|"none", "messageId", "version", "length"|1|no|none|Specify semantic type of the field. It allows code generator to generate special code for special cases. Value "length" was introduced in **v2** of this specification.
 |**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which field was introduced. + 
 Applicable only to members of the <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
+|**validateMinLength**|<<intro-numeric, numeric>>|7|no||Specify expected minimal serialization length of the field.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
 |**valueOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **value** operation.
 |**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.

@@ -32,9 +32,9 @@ Must be greater than value of **sinceVersion**.
 |**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
 |**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which message was introduced.
 |**validateMinLength**|<<intro-numeric, numeric>>|4|no||Specify expected minimal serialization length of the message fields.
-|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
 |**validCond**|string|6|no||Extra validity check operation condition.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
+|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
 |===
 
 Extra child XML elements allowed:
