@@ -399,7 +399,7 @@ It means that some portion of copied code can be cleared.
 In case of <<fields-common-reusing-other-fields, reusing>> other field definition, only the field
 definition properties are copied. The extra code that the original field might inject is **NOT** included
 in such copy by default. The copying of injected code must be specified explicitly using
-**copyCodeFrom** property descirbed above, or to avoid repetition of the
+**copyCodeFrom** property described above, or to avoid repetition of the
 <<intro-references, reference>> string, another **reuseCode** property with
 boolean value can be used in addition to **reuse** one.
 [source,xml]

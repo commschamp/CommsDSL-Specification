@@ -28,6 +28,7 @@ message object and will contain required extra information.
 These fields are there to hold extra values delivered as part of message 
 <<frames-frames, framing>>.
 
+[[interfaces-name]]
 === Interface Name ===
 Every interface definition must specify its <<intro-names, name>> using
 **name** <<intro-properties, property>>.
@@ -41,6 +42,7 @@ Every interface definition must specify its <<intro-names, name>> using
 </schema> 
 ----
 
+[[interfaces-description]]
 === Description ===
 It is possible to provide a description of the interface about what it is and
 how it is expected to be used. This description is only for documentation
@@ -61,6 +63,7 @@ generated class. The <<intro-properties, property>> is **description**.
 </schema>
 ----
 
+[[interfaces-fields]]
 === More About Fields ===
 Similar to **&lt;message&gt;** every **&lt;interface&gt;** has zero or more <<fields-fields, fields>> that 
 can be specified as child XML elements. If there is any other 
@@ -131,9 +134,47 @@ having "version" value as **semanticType** property, will be considered
 for fields that, were introduced and/or deprecated at some stage, i.e. use
 **sinceVersion** and/or **derecated** + **removed** properties.
 
+[[interfaces-alias-names]]
 === Alias Names to Fields ===
 Sometimes a contained field may be renamed and/or moved. It is possible to
 create alias names for the fields to keep the old client code being able to compile
 and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
+
+[[interfaces-reusing-other-fields]]
+=== Reusing Other Interfaces ===
+Sometimes two different interfaces are very similar but differ in one or two particular aspects. It is possible
+to reuse the other interface definition using **reuse** property (similar to <<fields-common-reusing-other-fields, fields>>
+and <<messages-reusing-other-fields, messages>>).
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface1" ...>
+        ...
+    </interface>
+
+    <interface name="Interface2" reuse="Interface1" ...>
+        <!-- Added fields -->
+        ...
+    </interface>
+</schema>
+----
+Similar to using the <<interfaces-fields, copyFieldsFrom>> property any new fields defined are added to ones
+copied from the **reuse**-d interface.
+
+In case of reusing other interface definition, only the interface
+definition properties are copied. The extra code that the original interface might inject is **NOT** included
+in such copy by default. To include injected code use **reuseCode** property with
+boolean value can be used in addition to **reuse** one.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <interface name="Interface2" reuse="Interface1" reuseCode="true" ...>
+        ...
+    </interface>
+</schema>
+----
+
 
 Use <<appendix-interface, properties table>> for future references.
