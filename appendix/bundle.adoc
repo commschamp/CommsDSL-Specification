@@ -9,7 +9,9 @@ for detailed description.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
+|**copyValidCondFrom**|<<intro-references, reference>> string|7|no||Bundle field definition from which extra validity condition needs to be copied.
 |**reuseAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<fields-bundle, &lt;bundle&gt; >> when  **reuse** property is used.
+|**validCond**|string|7|no||Extra validity check operation condition.
 |===
 
 Extra child XML elements allowed:
@@ -21,4 +23,5 @@ Extra child XML elements allowed:
 |**&lt;alias&gt;**|3|Alias names for other member fields. See <<aliases-aliases, Aliases>> for more info.
 |**&lt;members&gt;**|1|Wraps member fields.
 |**&lt;replace&gt;**|5|Wraps replacing member fields after copying using **reuse** property.
+|**&lt;validCond&gt;**|7|Multiple extra validity check operation conditions.
 |===

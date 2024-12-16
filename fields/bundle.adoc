@@ -170,4 +170,77 @@ Sometimes an existing member field may be renamed and/or moved. It is possible t
 create alias names for the fields to keep the old client code being able to compile
 and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
 
+
+[[fields-bundle-valid-conditions]]
+==== Extra Validity Conditions ====
+The **valid** operation of every <<fields-bundle, &lt;bundle&gt; >> means invoking
+the **valid** operation for every one of its member fields. However, the valid values
+of fields may be interdependent. There may be a need to introduce extra validity checks
+on the &lt;bundle&gt; contents. To do so the **validCond** property referencing appropriate
+member fields of the <<fields-bundle, &lt;bundle&gt; >> itself can be used. The syntax is
+the same as with the <<fields-optional, &lt;optional&gt; >> field's
+<<fields-optional-existence-conditions, existence conditions>> (described later).
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="SomeBundle" validCond="$Mem1 != $Mem2">
+            <int name="Mem1" type="uint8" />
+            <int name="Mem2" type="uint16" />
+        </bundle>
+    </fields>
+</schema>
+----
+
+In case of multiple conditions the **validCond** needs to be specified
+as the `<validCond>` child node with a single `<and>` or `<or>` immediate child.
+Nested `<and>` and/or `<or>` conditions are allowed in the same way as with the
+<<fields-optional, &lt;optional&gt; >> field's <<fields-optional-existence-conditions, existence conditions>>.
+The only difference is that the inner child nodes must be named `validCond` instead of `cond`.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="SomeBundle">
+            <members>
+                <int name="Mem1" type="uint8" />
+                <int name="Mem2" type="uint16" />
+            </members>
+            <validCond>
+                <or>
+                    <validCond value="$Mem1 = 0" />
+                    <validCond value="$Mem2 != 0" />
+                </or>
+            </validCond>
+        </bundle>
+    </fields>
+</schema>
+----
+
+In case some other <<fields-bundle, &lt;bundle&gt; >> have similar fields and the same extra validity conditions apply to
+the <<fields-bundle, &lt;bundle&gt; >> field being defined, it is possible to copy the conditions using **copyValidCondFrom**
+property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bundle name="SomeBundle" validCond="$Mem1 != $Mem2">
+            <int name="Mem1" type="uint8" />
+            <int name="Mem2" type="uint16" />
+        </bundle>
+
+        <bundle name="SomeOtherBundle" copyValidCondFrom="SomeBundle">
+            <int name="Mem3" type="uint32" />
+            <int name="Mem1" type="uint8" />
+            <int name="Mem2" type="uint16" />
+        </bundle>
+    </fields>
+</schema>
+----
+
 Use <<appendix-bundle, properties table>> for future references.
