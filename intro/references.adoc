@@ -122,7 +122,7 @@ prefixing the reference string with `@` and schema name:
 It is allowed (but not required) to use `@` with schema name prefix when referencing fields in the same schema.
 
 [[intro-references-to-siblings]]
-==== References to Sibling Elements ====
+==== References to Sibling or Member Elements ====
 In case of using <<fields-optional, &lt;optional&gt; >> field <<fields-optional-existence-conditions, conditions>> the
 referenced fields are not global ones, but a siblings. Such sibling reference needs to be prefixed with `$` character.
 
@@ -137,6 +137,20 @@ referenced fields are not global ones, but a siblings. Such sibling reference ne
         <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
             <int name="ActVal1" type="uint32" />
         </optional>
+    </fields>
+</schema>
+----
+
+In case of the <<messages-messages, &lt;message&gt;-s>> or composite fields like
+<<fields-bundle, &lt;bundle&gt; >> the `$` is used to reference their member fields.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1" validCond="$F1 != $F2">
+        <int name="F1" type="uint8" />
+        <int name="F2" type="uint8" />
     </fields>
 </schema>
 ----

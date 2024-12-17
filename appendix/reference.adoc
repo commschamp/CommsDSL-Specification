@@ -7,7 +7,7 @@ Lists available prefixes allowing distinction of different <<intro-references, r
 |Prefix Character|DSL Version|Description
 
 ||1|Regular reference to a field within the same schema.
-|`$`|1|Reference to a sibling field.
+|`$`|1|Reference to a sibling or a member field.
 |`^`|2|Reference to a field when it's not possible to distinguish between value and reference.
 |`@`|5|Reference to a field in a different schema.
 |`%`|6|Reference to a field in an <<interfaces-interfaces, &lt;interface&gt; >>.
