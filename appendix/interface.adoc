@@ -13,6 +13,7 @@ for detailed description.
 |**description**|string|1|no||Human readable description of the interface.
 |**name**|<<intro-names, name>> string|1|yes||Name of the interface.
 |**reuse**|<<intro-references, reference>> string|7|no||Interface definition of which to copy.
+|**reuseAliases**|<<intro-boolean, bool>>|7|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<interfaces-interfaces, &lt;interface&gt; >> when **reuse** property is used.
 |**reuseCode**|<<intro-boolean, bool>>|7|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |===
 

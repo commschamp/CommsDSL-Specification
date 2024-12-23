@@ -32,6 +32,7 @@ Must be greater than value of **sinceVersion**.
 |**readOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **read** operation.
 |**refreshOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **refresh** operation.
 |**reuse**|<<intro-references, reference>> string|7|no||Message definition of which to copy.
+|**reuseAliases**|<<intro-boolean, bool>>|7|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<messages-messages, &lt;message&gt; >> when **reuse** property is used.
 |**reuseCode**|<<intro-boolean, bool>>|7|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |**removed**|<<intro-boolean, bool>>|1|no|false|Indicates whether deprecated message has been removed from being supported.
 |**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
