@@ -72,7 +72,7 @@ traffic reuse the same byte occupied by the `SomeEnum` field, like below.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="0x1">
-        <bitfield name="F1"
+        <bitfield name="F1">
             <enum name="SomeEnum" type="uint8" bitLength="2">
                 <validValue name="V1" val="0" />
                 <validValue name="V2" val="1" />
@@ -93,7 +93,7 @@ like this:
 <schema ...>
     <message name="Msg1" id="0x1">
         <fields>
-            <bitfield name="F1"
+            <bitfield name="F1">
                 <enum name="SomeEnum" type="uint8" bitLength="2">
                     ...
                 </enum>

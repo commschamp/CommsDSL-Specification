@@ -214,6 +214,22 @@ property.
     </fields>
 </schema>
 ----
-
+**Note** that **copyValidCondFrom** is an __action__ property, which causes the copy
+of the original validity conditions. When such field is <<fields-common-reusing-other-fields, reused>>
+in the future the original definition doesn't really have property named **copyValidCondFrom** to be
+copied, only the real validity condition(s). The `SomeOtherBitfield` definition above is equivalent to:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <bitfield name="SomeOtherBitfield" validCond="$Mem1 != $Mem2">
+            <int name="Mem3" type="uint8" bitLength="4" />
+            <int name="Mem1" type="uint8" bitLength="6" />
+            <int name="Mem2" type="uint8" bitLength="6" />
+        </bitfield>
+    </fields>
+</schema>
+----
 
 Use <<appendix-bitfield, properties table>> for future references.
