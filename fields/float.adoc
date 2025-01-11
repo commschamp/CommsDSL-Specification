@@ -77,7 +77,7 @@ Every **&lt;special&gt;** has extra optional properties:
 * **description** - Extra description and documentation on how to use the value.
 * **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 * **deprecated** - Version of the protocol when the special name / meaning was deprecated.
-* **displayName** - Readable name to display for the special value in protocol debugging and visualization tools.
+* **displayName** - Human readable name of the value.
 
 All these extra properties are described in detail in 
 <<fields-common, Common Properties of Fields>>.
@@ -308,7 +308,7 @@ is set to **true**.
 
 ==== Extra Display Properties ====
 When displaying the floating point value, held by the **&lt;float&gt;** field,
-GUI analysis tools require knowledge on how many digits after decimal point
+it may be required to specify amount of digits after decimal point
 need to be displayed. To provide this information, use **displayDecimals** <<intro-properties, property>> 
 with numeric value.
 [source,xml]
@@ -320,24 +320,7 @@ with numeric value.
     </fields>
 </schema>
 ----
-If value of **displayDecimals** is **0**, then it is up to the GUI tool
+If value of **displayDecimals** is **0**, then it is up to the displaying application
 to choose how many digits after decimal point to display.
-
-When **&lt;special&gt;** values are specified the protocol analysis tools are 
-expected to display them next to actual numeric value of the field. The **displaySpecials**
-<<intro-properties, property>> with <<intro-boolean, boolean>> value
-is there to control this default behavior.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <float name="SomeFloat" type="float" displaySpecials="false">
-            <special name="S1" val="0.0" />
-            <special name="S2" val="nan" />
-        </int>
-    </fields>
-</schema>
-----
 
 Use <<appendix-float, properties table>> for future references.

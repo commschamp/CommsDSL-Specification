@@ -67,7 +67,7 @@ Every **&lt;special&gt;** has extra optional properties:
 * **description** - Extra description and documentation on how to use the value.
 * **sinceVersion** - Version of the protocol when the special name / meaning was introduced.
 * **deprecated** - Version of the protocol when the special name / meaning was deprecated.
-* **displayName** - Readable name to display for the special value in protocol debugging and visualization tools.
+* **displayName** - Human readable name of the value.
 
 All these extra properties are described in detail in 
 <<fields-common, Common Properties of Fields>>.
@@ -464,9 +464,8 @@ Sometimes the **&lt;int&gt;** field has only one valid value and it must be init
 
 [[fields-int-extra-display-properties]]
 ==== Extra Display Properties ====
-When <<fields-int-scaling, scaling>> information is specified, it is possible to notify 
-GUI analysis tools that value of **&lt;int&gt;** field should be displayed as
-scaled floating point number. To do so, use **displayDecimals** <<intro-properties, property>> 
+When <<fields-int-scaling, scaling>> information is specified and the field's value needs to be displayed
+somewhere as a floating point one, use **displayDecimals** <<intro-properties, property>>
 with numeric value of how many digits need to be displayed after decimal point.
 [source,xml]
 ----
@@ -478,8 +477,9 @@ with numeric value of how many digits need to be displayed after decimal point.
 </schema>
 ----
 
-Also when <<fields-int-serialization-offset, serialization offset>> is provided, sometimes
-it may be desirable to display the value in the GUI analysis tool(s) with such offset.
+Also when <<fields-int-serialization-offset, serialization offset>> is provided it can
+be added to the displayed value by using the **displayOffset** <<intro-properties, property>> with
+<<intro-numeric, numeric>> value.
 
 For example, many protocols define some kind of remaining length field
 when defining a transport <<frames-frames, frame>> or other places. Sometimes
@@ -500,10 +500,8 @@ this length is. Such field can be defined like this:
 In the example above, the field is expected to hold only **remaining** length,
 **excluding** the length of itself, but adding it when value is serialized.
 
-However, when such field is displayed in GUI analysis tool(s), it is desirable 
-to display the value with serialization offset as well. It can be achieved using
-**displayOffset** <<intro-properties, property>> with 
-<<intro-numeric, numeric>> value.
+However, when such field is displayed it is desirable
+to display the value with serialization offset as well.
 [source,xml] 
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -513,23 +511,5 @@ to display the value with serialization offset as well. It can be achieved using
     </fields>
 </schema>
 ----
-
-When **&lt;special&gt;** values are specified the protocol analysis tools are 
-expected to display them next to actual numeric value of the field. The **displaySpecials**
-<<intro-properties, property>> with <<intro-boolean, boolean>> value
-is there to control this default behavior.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <int name="SomeInt" type="uint8" displaySpecials="false">
-            <special name="S1" val="0" />
-            <special name="S2" val="2" />
-        </int>
-    </fields>
-</schema>
-----
-
 
 Use <<appendix-int, properties table>> for future references.

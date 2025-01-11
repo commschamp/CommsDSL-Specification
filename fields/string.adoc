@@ -19,6 +19,7 @@ input buffer. Note, that the __available__ bytes may be bound by the
 other means. It does NOT necessarily mean that all the bytes received from the I/O link
 will be consumed.
 
+[[fields-string-default-value]]
 ==== Default Value ====
 The default value of the **&lt;string&gt;** field when constructed can be specified
 using **defaultValue** <<intro-properties, property>>. If not specified, defaults to empty string.
@@ -32,6 +33,7 @@ using **defaultValue** <<intro-properties, property>>. If not specified, default
 </schema>
 ----
 
+[[fields-string-fixed-length]]
 ==== Fixed Length ====
 In case the string value needs to be serialized using predefined fixed length,
 use **length** property to specify the required value.
@@ -45,6 +47,7 @@ use **length** property to specify the required value.
 </schema>
 ----
 
+[[fields-string-length-prefix]]
 ==== Length Prefix ====
 Many protocols prefix string with its length. The **CommsDSL** allows definition
 of such prefix using **lengthPrefix** child element, which must define prefix as
@@ -106,6 +109,7 @@ The code generator is expected to take the existence of such detached prefix
 into account and generate correct code for various field operations
 (read, write, etc...).
 
+[[fields-string-zero-term-suffix]]
 ==== Zero Termination Suffix ====
 Some protocols may terminate strings with **0** (zero) byte. The **CommsDSL**
 support such cases with existence of **zeroTermSuffix** <<intro-properties, property>>
@@ -122,5 +126,99 @@ with <<intro-boolean, boolean>> value.
 
 **NOTE**, that **length**, **lengthPrefix** and **zeroTermSuffix** properties
 are mutually exclusive, i.e. cannot be used together.
+
+[[fields-string-valid-values]]
+==== Valid Values ====
+Some protocols may specify a narrow range of possible valid string values that
+the field is expected to have. To specify such a valid value use **validValue**
+<<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="SomeStringField" validValue="some_valid_value" />
+    </fields>
+</schema>
+----
+
+It is possible to provide a list of multiple valid values using child nodes.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="SomeStringField">
+            <validValue value="some_valid_value1" />
+            <validValue value="some_valid_value2" />
+            <validValue value="some_valid_value3" />
+            ...
+        </string>
+    </fields>
+</schema>
+----
+
+When using child nodes to specify the valid values, it is possible (but not necessary) to specify the versions of
+the protocol when the valid value was introduced and when it got deprecated.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="SomeStringField">
+            <validValue value="some_valid_value1" sinceVersion="1" />
+            <validValue value="some_valid_value2" deprecated="5"/>
+            <validValue value="some_valid_value3" sinceVersion="3" deprecated="4" />
+            ...
+        </string>
+    </fields>
+</schema>
+----
+
+It is also possible to combine a single XML attribute with other child nodes:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="SomeStringField" validValue="some_valid_value1">
+            <validValue value="some_valid_value2" />
+            ...
+        </string>
+    </fields>
+</schema>
+----
+
+When the protocol specification demands haveing a specific string value, then it is possible to
+combine it with the <<fields-common-failing-read-of-the-field-on-invalid-value, failOnInvalid>>
+property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <fields>
+        <string name="SomeStringField" validValue="some_required_value" failOnInvalid="true" />
+    </fields>
+</schema>
+----
+
+[[fields-string-single-valid-value]]
+==== Single Valid Value ====
+Sometimes the **&lt;string&gt;** field has only one valid value and it must be initialized with it. The
+**defaultValidValue** <<intro-properties, property>> can be used as a replacement to the combination of
+**defaultValue** and **validValue** ones having to specify the same value:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ... version="10">
+    <fields>
+        <string name="SomeStringField" defaultValidValue="some_value" failOnInvalid="true" ... />
+
+        <!-- Instead of:
+        <string name="SomeStringField" defaultValue="some_value" validValue="some_value" failOnInvalid="true" ... />
+        -->
+    </fields>
+</schema>
+----
 
 Use <<appendix-string, properties table>> for future references.

@@ -12,6 +12,9 @@ for detailed description.
 |**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Interface or bundle field definition from which fields need to be copied.
 |**description**|string|1|no||Human readable description of the interface.
 |**name**|<<intro-names, name>> string|1|yes||Name of the interface.
+|**reuse**|<<intro-references, reference>> string|7|no||Interface definition of which to copy.
+|**reuseAliases**|<<intro-boolean, bool>>|7|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<interfaces-interfaces, &lt;interface&gt; >> when **reuse** property is used.
+|**reuseCode**|<<intro-boolean, bool>>|7|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |===
 
 
@@ -20,7 +23,5 @@ Extra child XML elements allowed:
 [cols="^.^28,^.^10,62", options="header"]
 |===
 |XML Element|DSL Version ^.^|Description
-
-|**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<interfaces-interfaces, &lt;interface&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
 |**&lt;fields&gt;**|1|Wraps member fields.
 |===

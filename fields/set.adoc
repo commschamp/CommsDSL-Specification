@@ -114,7 +114,7 @@ Every **&lt;bit&gt;** element may also define extra <<intro-properties, properti
 listed below for better readability:
 
 * **description** - Extra description and documentation on the bit.
-* **displayName** - String specifying how to name the bit in various analysis tools.
+* **displayName** - Human readable name of the bit.
 
 These properties are described in detail in 
 <<fields-common, Common Properties of Fields>>.

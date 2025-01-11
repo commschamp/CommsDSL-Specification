@@ -59,6 +59,9 @@ only if there are non-consumed bytes left in the input buffer. This mode
 can be useful with protocols that just add fields at the end of the 
 <<messages-messages, message>> in the new version, 
 but the protocol itself doesn't report its version in any other way.
+When the *read* operation is complete, the mode of the field is expected to be
+changed automatically to either **exist** or **missing** depending on whether
+the relevant data was read or not.
 
 The default mode of the newly constructed **&lt;optional&gt;** field can be
 specified using **defaultMode** <<intro-properties, property>>.
@@ -347,30 +350,5 @@ operation of the **&lt;optional&gt;** field didn't take place.
 </schema>
 ----
 
-[[fields-optional-extra-display-property]]
-==== Extra Display Property ====
-By default GUI protocol analysis tools should allow manual update of the
-**&lt;optional&gt;** field mode. However, if the mode is controlled by the 
-values of other fields, it is possible to disable manual update of the 
-mode by using **displayExtModeCtrl** 
-(stands for "display external mode control") <<intro-properties, property>>
-with <<intro-boolean, boolean>> value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <message name="Msg1" id="1">
-        <set name="Flags">
-            <bit name="Val1Exists" idx="0" />
-        </set>
-        <optional name="Val1" defaultMode="missing" cond="$Flags.Val1Exists">
-            <displayExtModeCtrl value="true" />
-            <field>
-                <int name="ActVal1" type="uint32" />
-            </field>
-        </optional>
-    </fields>
-</schema>
-----
 Use <<appendix-optional, properties table>> for future references.
 

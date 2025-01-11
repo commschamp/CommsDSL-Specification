@@ -11,7 +11,6 @@ for detailed description.
 
 |**cond**|string|1|no||Condition when the field exists.
 |**defaultMode**|"tentative", "missing", "exist"|1|no|tentative|Default mode of the field. See also <<appendix-optional-default-mode, Default Mode Strings>> below.
-|**displayExtModeCtrl**|<<intro-boolean, bool>>|1|no|false|Disable manual update of the mode in GUI analysis tools.
 |**field**|<<fields-fields, field>>|1|no||Wrapped field.
 |**missingOnInvalid**|<<intro-boolean, bool>>|5|no|false|Mark the field as "missing" if the field's value is invalid.
 |**missingOnReadFail**|<<intro-boolean, bool>>|5|no|false|Mark the field as "missing" if its read operation fails.

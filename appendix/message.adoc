@@ -11,9 +11,12 @@ for detailed description.
 |**construct**|string|6|no||Construction requirement.
 |**constructAsReadCond**|bool|6|no|false|Copy **construct** value(s) to **readCond**.
 |**constructAsValidCond**|bool|6|no|false|Copy **construct** value(s) to **validCond**.
-|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Specify message, overriding or other extra code of which needs to be copied.
+|**copyCodeFrom**|<<intro-references, reference>> string|5|no||Message from which overriding or other extra code needs to be copied.
+|**copyConstructFrom**|<<intro-references, reference>> string|7|no||Message from which to copy construction requirements.
 |**copyFieldsAliases**|<<intro-boolean, bool>>|3|no|true|Control copy of the defined <<aliases-aliases, aliases>> when **copyFieldsFrom** property is used to copy fields from the other <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>.
 |**copyFieldsFrom**|<<intro-references, reference>> string|1|no||Message or bundle field definition from which fields need to be copied.
+|**copyReadCondFrom**|<<intro-references, reference>> string|7|no||Message from which to copy read conditions.
+|**copyValidCondFrom**|<<intro-references, reference>> string|7|no||Message from which to copy validity conditions.
 |**customizable**|<<intro-boolean, bool>>|1|no|false|Mark the message to allow compile time customization regardless of code generator's level of customization.
 |**deprecated**|<<intro-numeric, unsigned>>|1|no|max unsigned|Version of the protocol in which message was deprecated. +
 Must be greater than value of **sinceVersion**.
@@ -28,13 +31,16 @@ Must be greater than value of **sinceVersion**.
 |**readCond**|string|6|no||Extra read operation condition.
 |**readOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **read** operation.
 |**refreshOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **refresh** operation.
+|**reuse**|<<intro-references, reference>> string|7|no||Message definition of which to copy.
+|**reuseAliases**|<<intro-boolean, bool>>|7|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<messages-messages, &lt;message&gt; >> when **reuse** property is used.
+|**reuseCode**|<<intro-boolean, bool>>|7|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |**removed**|<<intro-boolean, bool>>|1|no|false|Indicates whether deprecated message has been removed from being supported.
 |**sender**|"both", "client", "server"|1|no|both|Endpoint that sends the message.
 |**sinceVersion**|<<intro-numeric, unsigned>>|1|no|0|Version of the protocol in which message was introduced.
 |**validateMinLength**|<<intro-numeric, numeric>>|4|no||Specify expected minimal serialization length of the message fields.
-|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
 |**validCond**|string|6|no||Extra validity check operation condition.
 |**validOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **valid** retrieval.
+|**writeOverride**|"any", "replace", "extend", "none"|4|no|any|Control the overriding code for **write** operation.
 |===
 
 Extra child XML elements allowed:

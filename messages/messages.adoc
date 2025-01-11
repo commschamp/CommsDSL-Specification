@@ -81,7 +81,7 @@ generated class. The <<intro-properties, property>> is **description**.
 [[messages-display-name]]
 === Display Name ===
 When various analysis tools display message details, the preference is to 
-display proper space separated name (which is defined using **displayName**
+display proper human readable and space separated name (which is defined using **displayName**
 <<intro-properties, property>>) rather than using a <<intro-names, name>>.
 [source,xml]
 ----
@@ -607,6 +607,27 @@ the referenced field. The code generator may also not impose many restrictions o
 Usage of the wrong **&lt;interface&gt;** class with the missing referenced
 field in the end application may result in compilation errors.
 
+It is possible to copy construction requirements from one message definition to another to avoid unnecessary duplication
+using **copyConstructFrom** property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ...>
+        <construct>
+            <and>
+                ...
+            </and>
+        </construct>
+        ...
+    </message>
+
+    <message name="Msg2" copyConstructFrom="Msg1" ...>
+        ...
+    </message>
+</schema>
+----
+
 [[messages-read-conditions]]
 === Extra Read Conditions ===
 The **read** operation of every <<messages-messages, &lt;message&gt; >> means invoking
@@ -723,6 +744,27 @@ It is equivalent to
 </schema>
 ----
 
+It is possible to copy read conditions from one message definition to another to avoid unnecessary duplication
+using **copyReadCondFrom** property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ...>
+        <readCond>
+            <and>
+                ...
+            </and>
+        </readCond>
+        ...
+    </message>
+
+    <message name="Msg2" copyReadCondFrom="Msg1" ...>
+        ...
+    </message>
+</schema>
+----
+
 [[messages-valid-conditions]]
 === Extra Validity Conditions ===
 The **valid** operation of every <<messages-messages, &lt;message&gt; >> means invoking
@@ -824,6 +866,25 @@ to the **constructAsReadCond** property described <<messages-read-conditions, ab
 </schema>
 ----
 
+It is possible to copy validity conditions from one message definition to another to avoid unnecessary duplication
+using **copyValidCondFrom** property.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ...>
+        <validCond>
+            ...
+        </validCond>
+        ...
+    </message>
+
+    <message name="Msg2" copyValidCondFrom="Msg1" ...>
+        ...
+    </message>
+</schema>
+----
+
 [[messages-fail-read-on-invalid]]
 === Failing Read on Invalid Contents ===
 In the <<messages-valid-conditions, previous section>> it was shown that the `<message>`
@@ -865,6 +926,57 @@ case any of the member fields has an invalid value.
     </message>
 </schema>
 ----
+
+[[messages-reusing-other-messages]]
+=== Reusing Other Messages ===
+Sometimes two different messages are very similar but differ in one or two particular aspects. It is possible
+to reuse the other message definition using **reuse** property (similar to <<fields-common-reusing-other-fields, fields>>),
+especially when things like <<messages-construct-requirements, construction requirements>>,
+<<messages-read-conditions, read conditions>>, and <<messages-valid-conditions, validity conditions>> need
+to be copied.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" ...>
+        <construct>
+        </construct>
+        <readCond>
+        </readCond>
+        <fields>
+            ...
+        </fields>
+    </message>
+
+    <message name="Msg2" reuse="Msg1" ...>
+        <!-- Added fields -->
+        ...
+    </message>
+</schema>
+----
+Similar to using the <<messages-fields, copyFieldsFrom>> property any new fields defined are added to ones
+copied from the **reuse**-d message.
+
+In case of reusing other message definition, only the message
+definition properties are copied. The extra code that the original message might inject is **NOT** included
+in such copy by default. The copying of injected code must be specified explicitly using
+<<messages-copying-injected-code, copyCodeFrom>> property described above, or to avoid repetition of the
+<<intro-references, reference>> string, another **reuseCode** property with
+boolean value can be used in addition to **reuse** one.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg2" reuse="Msg1" reuseCode="true" ...>
+        ...
+    </message>
+</schema>
+----
+
+**Note** that some message definition properties mentioned earlier (such as
+**copyFieldsFrom**, **copyConstructFrom**, **copyReadCondFrom**, etc...) are __action__ ones. They
+force copy of elements from one message to another and disappear when it comes to
+<<messages-reusing-other-messages, reuse>> of the message definition that uses them.
 
 Use <<appendix-message, properties table>> for future references.
 

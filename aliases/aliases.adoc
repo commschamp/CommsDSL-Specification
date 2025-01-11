@@ -72,7 +72,7 @@ traffic reuse the same byte occupied by the `SomeEnum` field, like below.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>
     <message name="Msg1" id="0x1">
-        <bitfield name="F1"
+        <bitfield name="F1">
             <enum name="SomeEnum" type="uint8" bitLength="2">
                 <validValue name="V1" val="0" />
                 <validValue name="V2" val="1" />
@@ -93,7 +93,7 @@ like this:
 <schema ...>
     <message name="Msg1" id="0x1">
         <fields>
-            <bitfield name="F1"
+            <bitfield name="F1">
                 <enum name="SomeEnum" type="uint8" bitLength="2">
                     ...
                 </enum>
@@ -109,6 +109,7 @@ There can be any number of different **&lt;alias&gt;** nodes. The elements
 that are allowed to have **&lt;alias&gt;**-es are <<messages-messages, &lt;message&gt; >>,
 <<interfaces-interfaces, &lt;interface&gt; >>, and <<fields-bundle, &lt;bundle&gt; >>.
 
+[[aliases-description]]
 === Description ===
 The **&lt;alias&gt;** node may also have **description** 
 <<intro-properties, property>> which is expected to find its way into
@@ -130,57 +131,10 @@ the generated code as a comment for the relevant access functions.
 </schema>
 ----
 
-=== More on Aliases in &lt;message&gt;-es ===
-When a new <<messages-messages, &lt;message&gt; >> is defined, it can
-copy all the fields from other already defined <<messages-messages, &lt;message&gt; >> or <<fields-bundle, &lt;bundle&gt; >>
-(using **copyFieldsFrom** <<intro-properties, property>>).
-By default all the <<aliases-aliases, &lt;alias&gt; >> definitions are also copied.
-It is possible to modify this default behavior by using **copyFieldsAliases** 
-<<intro-properties, property>> with <<intro-boolean, boolean>> value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <message name="Msg1" id="1">
-        ...
-    </message>
-
-    <message name="Msg2" id="2" copyFieldsAliases="false">
-        ...
-    </message>
-    
-</schema>
-----
-
-=== More on Aliases in &lt;interface&gt;-es ===
-Similar to <<messages-messages, &lt;message&gt; >>-es 
-<<interfaces-interfaces, &lt;interface&gt; >> can also use **copyFieldsFrom** 
-<<intro-properties, property>> to copy its field from some other 
-<<interfaces-interfaces, &lt;interface&gt; >> or <<fields-bundle, &lt;bundle&gt; >> definition and have all
-the aliases copied by default. The control of such default copying behavior
-is also done by using **copyFieldsAliases** 
-<<intro-properties, property>> with <<intro-boolean, boolean>> value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <interface name="Interface1">
-        ...
-    </interface>
-
-    <interface name="Interface2" copyFieldsAliases="false">
-        ...
-    </interface>
-    
-</schema>
-----
-
-=== More on Aliases in &lt;bundle&gt;-es ===
-When a new <<fields-bundle, &lt;bundle&gt; >> field is defined it can
-reuse definition of already defined other <<fields-bundle, &lt;bundle&gt; >>
-(using **reuse** <<intro-properties, property>>).
-By default all the <<aliases-aliases, &lt;alias&gt; >> definitions are also copied.
-It is possible to modify this default behavior by using **reuseAliases** 
+[[aliases-reuse]]
+=== Reusing Definition ===
+By default when the original definition is <<fields-common-reusing-other-fields, reused>> its aliases are also copied.
+It is possible to modify this default behavior by using **reuseAliases**
 <<intro-properties, property>> with <<intro-boolean, boolean>> value.
 [source,xml]
 ----
@@ -197,6 +151,29 @@ It is possible to modify this default behavior by using **reuseAliases**
             ...
         </bundle>
     </fields>
+</schema>
+----
+
+[[aliases-copy]]
+=== Copying Fields ===
+When a new <<messages-messages, &lt;message&gt; >> or <<interfaces-interfaces, &lt;interface&gt; >> is defined, it can
+copy all the fields from other already defined <<messages-messages, &lt;message&gt; >>, <<interfaces-interfaces, &lt;interface&gt; >>, or <<fields-bundle, &lt;bundle&gt; >>
+(using **copyFieldsFrom** <<intro-properties, property>>).
+By default all the <<aliases-aliases, &lt;alias&gt; >> definitions are also copied.
+It is possible to modify this default behavior by using **copyFieldsAliases** 
+<<intro-properties, property>> with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        ...
+    </message>
+
+    <message name="Msg2" id="2" copyFieldsAliases="false">
+        ...
+    </message>
+    
 </schema>
 ----
 

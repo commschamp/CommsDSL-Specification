@@ -9,7 +9,9 @@ for detailed description.
 |===
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
-|**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.|
+|**copyValidCondFrom**|<<intro-references, reference>> string|7|no||<<fields-bitfield, &lt;bitfield&gt; >> field definition from which extra validity condition needs to be copied.
+|**endian**|"big" or "little"|1|no|endian of <<schema-schema, schema>>|Endian of the field.
+|**validCond**|string|7|no||Extra validity check operation condition.
 |===
 
 Extra child XML elements allowed:
@@ -20,4 +22,5 @@ Extra child XML elements allowed:
 
 |**&lt;members&gt;**|1|Wraps member fields.
 |**&lt;replace&gt;**|5|Wraps replacing member fields after copying using **reuse** property.
+|**&lt;validCond&gt;**|7|Multiple extra validity check operation conditions.
 |===

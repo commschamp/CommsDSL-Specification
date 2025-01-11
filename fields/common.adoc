@@ -87,12 +87,7 @@ has been introduced with <<intro-boolean, boolean>> value.
 ----
 
 [[fields-common-display-properties]]
-==== Display Properties ====
-**CommsDSL** supports generation of not only field's serialization and
-value access functionality, but also of various GUI protocol visualization, debugging and
-analysis tools. There are some allowed properties, that indicate how the 
-field is expected to be displayed by such tools.
-
+==== Display Name ====
 The **displayName** property is there to specify proper string of the field's
 name, with spaces, dots and other characters that are not allowed to exist in
 the <<intro-names, name>>.
@@ -114,34 +109,6 @@ If **displayName** is not specified, the code generator must use value of proper
 <schema ...>
     <fields>
         <int name="SomeIntField" displayName="_" ... />
-    </fields>
-</schema>
-----
-
-Sometimes the values of some fields may be controlled by other fields. In this case, it
-could be wise to disable manual update of such fields. To enable/disable such
-behavior use **displayReadOnly** property with <<intro-boolean, boolean>>
-value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <int name="SomeIntField" displayReadOnly="true" ... />
-    </fields>
-</schema>
-----
-
-Also sometimes it can be desirable to completely hide some field 
-from being displayed in the protocol analysis GUI application. In this case
-use **displayHidden** property with <<intro-boolean, boolean>>
-value.
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema ...>
-    <fields>
-        <int name="SomeIntField" displayHidden="true" ... />
     </fields>
 </schema>
 ----
@@ -243,6 +210,23 @@ value.
 </schema>
 ----
 
+[[fields-common-fixed-value-fields]]
+==== Fixed Value (Constant) Fields ====
+It is possible to disallow modification of the field's value by the client application
+using **fixedValue** property with <<intro-boolean, boolean>> value.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big" version="5" >
+    <message name="SomeMessage" id="1">
+        <int name="MessageVersion" type="uint8" defaultValue="1" fixedValue="true" />
+        ...
+    </message>
+</schema>
+----
+In the example above the code generator must remove an ability to explicitly modify the field's value
+after its construction. The field's value can still be updated by the **read** operation though.
+
 [[fields-common-customizable-fields]]
 ==== Customizable Fields ====
 The code generator is expected to allow some level of compile time customization of the 
@@ -303,9 +287,9 @@ an <<fields-int, &lt;int&gt; >>).
 </schema>
 ----
 
-* **length** - Introduced in **v2.0** of **CommsDSL** specification. 
-Used to specify that the field holds total serialization length 
-of the **subsequent** fields. Usually applicable to <<fields-int, &lt;int&gt; >> field 
+* **length** - Used to specify that the field holds total serialization length
+of the **subsequent** fields (excluding the length of the field itself).
+Usually applicable to <<fields-int, &lt;int&gt; >> field
 (or  <<fields-ref, &lt;ref&gt; >> referencing an <<fields-int, &lt;int&gt; >>). 
 Since **v5.0** of **CommsDSL**, the **length** semantic type can be set for other
 complex fields, such as <<fields-bundle, &lt;bundle&gt; >> or <<fields-bitfield, &lt;bitfield&gt; >>.
@@ -415,7 +399,7 @@ It means that some portion of copied code can be cleared.
 In case of <<fields-common-reusing-other-fields, reusing>> other field definition, only the field
 definition properties are copied. The extra code that the original field might inject is **NOT** included
 in such copy by default. The copying of injected code must be specified explicitly using
-**copyCodeFrom** property descirbed above, or to avoid repetition of the
+**copyCodeFrom** property described above, or to avoid repetition of the
 <<intro-references, reference>> string, another **reuseCode** property with
 boolean value can be used in addition to **reuse** one.
 [source,xml]
@@ -437,6 +421,38 @@ boolean value can be used in addition to **reuse** one.
                 <!-- Equivalent to ComplexLength1 -->
             </bitfield>
         </ns>
+    </fields>
+</schema>
+----
+
+[[fields-common-length-validation]]
+=== Field Length Validation ===
+Many protocol specifications provide expected serialization length of the message or selected fields. In order to
+prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to
+validate the specified field (minimal) length during the schema file parsing. It can be quite useful for the
+composite fields like <<fields-bundle, &lt;bundle&gt; >>. To perform such a
+check use **validateMinLength** <<intro-properties, property>> with <<intro-numeric, unsigned>> value.
+It can help to avoid some copy-paste or typo errors
+at the time of schema parsing rather than debugging generated incorrect code.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" endian="big">
+    <fields>
+        <bundle name="SomeBundle" validateMinLength="4">
+            <int name="SomeIntMember" type="uint8" />
+            <set name="SomeSetMember" length="1">
+                ...
+            </set>
+            <enum name="SomeEnumMember" type="uint8">
+                ...
+            </enum>
+            <string name="SomeString" validateMinLength="1">
+                <lengthPrefix>
+                    <int name="Length" type="uint8" />
+                </lengthPrefix>
+            </string>
+        </bundle>
     </fields>
 </schema>
 ----

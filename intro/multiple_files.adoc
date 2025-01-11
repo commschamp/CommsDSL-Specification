@@ -2,7 +2,10 @@
 === Multiple Files ===
 For big protocols it is possible and even recommended to split schema definition
 into multiple files. The code generator **must** accept a list of schema files to
-process and **must** process them in the requested order.
+process and **must** process them in the requested order. Note there are no
+**include** (or similar) statements in the **CommsDSL** specification. The
+code generator is expected to process the listed DSL files in the provided order
+and being able to reuse any definition that has already been encountered.
 
 Every subsequently processed schema file must **NOT** change any properties of the
 **&lt;schema&gt;** node with the same **name** that was defined in the
