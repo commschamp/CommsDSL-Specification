@@ -71,7 +71,6 @@ human readable name.
 ----
 In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
 
-
 [[schema-version]]
 === Protocol (Schema) Version ===
 As was mentioned in <<intro-protocol-versioning, Protocol Versioning>> section,

@@ -1,0 +1,15 @@
+<<<
+[[appendix-namespace]]
+=== Properties of &lt;namespace&gt; ===
+Refer to <<namespaces-namespaces, Namespaces>> chapter
+for detailed description. 
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**description**|string|1|no||Human readable description of the namespace.
+|**displayName**|string|7|no||Human readable name of the namespace. May be used in the documentation.
+|**name**|<<intro-names, name>> string|1|yes||Name of the namespace.
+|===
+
