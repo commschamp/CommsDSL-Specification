@@ -58,6 +58,20 @@ long multiline description it is recommended to define it as a text child elemen
 </schema>
 ----
 
+[[schema-display-name]]
+=== Display Name ===
+When documenting protocol schema the value of **displayName** property can be used as more descriptive
+human readable name.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="MyProtocol" displayName="Some Protocol Schema" ...>
+    ...
+</schema>
+----
+In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
+
+
 [[schema-version]]
 === Protocol (Schema) Version ===
 As was mentioned in <<intro-protocol-versioning, Protocol Versioning>> section,
