@@ -4,6 +4,7 @@ Every layer is different, and defines its own properties and/or other aspects.
 However, there are common properties, that are applicable to every layer. 
 They are summarized below.
 
+[[frames-layer-name]]
 ==== Name  ====
 Every layer must define it's <<intro-names, name>>, which is expected to be 
 used by a code generator when defining a relevant class. The name is defined
@@ -19,6 +20,7 @@ using **name** <<intro-properties, property>>.
 </schema>
 ----
 
+[[frames-layer-description]]
 ==== Description ====
 It is possible to provide a description of the layer about what it is and
 how it is expected to be used. This description is only for documentation
@@ -40,6 +42,24 @@ generated class. The <<intro-properties, property>> is **description**.
     </frame>
 </schema>
 ----
+
+[[frames-layer-display-name]]
+==== Display Name ====
+When documenting a layer the value of **displayName** property can be used as more descriptive
+human readable name.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema >
+    <frame name="ProtocolFrame">
+        <id name="Id" displayName="Message ID">
+            ...
+        </id>
+        <payload name="Data" />
+    </frame>
+</schema>
+----
+In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
 
 ==== Inner Field ====
 Every layer, except for <<frames-payload, &lt;payload&gt; >>, needs to specify

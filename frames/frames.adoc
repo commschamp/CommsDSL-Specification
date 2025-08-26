@@ -61,7 +61,7 @@ human readable name.
 <schema >
     <frame name="Frame" displayName="Protocol Frame">
         ...
-    </ns>
+    </frame>
 </schema>
 ----
 In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
