@@ -97,7 +97,7 @@ generated namespace. The <<intro-properties, property>> is **description**.
 
 [[namespaces-display-name]]
 === Display Name ===
-When documenting namespace the value of **displayName** property can be used as more descriptive
+When documenting a namespace the value of **displayName** property can be used as more descriptive
 human readable name.
 [source,xml]
 ----
