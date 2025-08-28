@@ -9,6 +9,7 @@ for detailed description.
 |Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
 
 |**description**|string|1|no||Human readable description of the frame.
+|**displayName**|string|7|no||Human readable name of the frame. May be used in the documentation.
 |**name**|<<intro-names, name>> string|1|yes||Name of the frame.
 |===
 

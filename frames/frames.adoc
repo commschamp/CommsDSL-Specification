@@ -16,6 +16,7 @@ of such transport wraping using **&lt;frame&gt;** XML node.
 </schema> 
 ----
 
+[[frames-name]]
 === Name ===
 Every frame definition must specify its <<intro-names, name>> using
 **name** <<intro-properties, property>>.
@@ -29,6 +30,7 @@ Every frame definition must specify its <<intro-names, name>> using
 </schema> 
 ----
 
+[[frames-description]]
 === Description ===
 It is possible to provide a description of the frame about what it is and
 how it is expected to be used. This description is only for documentation
@@ -49,6 +51,22 @@ generated class. The <<intro-properties, property>> is **description**.
 </schema>
 ----
 
+[[frames-display-name]]
+=== Display Name ===
+When documenting a frame the value of **displayName** property can be used as more descriptive
+human readable name.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema >
+    <frame name="Frame" displayName="Protocol Frame">
+        ...
+    </frame>
+</schema>
+----
+In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
+
+[[frames-layers]]
 === Layers ===
 The protocol framing is defined using so called "layers", which are additional
 abstraction on top of <<fields-fields, fields>>, where every such layer

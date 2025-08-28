@@ -1,0 +1,113 @@
+
+<<<
+[[namespaces-namespaces]]
+== Namespaces ==
+The namespaces can be used to help divide a specific protocol into sub-elements as
+well as define multiple sub-protocols in the same schema.
+
+For example, having different messages with the same names defined in different namespaces.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="sub1">
+        <message name="Msg1">
+            ...
+        </message>
+        <message name="Msg2" ... />
+    </ns>
+
+    <ns name="sub2">
+        <message name="Msg1">
+            ...
+        </message>
+        <message name="Msg2" ... />
+    </ns>
+
+    <!-- Common Frame -->
+    <frame name="Frame">
+        ...
+    </frame>
+</schema>
+----
+
+Another example is having multiple sub-protocols with their own frames:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="prot1">
+        <message name="Msg1">
+            ...
+        </message>
+        <message name="Msg2" ... />
+
+        <frame name="Frame1">
+            ...
+        </frame>
+    </ns>
+
+    <ns name="prot2">
+        <message name="Msg1">
+            ...
+        </message>
+        <message name="Msg2" ... />
+
+        <frame name="Frame2">
+            ...
+        </frame>
+    </ns>
+</schema>
+----
+
+[[namespaces-name]]
+=== Namespace Name ===
+Every namespace definition must specify its <<intro-names, name>> using
+**name** <<intro-properties, property>>.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="ns1">
+        ...
+    </ns>
+</schema>
+----
+
+[[namespaces-description]]
+=== Description ===
+It is possible to provide a description of the namespace about what it is and
+what it contains to be used. This description is only for documentation
+purposes and may find it's way into the generated code as a comment for the
+generated namespace. The <<intro-properties, property>> is **description**.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <ns name="ns1">
+        <description>
+            Some long
+            multiline
+            description
+        </description>
+        ...
+    </ns>
+</schema>
+----
+
+[[namespaces-display-name]]
+=== Display Name ===
+When documenting a namespace the value of **displayName** property can be used as more descriptive
+human readable name.
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema >
+    <ns name="ns1" displayName="Some Summary">
+        ...
+    </ns>
+</schema>
+----
+In case **displayName** is empty, the **name** <<intro-properties, property>> is expected be used instead.
+
+Use <<appendix-namespace, properties table>> for future references.

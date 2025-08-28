@@ -8,7 +8,7 @@ a separate namespace. The code generator must use this information to define
 relevant classes in a separate namespace(s) (if such feature is provided by the
 language) or introduce relevant prefixes into the names to avoid name clashes.
 
-The namespace is defined using **&lt;ns&gt;** node with single **name** property.
+The namespace is defined using **&lt;ns&gt;** node with a required **name** property.
 It can contain all the mentioned <<schema-schema, previously>> nodes.
 [source,xml]
 ----
