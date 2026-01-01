@@ -30,7 +30,7 @@ where `SYNC` must be `0xab 0xcd` bytes. The usage of the **&lt;sync&gt;** layer 
     <failOnInvalid value="true" />
 </int>
 ----
-The **&lt;sync&gt;** layer is responsible make sure that the read field's value is within expected range
+The **&lt;sync&gt;** layer is responsible to make sure that the read field's value is within expected range
 (equal to the **defaultValue**) and to fail the _read_ operation if this is not the case.
 
 The **&lt;sync&gt;** layer has all the <<frames-common, common>> properties
@@ -39,7 +39,7 @@ as well as extra properties and elements described below.
 [[frames-sync-trailing]]
 ==== Trailing Synchronization Bytes ====
 Some protocols put synchronization bytes at the end of the frame (after the **&lt;payload&gt;**). Since
-version **v7.2** of this specification placing the **&lt;sync&gt;** layer after the **&lt;payload&gt;** is
+version **v8.0** of this specification placing the **&lt;sync&gt;** layer after the **&lt;payload&gt;** is
 also supported.
 [source, xml]
 ----
