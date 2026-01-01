@@ -8,10 +8,7 @@ present at the beginning of the <<frames-frames, frame>>.
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
         <sync name="Sync">
-            <int name="SyncField" type="uint16" defaultValue="0xabcd">
-                <validValue value="0xabcd" />
-                <failOnInvalid value="true" />
-            </int>
+            <int name="SyncField" type="uint16" defaultValue="0xabcd" />
         </sync>
         <size name="Size">
             <int name="SizeField" type="uint16" />
@@ -23,9 +20,213 @@ present at the beginning of the <<frames-frames, frame>>.
     </frame>
 </schema>
 ----
-The example below implements `SYNC (2 bytes) | ID (2 bytes) | SIZE (2 bytes) | PAYLOAD` framing
-where `SYNC` must be `0xab 0xcd` bytes. Note, that read of the `SyncField` will
-fail in case its read value is not `0xabcd`.
+The example above implements `SYNC (2 bytes) | SIZE (2 bytes) | ID (2 bytes) | PAYLOAD` framing
+where `SYNC` must be `0xab 0xcd` bytes. The usage of the **&lt;sync&gt;** layer ensures behavior
+**equivalent** to setting the field properties to:
+[source, xml]
+----
+<int name="SyncField" type="uint16" defaultValue="0xabcd">
+    <validValue value="0xabcd" />
+    <failOnInvalid value="true" />
+</int>
+----
+The **&lt;sync&gt;** layer is responsible make sure that the read field's value is within expected range
+(equal to the **defaultValue**) and to fail the _read_ operation if this is not the case.
 
-The **&lt;sync&gt;** layer doesn't have
-any extra properties in addition to <<frames-common, common>> ones.
+The **&lt;sync&gt;** layer has all the <<frames-common, common>> properties
+as well as extra properties and elements described below.
+
+[[frames-sync-trailing]]
+==== Trailing Synchronization Bytes ====
+Some protocols put synchronization bytes at the end of the frame (after the **&lt;payload&gt;**). Since
+version **v7.2** of this specification placing the **&lt;sync&gt;** layer after the **&lt;payload&gt;** is
+also supported.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <size name="Size">
+            <int name="SizeField" type="uint16" />
+        </size>
+        <id name="Id">
+            <int name="IdField" type="uint8" />
+        </id>
+        <payload name="Data" />
+        <sync name="Sync">
+            <int name="SyncField" type="uint16" defaultValue="0xabcd" />
+        </sync>
+    </frame>
+</schema>
+----
+
+Some protocols omit the frame size information and wrap the frame with synchronization bytes both at the beginning and the end.
+In such case the trailing **&lt;sync&gt;** layer's field must be found prior to processing rest of the frame. To support such
+case the **seekField** in conjunction with **from** property need to be used.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <sync name="Sync">
+            <int name="SyncField" type="uint16" defaultValue="0xaaaa" />
+        </sync>
+        <id name="Id">
+            <int name="IdField" type="uint8" />
+        </id>
+        <payload name="Data" />
+        <sync name="Sync" seekField="true" from="Id">
+            <int name="SyncField" type="uint16" defaultValue="0xffff" />
+        </sync>
+    </frame>
+</schema>
+----
+Note that **from** property specifies from what point in the frame the trailing field needs to be sought.
+
+In case the protocol data in between might contain a sequence of bytes used for the trailing synchronization they are expected to be
+escaped by another predefined sequence of bytes. Specifying such sequence use **&lt;escField&gt;** child node or a <<intro-properties, property>>
+referencing global field.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <sync name="Sync">
+            <int name="SyncField" type="uint16" defaultValue="0xaaaa" />
+        </sync>
+        <id name="Id">
+            <int name="IdField" type="uint8" />
+        </id>
+        <payload name="Data" />
+        <sync name="Sync" seekField="true" from="Id">
+            <field>
+                <int name="SyncField" type="uint16" defaultValue="0xffff" />
+            </field>
+            <escField>
+                <int name="EscField" type="uint16" defaultValue="0xcccc" />
+            </escField>
+        </sync>
+    </frame>
+</schema>
+----
+
+[[frames-sync-verification-order]]
+==== Synchronization Bytes Verification Order ====
+The default behavior of the **&lt;sync&gt;** trailing (after the **&lt;payload&gt;**) layer is to perform synchronization
+bytes verification after all relevant layers and their fields have been successfully read and
+processed. However, it is possible to
+force the verification right away (without reading fields of other layers
+and/or message payload).
+It is usually possible to do when value of the <<frames-size, &lt;size&gt; >> field
+is already processed, so the right location of synchronization bytes is known.
+To force immediate verification use **verifyBeforeRead** <<intro-properties, property>> with
+<<intro-boolean, boolean>> value.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <size name="Size">
+            ...
+        </size>
+        <id name="Id">
+            ...
+        </id>
+        <payload name="Data" />
+        <sync name="Sync" verifyBeforeRead="true">
+            <int name="SyncField" type="uint16" defaultValue="0xabcd" />
+        </sync>
+    </frame>
+</schema>
+----
+The **verifyBeforeRead** property can also be supplemented with **from** one to specify point in the frame when
+such verification is expected to be performed.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <size name="Size">
+            ...
+        </size>
+        <id name="Id">
+            ...
+        </id>
+        <payload name="Data" />
+        <sync name="Sync" verifyBeforeRead="true" from="Id">
+            <int name="SyncField" type="uint16" defaultValue="0xabcd" />
+        </sync>
+    </frame>
+</schema>
+----
+In case **from** property is not set the default verification point is right before processing the **&lt;payload&gt;** bytes.
+
+**WARNING**: Incorrect use of **verifyBeforeRead** <<intro-properties, property>> can be dangerous especially
+for the cases when the frame size is not bound by the **&lt;size&gt;** layer.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <frame name="ProtocolFrame">
+        <sync name="Sync">
+            ...
+        </sync>
+        <id name="Id">
+            ...
+        </id>
+        <payload name="Data" />
+
+        <!-- Incorrect and dangerous -->
+        <sync name="Sync" verifyBeforeRead="true">
+            ...
+        </sync>
+    </frame>
+</schema>
+----
+In the example above the synchronization bytes verification happens right away assuming that they are located
+__at the end of the input buffer__ rather than when they are supposed to be.
+
+Such behavior is obviously incorrect when stream communication I/O link is used (like RS-232 or TCP/IP) and multiple
+as well as partial messages can reside in the input buffer at the same time. However, in cases like
+datagram communication I/O link (like UDP/IP) when the messages are received in full and processed one by one,
+the assumption of having synchronization bytes located at the end of the input
+buffer may be correct.
+
+The bottom line, set the **verifyBeforeRead** property value only when you know what you're doing.
+It's an optimization feature in vast majority of cases.
+Make the code work correctly without it first and only add it to improve runtime performance.
+
+**NOTE** that **verifyBeforeRead** and **seekField** properties are mutually exclusive. In fact the latter implies the former.
+
+[[frames-sync-corrupted-frames]]
+==== Corrupted Frames Support ====
+The **&lt;sync&gt;** bytes are usually used when the underlying I/O link is not 100% reliable and some bytes
+may be occasionally corrupted or dropped. To help with such case the leading **&lt;sync&gt;** layer can also
+use **seekField** property to indicate that it's OK to receive invalid bytes at the beginning of the frame
+until the required bytes are encountered. In most cases it is usually also supplemented with the **escField**
+specification mentioned earlier.
+
+In most cases the escape field is applicable to both synchronization prefix and suffix.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema endian="big" ...>
+    <fields>
+        <int name="EscField" type="uint16" defaultValue="0xcccc" />
+    </fields>
+    <frame name="ProtocolFrame">
+        <sync name="Sync" seekField="true" escField="EscField">
+            <int name="SyncField" type="uint16" defaultValue="0xaaaa" />
+        </sync>
+        <id name="Id">
+            <int name="IdField" type="uint8" />
+        </id>
+        <payload name="Data" />
+        <sync name="Sync" seekField="true" from="Id" escField="EscField">
+            <int name="SyncField" type="uint16" defaultValue="0xffff" />
+        </sync>
+    </frame>
+</schema>
+----
+
+Use <<appendix-sync, properties table>> for future references.

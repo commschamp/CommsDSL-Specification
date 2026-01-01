@@ -99,8 +99,8 @@ Available layers are:
 * <<frames-payload, &lt;payload&gt; >> - Message payload.
 * <<frames-id, &lt;id&gt; >> - Numeric message ID.
 * <<frames-size, &lt;size&gt; >> - Remaining size (length).
-* <<frames-sync, &lt;sync&gt; >> - Synchronization bytes.
 * <<frames-checksum, &lt;checksum&gt; >> - Checksum.
+* <<frames-sync, &lt;sync&gt; >> - Synchronization bytes.
 * <<frames-value, &lt;value&gt; >> - Extra value, usually to be assigned to one of the
 <<interfaces-interfaces, &lt;interface&gt; >> fields.
 * <<frames-custom, &lt;custom&gt; >> - Any other custom layer, not defined by **CommsDSL**.
@@ -131,8 +131,8 @@ include::common.adoc[]
 include::payload.adoc[]
 include::id.adoc[]
 include::size.adoc[]
-include::sync.adoc[]
 include::checksum.adoc[]
+include::sync.adoc[]
 include::value.adoc[]
 include::custom.adoc[]
 

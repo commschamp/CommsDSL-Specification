@@ -7,9 +7,6 @@ present at the end of the <<frames-frames, frame>>.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>
@@ -87,9 +84,6 @@ expected to specify name of the layer where checksum calculation starts.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>
@@ -103,7 +97,7 @@ expected to specify name of the layer where checksum calculation starts.
     </frame>
 </schema>
 ----
-The example above defines `SYNC | SIZE | ID | PAYLOAD | CHECKSUM` frame where
+The example above defines `SIZE | ID | PAYLOAD | CHECKSUM` frame where
 the checksum is calculated on `SIZE` + `ID` + `PAYLOAD` bytes.
 
 Some protocols may put checksum value as prefix to the area on which the
@@ -114,9 +108,6 @@ of **from**) to specify layers for checksum calculation.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>

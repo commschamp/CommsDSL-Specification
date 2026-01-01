@@ -1,7 +1,7 @@
 [[frames-size]]
 === &lt;size&gt; Layer ===
 The **&lt;size&gt;** layer represents **remaining** serialization length of the
-<<frames-frames, frame>> until the end of <<frames-payload, &lt;payload&gt; >>.
+<<frames-frames, frame>> until the end of message frame (with some caveats).
 The <<frames-frames, frame>> definition must **NOT** contain more
 than one **&lt;size&gt;** layer.
 [source, xml]
@@ -57,11 +57,10 @@ the length of `PAYLOAD`.
     </frame>
 </schema>
 ----
-Also **NOTE** that **&lt;size&gt;** layer specifies number of **remaining** bytes
-**until the end of <<frames-payload, &lt;payload&gt; >> layer**. There are protocols that
-append some kind of <<frames-checksum, &lt;checksum&gt; >> after the payload. In
-order to include them in the value of the **&lt;size&gt;** layer, also use
-**serOffset** property.
+There are protocols that append extra fields (such as <<frames-checksum, &lt;checksum&gt; >>) after the payload.
+Depending on whether the **&lt;size&gt;** layer itself is included in the checksum calculation the usage of the
+**serOffset** property might be required. For example, when checksum covers **&lt;size&gt;**'s value in
+its calculation (using **from** property) the usage of **serOffset** is required.
 [source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -74,12 +73,37 @@ order to include them in the value of the **&lt;size&gt;** layer, also use
             <int name="IdField" type="uint8" />
         </id>
         <payload name="Data" />
-        <checksum ...>
+        <checksum ... from="Size">
+            <!-- Covers Size -->
             <int name="ChecksumField" type="uint16" />
         </checksum>
     </frame>
 </schema>
 ----
+
+However, in case the **&lt;size&gt;**'s value is not covered in the checksum calculation such settings are not required.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <frame name="ProtocolFrame">
+        <size name="Size">
+            <int name="SizeField" type="uint16"/>
+        </size>
+        <id name="Id">
+            <int name="IdField" type="uint8" />
+        </id>
+        <payload name="Data" />
+        <checksum ... from="Payload">
+            <!-- Does not cover Size -->
+            <int name="ChecksumField" type="uint16" />
+        </checksum>
+    </frame>
+</schema>
+----
+The right conceptual model here should be: If the layer after the **&lt;payload&gt;** covers **&lt;size&gt;** in its **from** property, then it falls out from
+the automatic **remaining** bytes calculation and must be accounted for with the **serOffset** and **displayOffset** properties
+adjustments.
 
 The **&lt;size&gt;** layer doesn't have
 any extra properties in addition to <<frames-common, common>> ones.

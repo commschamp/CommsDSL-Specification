@@ -1,0 +1,16 @@
+<<<
+[[appendix-sync]]
+=== Properties of &lt;sync&gt; Frame Layer ===
+The **&lt;sync&gt;** layer has all the <<appendix-layers, common>> properties as
+well as ones listed below. Refer to <<frames-sync, &lt;sync&gt; Layer>> chapter
+for detailed description.
+
+[cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
+|===
+|Property Name|Allowed Type / Value|DSL Version|Required|Default Value ^.^|Description
+
+|**escField**|<<fields-fields, field>> or <<intro-references, reference>> to it|7|no||Escape field definition.
+|**from**|<<intro-names, name>> string|7|no||Name of the frame layer, from which the seek or veification operation starts.
+|**seekField**|<<intro-boolean, bool>>|7|no|false|Control seek synchronization field operation.
+|**verifyBeforeRead**|<<intro-boolean, bool>>|7|no|false|Perform synchronization bytes verification without reading values of other layers.
+|===
