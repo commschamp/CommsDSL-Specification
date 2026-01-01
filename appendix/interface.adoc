@@ -2,7 +2,7 @@
 [[appendix-interface]]
 === Properties of &lt;interface&gt; ===
 Refer to <<interfaces-interfaces, Interfaces>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===
@@ -16,7 +16,6 @@ for detailed description.
 |**reuseAliases**|<<intro-boolean, bool>>|7|no|true|Control copy of the defined <<aliases-aliases, aliases>> from reused other <<interfaces-interfaces, &lt;interface&gt; >> when **reuse** property is used.
 |**reuseCode**|<<intro-boolean, bool>>|7|no|false|In case of **reuse** apply **copyCodeFrom** with the same <<intro-references, reference>> string.
 |===
-
 
 Extra child XML elements allowed:
 

@@ -1,7 +1,7 @@
 <<<
 [[appendix-alias]]
 === Properties of &lt;alias&gt; ===
-Refer to <<aliases-aliases, Aliases>> chapter for detailed description. 
+Refer to <<aliases-aliases, Aliases>> chapter for detailed description.
 Introduced in DSL version **3**.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]

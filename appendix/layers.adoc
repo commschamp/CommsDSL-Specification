@@ -1,7 +1,7 @@
 <<<
 [[appendix-layers]]
 === Common Properties of Frame Layers ===
-Refer to <<frames-common, Common Properties of Layers>> chapter for detailed description. 
+Refer to <<frames-common, Common Properties of Layers>> chapter for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===

@@ -1,14 +1,14 @@
 [[fields-enum]]
 === &lt;enum&gt; Field ===
-This field stores and abstracts away value of integral 
+This field stores and abstracts away value of integral
 https://en.wikipedia.org/wiki/Enumerated_type[enumerated type], where every
 valid value has its name. The **&lt;enum&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
 [[fields-enum-underlying-type]]
 ==== Underlying Type ====
-Every **&lt;enum&gt;** field must provide its underlying storage type using 
-**type** <<intro-properties, property>>. Available 
+Every **&lt;enum&gt;** field must provide its underlying storage type using
+**type** <<intro-properties, property>>. Available
 values are:
 
 * **int8** - 1 byte signed integer.
@@ -38,7 +38,7 @@ https://en.wikipedia.org/wiki/LEB128[LEB128] for *little* endian or similar for
 *big* endian.
 
 ==== Valid Values ====
-All the valid values must be listed as **&lt;validValue&gt;** child of the 
+All the valid values must be listed as **&lt;validValue&gt;** child of the
 **&lt;enum&gt;** XML element.
 [source,xml]
 ----
@@ -54,9 +54,9 @@ All the valid values must be listed as **&lt;validValue&gt;** child of the
 </schema>
 ----
 Every **&lt;validValue&gt;** must define a valid <<intro-names, name>>
-(using **name** <<intro-properties, property>>) as 
-well as <<intro-numeric, numeric>> value (using **val** 
-<<intro-properties, property>>), that fits chosen 
+(using **name** <<intro-properties, property>>) as
+well as <<intro-numeric, numeric>> value (using **val**
+<<intro-properties, property>>), that fits chosen
 <<fields-enum-underlying-type, underlying type>>. The **&lt;validValue&gt;**-es may be listed
 in any order, not necessarily sorted.
 
@@ -67,7 +67,7 @@ Every **&lt;validValue&gt;** has extra optional properties:
 * **sinceVersion** - Version of the protocol when the value was introduced.
 * **deprecated** - Version of the protocol when the value was deprecated.
 
-All these extra properties are described in detail in 
+All these extra properties are described in detail in
 <<fields-common, Common Properties of Fields>>.
 
 ==== Default Value ====
@@ -86,7 +86,7 @@ using **defaultValue** property. If not specified, defaults to **0**.
     </fields>
 </schema>
 ----
-The default value can also be specified using the name of one of the 
+The default value can also be specified using the name of one of the
 **&lt;validValue&gt;**-es:
 [source,xml]
 ----
@@ -138,12 +138,12 @@ use **length** property to specify custom serialization length.
     </fields>
 </schema>
 ----
-**[red]#IMPORTANT#**: When **length** property is used with variable length 
-<<fields-enum-underlying-type, underlying type>> (**intvar** and **uintvar**), 
+**[red]#IMPORTANT#**: When **length** property is used with variable length
+<<fields-enum-underlying-type, underlying type>> (**intvar** and **uintvar**),
 it means **maximum** allowed length.
 
 Some protocols allow (de)serialization of the **&lt;enum&gt;** field value having less bytes
-in the buffer than is required by its <<fields-enum-underlying-type, underlying type>> serialization. 
+in the buffer than is required by its <<fields-enum-underlying-type, underlying type>> serialization.
 Usually the length of such an **&lt;enum&gt;**
 field is specified externally, by the preceding "length" field in TLV (type-length-value) triplet
 (explained in detail in <<fields-variant, &lt;variant&gt; Field>> section). In order to allow code
@@ -193,7 +193,7 @@ In this case the serialization length may be specified in bits using **bitLength
 
 ==== Hex Assignment ====
 The code generator is expected to generate appropriate **enum** types using
-**decimal** values assigned to enumeration names. However, some protocol specifications may list 
+**decimal** values assigned to enumeration names. However, some protocol specifications may list
 valid values using **hexadecimal** format. To make the reading of the generated code
 more convenient, use **hexAssign** <<intro-properties, property>> with
 <<intro-boolean, boolean>> value to force code generator make the assignments
@@ -221,7 +221,7 @@ enum class SomeEnumFieldVal
     Val3 = 0x1b
 };
 ----
-instead of 
+instead of
 [source,c++]
 ----
 enum class SomeEnumFieldVal
@@ -236,7 +236,7 @@ enum class SomeEnumFieldVal
 By default, non-unqiue values are not allowed, the code generator must report
 an error if two different **&lt;validValue&gt;**-es use the same value of the **val**
 property. It is done as protection against copy-paste errors. However,
-**CommsDSL** allows usage of non-unique values in case **nonUniqueAllowed** 
+**CommsDSL** allows usage of non-unique values in case **nonUniqueAllowed**
 <<intro-properties, property>> has been set to **true**.
 [source,xml]
 ----
@@ -253,8 +253,8 @@ property. It is done as protection against copy-paste errors. However,
 ----
 
 ==== Version Based Validity ====
-The code generator is expected to generate functionality checking that 
-**&lt;enum&gt;** field contains a valid value. By default any specified 
+The code generator is expected to generate functionality checking that
+**&lt;enum&gt;** field contains a valid value. By default any specified
 **&lt;validValue&gt;** is considered to be valid regardless of version it was
 introduced and/or deprecated. However, it is possible to force code generator to
 generate validity check code that takes into account reported version of the

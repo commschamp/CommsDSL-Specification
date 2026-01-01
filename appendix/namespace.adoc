@@ -2,7 +2,7 @@
 [[appendix-namespace]]
 === Properties of &lt;namespace&gt; ===
 Refer to <<namespaces-namespaces, Namespaces>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===

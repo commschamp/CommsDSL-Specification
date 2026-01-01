@@ -16,7 +16,7 @@ of message payload.
             <int name="VersionField" type="uint8" />
         </value>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
     </frame>
@@ -29,7 +29,7 @@ as well as extra properties and elements described below.
 In most cases the received value must be reassigned to appropriate field of
 the <<interfaces-interfaces, &lt;interface&gt; >>. To specify the supported
 interfaces use **interfaces** <<intro-properties, property>>. The value
-of the property is comma separated list of <<intro-references, reference>> 
+of the property is comma separated list of <<intro-references, reference>>
 names of the supported interfaces.
 [source, xml]
 ----
@@ -38,15 +38,14 @@ names of the supported interfaces.
     <interface name="Interface1">
         <int name="Version" type="uint8" semanticType="version" />
     </interface>
-    
+
     <interface name="Interface2">
         <int name="Version" type="uint8" semanticType="version" />
         <set name="Flags" length="1">
             ...
         </set>
     </interface>
-    
-    
+
     <frame name="ProtocolFrame">
         <size name="Size">
             ...
@@ -55,13 +54,13 @@ names of the supported interfaces.
             <int name="VersionField" type="uint8" />
         </value>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
     </frame>
 </schema>
 ----
-In case the whole protocol schema contains no more than one **&lt;interface&gt;** 
+In case the whole protocol schema contains no more than one **&lt;interface&gt;**
 definition, then the usage of the **interfaces** property is not necessary.
 
 In addition to specifying the interfaces themselves, there is a need to
@@ -74,15 +73,14 @@ using **interfaceFieldName** <<intro-properties, property>>.
     <interface name="Interface1">
         <int name="Version" type="uint8" semanticType="version" />
     </interface>
-    
+
     <interface name="Interface2">
         <int name="Version" type="uint8" semanticType="version" />
         <set name="Flags" length="1">
             ...
         </set>
     </interface>
-    
-    
+
     <frame name="ProtocolFrame">
         <size name="Size">
             ...
@@ -94,7 +92,7 @@ using **interfaceFieldName** <<intro-properties, property>>.
             </field>
         </value>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
     </frame>
@@ -102,18 +100,18 @@ using **interfaceFieldName** <<intro-properties, property>>.
 ----
 **NOTE**, that all the interfaces listed in the **interfaces** property value
 must have a field with the name specified as the **interfaceFieldName** value.
-Also the specified field's index (among other available fields of the **&lt;interface&gt;**) 
+Also the specified field's index (among other available fields of the **&lt;interface&gt;**)
 must be the same for all the listed interfaces.
 
 ==== Pseudo Value Layer ====
 There are protocols that don't report protocol version in their transport
 framing. Instead, they use some special "connection" message that report
 protocol version. As the result, all subsequent messages must adhere to the
-reported version. The **CommsDSL** resolves this problem by defining 
+reported version. The **CommsDSL** resolves this problem by defining
 **pseudo** **&lt;value&gt;** layer using **pseudo** <<intro-properties, property>>
 with <<intro-boolean, boolean>> value. The field of the pseudo **&lt;value&gt;** layer
 does not get serialized. However, the code generator must allow external
-assignment of the required value to the private data members of the 
+assignment of the required value to the private data members of the
 **&lt;value&gt;** layer's class.
 [source, xml]
 ----
@@ -122,17 +120,17 @@ assignment of the required value to the private data members of the
     <interface name="Interface1">
         <int name="Version" type="uint8" semanticType="version" />
     </interface>
-    
+
     <message name="Connect" id="1">
         <int name="ProtocolVersion" type="uint8" />
     </message>
-    
+
     <frame name="ProtocolFrame">
         <size name="Size">
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <value name="Version" interfaces="Interface1" pseudo="true">
             <interfaceFieldName value="Version" />
@@ -144,17 +142,17 @@ assignment of the required value to the private data members of the
     </frame>
 </schema>
 ----
-The location of the pseudo **&lt;value&gt;** layer within the **&lt;frame&gt;** 
+The location of the pseudo **&lt;value&gt;** layer within the **&lt;frame&gt;**
 is not important. It is recommended to define it right before the **&lt;payload&gt;**
 layer.
 
 As part of processing *Connect* message in the example above, the client code
 is expected to retrieve the value of the _ProtocolVersion_ field and report
-it to the pseudo **&lt;value&gt;** layer within the processing frame. For 
-all the subsequent messages, the pseudo **&lt;value&gt;** layer is responsible 
-to assign appropriate value (version in the example above) to the newly created 
-message object before message payload gets read. This is because such values 
-may have an influence on how the *read* operation is executed (existence of 
+it to the pseudo **&lt;value&gt;** layer within the processing frame. For
+all the subsequent messages, the pseudo **&lt;value&gt;** layer is responsible
+to assign appropriate value (version in the example above) to the newly created
+message object before message payload gets read. This is because such values
+may have an influence on how the *read* operation is executed (existence of
 some fields may depend on the assigned value).
 
 Use <<appendix-value, properties table>> for future references.

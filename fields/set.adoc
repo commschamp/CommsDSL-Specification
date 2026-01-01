@@ -1,13 +1,13 @@
 [[fields-set]]
 === &lt;set&gt; Field ===
-This field stores and abstracts away value of bitset (bitmask) type. 
+This field stores and abstracts away value of bitset (bitmask) type.
 The **&lt;set&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
 [[fields-set-underlying-type]]
 ==== Underlying Type ====
-The underlying type of the **&lt;set&gt;** field can be provided its underlying storage type using 
-**type** <<intro-properties, property>>. Available 
+The underlying type of the **&lt;set&gt;** field can be provided its underlying storage type using
+**type** <<intro-properties, property>>. Available
 values are:
 
 * **uint8** - 1 byte unsigned integer.
@@ -46,7 +46,7 @@ the provided serialization length.
 ----
 
 Some protocols allow (de)serialization of the **&lt;set&gt;** field value having less bytes
-in the buffer than is required by its <<fields-set-underlying-type, underlying type>> serialization. 
+in the buffer than is required by its <<fields-set-underlying-type, underlying type>> serialization.
 Usually the length of such an **&lt;set&gt;**
 field is specified externally, by the preceding "length" field in TLV (type-length-value) triplet
 (explained in detail in <<fields-variant, &lt;variant&gt; Field>> section). In order to allow code
@@ -89,7 +89,7 @@ omitted when **bitLength** property is in use, just like with **length**.
 
 ==== Bits ====
 The **&lt;set&gt;** field may list its bits as **&lt;bit&gt;** XML child elements.
-Every such element must specify its <<intro-names, name>> using 
+Every such element must specify its <<intro-names, name>> using
 **name** property as well as its index using **idx** property.
 [source,xml]
 ----
@@ -104,26 +104,25 @@ Every such element must specify its <<intro-names, name>> using
 </schema>
 ----
 The bit indexing starts from **least** significant bit, and mustn't exceed number
-of bits allowed by the <<fields-set-underlying-type, underlying type>>. The **&lt;bit&gt;**-s 
+of bits allowed by the <<fields-set-underlying-type, underlying type>>. The **&lt;bit&gt;**-s
 may be listed in any order, not necessarily sorted.
 
-The code generator is expected to generate convenience functions (or other means) 
+The code generator is expected to generate convenience functions (or other means)
 to set / get the value of every listed bit.
 
-Every **&lt;bit&gt;** element may also define extra <<intro-properties, properties>> 
+Every **&lt;bit&gt;** element may also define extra <<intro-properties, properties>>
 listed below for better readability:
 
 * **description** - Extra description and documentation on the bit.
 * **displayName** - Human readable name of the bit.
 
-These properties are described in detail in 
+These properties are described in detail in
 <<fields-common, Common Properties of Fields>>.
-
 
 ==== Default Bit Value ====
 When the **&lt;set&gt;** field object is default constructed, all bits are initialized
-to **false**, i.e. **0**. Such default behavior can be modified using 
-**defaultValue** <<intro-properties, property>> with 
+to **false**, i.e. **0**. Such default behavior can be modified using
+**defaultValue** <<intro-properties, property>> with
 <<intro-boolean, boolean>> value.
 [source,xml]
 ----
@@ -140,7 +139,7 @@ to **false**, i.e. **0**. Such default behavior can be modified using
 The *SomeSetField* field from the example above is expected to be initialized
 to **0xff** when default constructed.
 
-The **defaultValue** may also be specified per-bit, which overrides the 
+The **defaultValue** may also be specified per-bit, which overrides the
 **defaultValue** specified for the whole field.
 [source,xml]
 ----
@@ -157,10 +156,9 @@ The **defaultValue** may also be specified per-bit, which overrides the
 The *SomeSetField* field from the example above is expected to be initialized
 to **0xfe** when default constructed.
 
-
 ==== Reserved Bits ====
 All the bits that aren't listed as **&lt;bit&gt;** XML child elements
-are considered to be reserved. By default every reserved bit is expected to be 
+are considered to be reserved. By default every reserved bit is expected to be
 zeroed when field is checked to have a valid value. Such expectation can be changed using
 **reservedValue** property.
 [source,xml]
@@ -179,7 +177,7 @@ The *SomeSetField* field from the example above is expected to be initialized
 to **0xfc** and all the reserved (non-listed) bits are expected to remain **true**.
 
 Reserved bits can also be specified as **&lt;bit&gt;** XML child element
-with usage of **reserved** <<intro-properties, property>> with 
+with usage of **reserved** <<intro-properties, property>> with
 <<intro-boolean, boolean>> value.
 
 [source,xml]
@@ -191,14 +189,14 @@ with usage of **reserved** <<intro-properties, property>> with
             <bit name="SomeBitName" idx="0" />
             <bit name="SomeOtherBitName" idx="1" />
             <bit name="ReservedBit" idx="2" reserved="true">
-                <defaultValue value="true" /> 
+                <defaultValue value="true" />
                 <reservedValue value="true" />
             </bit>
         </set>
     </fields>
 </schema>
 ----
-The example above marks bit **2** to be reserved, that is initialized to 
+The example above marks bit **2** to be reserved, that is initialized to
 **true** and must always stay **true**.
 
 The *SomeSetField* field from the example above is expected to be initialized
@@ -224,11 +222,11 @@ default endian value with extra **endian** property.
 ----
 
 ==== Allow Non-Unique Bit Names ====
-By default, having multiple names for the same bit is not allowed, 
-the code generator must report an error if two different 
+By default, having multiple names for the same bit is not allowed,
+the code generator must report an error if two different
 **&lt;bit&gt;**-s use the same value of **idx**
 property. It is done as protection against copy-paste errors. However,
-**CommsDSL** allows usage of multiple names for the same bit in case **nonUniqueAllowed** 
+**CommsDSL** allows usage of multiple names for the same bit in case **nonUniqueAllowed**
 <<intro-properties, property>> has been set to **true**.
 [source,xml]
 ----
@@ -250,11 +248,11 @@ every **&lt;bit&gt;** element supports extra ones for versioning:
 * **sinceVersion** - Version of the protocol when the bit was introduced (became non-reserved).
 * **deprecated** - Version of the protocol when the value was deprecated (became reserved again).
 
-These extra properties are described in detail in 
+These extra properties are described in detail in
 <<fields-common, Common Properties of Fields>>.
 
 ==== Version Based Validity ====
-The code generator is expected to generate functionality checking that 
+The code generator is expected to generate functionality checking that
 **&lt;set&gt;** field contains a valid value. Any specified non-reserved
 bit can have any value, while reserved bits (implicit or explicit) must have value
 specified by **reservedValue** property (either of the field or the bit itself).

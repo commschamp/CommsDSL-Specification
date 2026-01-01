@@ -1,6 +1,6 @@
-= CommsDSL Specification v7.1
+= CommsDSL Specification v7.2
 Alex Robenko
-v7.1, 2025-08
+v7.2, 2026-01
 :doctype: article
 :toc: left
 :source-highlighter: rouge

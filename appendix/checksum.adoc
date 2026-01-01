@@ -3,7 +3,7 @@
 === Properties of &lt;checksum&gt; Frame Layer ===
 The **&lt;checksum&gt;** layer has all the <<appendix-layers, common>> properties as
 well as ones listed below. Refer to <<frames-checksum, &lt;checksum&gt; Layer>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===

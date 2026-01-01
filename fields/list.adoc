@@ -1,6 +1,6 @@
 [[fields-list]]
 === &lt;list&gt; Field ===
-This field stores and abstracts away a list of other fields. 
+This field stores and abstracts away a list of other fields.
 The **&lt;list&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
@@ -38,7 +38,7 @@ of the <<fields-bundle, &lt;bundle&gt; >> field.
 </schema>
 ----
 In case other properties of the **&lt;list&gt;** field are defined as child
-XML elements, then the element field definition needs to be wrapped by 
+XML elements, then the element field definition needs to be wrapped by
 **&lt;element&gt;** XML child.
 [source,xml]
 ----
@@ -66,7 +66,7 @@ an element using **element** <<intro-properties, property>>.
         <bundle name="ExternallyDefinedElement">
             ...
         </bundle>
-        
+
         <list name="SomeListField" element="ExternallyDefinedElement" />
     </fields>
 </schema>
@@ -142,7 +142,7 @@ several other fields in the <<messages-messages, &lt;message&gt; >> or in the
             </list>
         </bundle>
     </fields>
-    
+
     <message name="Msg1" id="1">
         <int name="DataCountPrefix" type="uint16" />
         <int name="SomeOtherField" type="uint16" />
@@ -180,13 +180,13 @@ the <<fields-list-count-prefix, Count Prefix>> section.
                 <int name="LengthPrefix" type="uint16" />
             </lengthPrefix>
         </list>
-        
+
         <int name="ExternalLengthPrefix" type="uint16" />
         <list name="List2" lengthPrefix="ExternalLengthPrefix">
             <int name="Element" type="uint32" />
         </list>
     </fields>
-    
+
     <message name="Msg1" id="1">
         <int name="DetachedLengthPrefix" type="uint16" />
         <int name="SomeOtherField" type="uint16" />
@@ -199,9 +199,9 @@ the <<fields-list-count-prefix, Count Prefix>> section.
 
 [[fields-list-term-suffix]]
 ==== Termination Suffix ====
-There are protocols that use special byte(s) to terminate a list instead of 
+There are protocols that use special byte(s) to terminate a list instead of
 prefixing it with number of elements or serialization length. Specifying termination
-suffix field is supported using **termSuffix** property. Just like with 
+suffix field is supported using **termSuffix** property. Just like with
 <<fields-list-count-prefix, countPrefix>>, and <<fields-list-length-prefix, lengthPrefix>>,
 the termination suffix can be specified as a child XML node or referenced when
 defined externally.
@@ -224,7 +224,7 @@ is sufficient.
                 <int name="TermSuffix" type="uint8" defaultValidValue="0" failOnInvalid="true" />
             </termSuffix>
         </list>
-        
+
         <int name="ExternalTermSuffix" type="uint8" validRange="[0, 1]" failOnInvalid="true" />
         <list name="List2" termSuffix="ExternalTermSuffix">
             <int name="Element" type="uint32" />
@@ -238,7 +238,7 @@ are mutually exclusive, i.e. cannot be used together.
 
 [[fields-list-element-length-prefix]]
 ==== Element Length Prefix ====
-Some protocols prefix every element with its serialization length for the 
+Some protocols prefix every element with its serialization length for the
 forward / backward compatibility of the protocol. If there is such need, use **elemLengthPrefix**
 to specify a field that will prefix every element of the list.
 [source,xml]
@@ -271,8 +271,8 @@ to specify a field that will prefix every element of the list.
 ----
 In case every list element has fixed length and protocol specification doesn't
 allow adding extra variable length fields to the element in the future, some
-protocols prefix only **first** element in the list with its serialization 
-length. **CommsDSL** supports such lists with **elemFixedLength** 
+protocols prefix only **first** element in the list with its serialization
+length. **CommsDSL** supports such lists with **elemFixedLength**
 <<intro-properties, property>>, that has <<intro-boolean, boolean>> value.
 [source,xml]
 ----
@@ -294,7 +294,7 @@ length. **CommsDSL** supports such lists with **elemFixedLength**
     </fields>
 </schema>
 ----
-The code generator must report an error when element of such list 
+The code generator must report an error when element of such list
 (with **elemFixedLength** property set to **true**) has variable length.
 
 Use <<appendix-list, properties table>> for future references.

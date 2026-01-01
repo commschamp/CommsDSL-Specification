@@ -1,13 +1,13 @@
 [[fields-int]]
 === &lt;int&gt; Field ===
-This field stores and abstracts away value of integral type. 
+This field stores and abstracts away value of integral type.
 The **&lt;int&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
 [[fields-int-underlying-type]]
 ==== Underlying Type ====
-Every **&lt;int&gt;** field must provide its underlying storage type using 
-**type** <<intro-properties, property>>. Available 
+Every **&lt;int&gt;** field must provide its underlying storage type using
+**type** <<intro-properties, property>>. Available
 values are:
 
 * **int8** - 1 byte signed integer.
@@ -38,7 +38,7 @@ https://en.wikipedia.org/wiki/LEB128[LEB128] for *little* endian or similar for
 ==== Special Values ====
 Some protocol may assign a special meaning for some values. For example, some
 field specifies configuration of some timer duration, when **0** value means
-infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of the 
+infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of the
 **&lt;int&gt;** XML element.
 [source,xml]
 ----
@@ -51,14 +51,14 @@ infinite. Such values (if exist) must be listed as **&lt;special&gt;** child of 
     </fields>
 </schema>
 ----
-The code generator is expected to generate extra convenience functions that 
+The code generator is expected to generate extra convenience functions that
 check whether field has special value as well as updating the stored value
 with special one.
 
-Every **&lt;special&gt;** must define a valid <<intro-names, name>> 
-(using **name** <<intro-properties, property>>) as 
-well as <<intro-numeric, numeric>> value (using **val** 
-<<intro-properties, property>>), that fits chosen 
+Every **&lt;special&gt;** must define a valid <<intro-names, name>>
+(using **name** <<intro-properties, property>>) as
+well as <<intro-numeric, numeric>> value (using **val**
+<<intro-properties, property>>), that fits chosen
 <<fields-int-underlying-type, underlying type>>. The **&lt;special&gt;**-s may be listed
 in any order, not necessarily sorted.
 
@@ -69,14 +69,14 @@ Every **&lt;special&gt;** has extra optional properties:
 * **deprecated** - Version of the protocol when the special name / meaning was deprecated.
 * **displayName** - Human readable name of the value.
 
-All these extra properties are described in detail in 
+All these extra properties are described in detail in
 <<fields-common, Common Properties of Fields>>.
 
-By default, non-unqiue special values (different name for the same value) are 
+By default, non-unqiue special values (different name for the same value) are
 not allowed, the code generator must report
 an error if two different **&lt;special&gt;**-es use the same value of the **val**
 property. It is done as protection against copy-paste errors. However,
-**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed** 
+**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed**
 <<intro-properties, property>> has been set to **true**.
 [source,xml]
 ----
@@ -104,7 +104,7 @@ using **defaultValue** property. If not specified, defaults to **0**.
     </fields>
 </schema>
 ----
-The default value can also be specified using the name of one of the 
+The default value can also be specified using the name of one of the
 **&lt;special&gt;**-s:
 [source,xml]
 ----
@@ -150,12 +150,12 @@ use **length** property to specify custom serialization length.
 </schema>
 ----
 
-**[red]#IMPORTANT#**: When **length** property is used with variable length 
-<<fields-int-underlying-type, underlying types>> (**intvar** and **uintvar**), 
+**[red]#IMPORTANT#**: When **length** property is used with variable length
+<<fields-int-underlying-type, underlying types>> (**intvar** and **uintvar**),
 it means **maximum** allowed length.
 
 Some protocols allow (de)serialization of the **&lt;int&gt;** field value having less bytes
-in the buffer than is required by its <<fields-int-underlying-type, underlying type>> serialization. 
+in the buffer than is required by its <<fields-int-underlying-type, underlying type>> serialization.
 Usually the length of such an **&lt;int&gt;**
 field is specified externally, by the preceding "length" field in TLV (type-length-value) triplet
 (explained in detail in <<fields-variant, &lt;variant&gt; Field>> section). In order to allow code
@@ -172,7 +172,6 @@ with <<intro-boolean, boolean>> value.
 ----
 Note, that the code generator is responsible to allow external limiting serialization length for such fields
 before **write** operation takes place.
-
 
 [[fields-int-length-bits]]
 ==== Length in Bits ====
@@ -196,10 +195,10 @@ In this case the serialization length may be specified in bits using **bitLength
 ==== Serialization Offset ====
 Some protocols may require adding/subtracting some value before serialization, and
 performing the opposite operation when the field is deserialized. Such operation
-can be forced using **serOffset** property with <<intro-numeric, numeric>> 
+can be forced using **serOffset** property with <<intro-numeric, numeric>>
 value. The classic example would be defining a **year** field that is being
 serialized using 1 byte as offset from year 2000. Although it is possible to
-define such field as 1 byte integer 
+define such field as 1 byte integer
 [source,xml]
 ----
 <int name="Year" type="uint8"  />
@@ -222,8 +221,8 @@ defined using **type** property.
 
 [[fields-int-sign-extension]]
 ==== Sign Extension ====
-When limiting <<fields-int-serialization-length, serialization length>> using **length** 
-property, the performed **read** operation is expected to sign 
+When limiting <<fields-int-serialization-length, serialization length>> using **length**
+property, the performed **read** operation is expected to sign
 extend read signed value. However, such default behavior may be incorrect
 for some cases, especially when <<fields-int-serialization-offset, serialization offset>> is
 also used. There are protocols that disallow serialization of a negative value.
@@ -231,8 +230,8 @@ Any signed integer must add predefined offset to make it non-negative first, and
 then serialize. The deserialization procedure is the opposite, first deserialize
 the non-negative value, and then subtract predefined offset to get the real value.
 
-For example, there is an integer field with expected valid values between 
-`-8,000,000` and `+8,000,000`. This range fits into 3 bytes, which are used to 
+For example, there is an integer field with expected valid values between
+`-8,000,000` and `+8,000,000`. This range fits into 3 bytes, which are used to
 serialize such field. Such field is serialized using the
 following math:
 
@@ -250,20 +249,20 @@ automatic sign extension when value is deserialized.
     </fields>
 </schema>
 ----
-**NOTE**, that **signExt** property is relevant only for signed types with 
+**NOTE**, that **signExt** property is relevant only for signed types with
 non-default <<fields-int-serialization-length, serialization length>>.
 
 [[fields-int-scaling]]
 ==== Scaling ====
-Some protocols may not support serialization of floating point values, and 
+Some protocols may not support serialization of floating point values, and
 use scaling instead. It is done by multiplying the original floating point value
 by some number, dropping the fraction part and serializing the value as integer.
-Upon reception, the integer value is divided by predefined number to get a 
-proper floating point value. 
+Upon reception, the integer value is divided by predefined number to get a
+proper floating point value.
 
-For example, there is a distance measured in millimeters with precision of 
+For example, there is a distance measured in millimeters with precision of
 4 digits after decimal point. The value is multiplied by 10,000 and serialized
-as **&lt;int&gt;** field. Such scenario is supported by **CommsDSL** via 
+as **&lt;int&gt;** field. Such scenario is supported by **CommsDSL** via
 introduction of **scaling** <<intro-properties, property>>.
 [source,xml]
 ----
@@ -274,9 +273,9 @@ introduction of **scaling** <<intro-properties, property>>.
     </fields>
 </schema>
 ----
-**NOTE**, that format of **scaling** value is "**numerator / denominator**". 
-The code generator is expected to define such field like any other 
-**&lt;int&gt;**, but also provide functions that allow set / get of 
+**NOTE**, that format of **scaling** value is "**numerator / denominator**".
+The code generator is expected to define such field like any other
+**&lt;int&gt;**, but also provide functions that allow set / get of
 scaled floating point value.
 
 It is possible to omit the **denominator** value.
@@ -295,8 +294,8 @@ In the example above it is equivalent to having **scaling="4/1"** defined.
 ==== Units ====
 Protocols quite often specify what units are being transfered. The **CommsDSL**
 provides **units** <<intro-properties, property>> to specify this information.
-The code generator may use this information to generate a functionality that allows 
-retrieval of proper value for requested units, while doing all the conversion 
+The code generator may use this information to generate a functionality that allows
+retrieval of proper value for requested units, while doing all the conversion
 math internally. Such behavior will allow developers, that use generated
 protocol code, to focus on their business logic without getting into details
 on how value was transfered and what units are used by default.
@@ -334,7 +333,7 @@ generator is expected to generate code that checks whether field's value
 is valid. The **CommsDSL** provides multiple properties to help with such
 task.
 
-One of such properties if **validRange**. The format of it's value is 
+One of such properties if **validRange**. The format of it's value is
 "[*min_value*, *max_value*]".
 [source,xml]
 ----
@@ -361,7 +360,7 @@ elements.
     </fields>
 </schema>
 ----
-Another property is **validValue**, which adds single value (not range) to 
+Another property is **validValue**, which adds single value (not range) to
 already defined valid ranges / values. Just like with **validRange**, multiple
 values need to be added as XML children elements.
 [source,xml]
@@ -376,8 +375,8 @@ values need to be added as XML children elements.
 </schema>
 ----
 
-There are also **validMin** and **validMax**, which specify single 
-<<intro-numeric, numeric>> value and are equivalent to having + 
+There are also **validMin** and **validMax**, which specify single
+<<intro-numeric, numeric>> value and are equivalent to having +
 `validRange="[provided_min_value, max_value_allowed_by_type]"` and +
 `validRange="[min_value_allowed_by_type, provided_max_value]"` respectively.
 [source,xml]
@@ -390,7 +389,7 @@ There are also **validMin** and **validMax**, which specify single
     </fields>
 </schema>
 ----
-The specified valid ranges and values are allowed to intersect. The code 
+The specified valid ranges and values are allowed to intersect. The code
 generator may warn about such cases and/or unify them to limit number of
 **if** conditions in the generated code for better performance.
 
@@ -399,7 +398,7 @@ whole range of available values is considered to be valid.
 
 All the validity related <<intro-properties, properties>> mentioned in this
 section (**validRange**, **validValue**, **validMin**, and **validMax**) may
-also add information about version they were introduced / deprecated in. 
+also add information about version they were introduced / deprecated in.
 Adding such information is possible only when the property is defined as
 XML child element.
 [source,xml]
@@ -415,14 +414,13 @@ XML child element.
     </fields>
 </schema>
 ----
-The **sinceVersion** and **deprecated** properties are described in detail as 
+The **sinceVersion** and **deprecated** properties are described in detail as
 <<fields-common, Common Properties of Fields>>.
-
 
 [[fields-int-version-based-validity]]
 ==== Version Based Validity ====
-The code generator is expected to generate functionality checking that 
-**&lt;int&gt;** field contains a valid value. By default if the field's value 
+The code generator is expected to generate functionality checking that
+**&lt;int&gt;** field contains a valid value. By default if the field's value
 is within any of the specified ranges / values, then the it is considered to be valid
 regardless of version the containing range was
 introduced and/or deprecated. However, it is possible to force code generator to
@@ -446,7 +444,7 @@ is set to **true**.
 [[fields-int-single-valid-value]]
 ==== Single Valid Value ====
 Sometimes the **&lt;int&gt;** field has only one valid value and it must be initialized with it. The
-**defaultValidValue** <<intro-properties, property>> can be used as a replacement to the combination of 
+**defaultValidValue** <<intro-properties, property>> can be used as a replacement to the combination of
 **defaultValue** and **validValue** ones having to specify the same value:
 [source,xml]
 ----
@@ -454,10 +452,10 @@ Sometimes the **&lt;int&gt;** field has only one valid value and it must be init
 <schema ... version="10">
     <fields>
         <int name="SomeIntField" type="uint8" defaultValidValue="1" failOnInvalid="true" ... />
-        
+
         <!-- Instead of:
         <int name="SomeIntField" type="uint8" defaultValue="1" validValue="1" failOnInvalid="true" ... />
-        -->        
+        -->
     </fields>
 </schema>
 ----
@@ -483,8 +481,8 @@ be added to the displayed value by using the **displayOffset** <<intro-propertie
 
 For example, many protocols define some kind of remaining length field
 when defining a transport <<frames-frames, frame>> or other places. Sometimes
-the value of such field should also include its own length. However, it 
-is much more convenient to work with it, when the retrieved value 
+the value of such field should also include its own length. However, it
+is much more convenient to work with it, when the retrieved value
 shows only **remaining** length of subsequent fields, without worrying whether
 the value needs to be reduced by the serialization length of holding field, and what exactly
 this length is. Such field can be defined like this:
@@ -502,7 +500,7 @@ In the example above, the field is expected to hold only **remaining** length,
 
 However, when such field is displayed it is desirable
 to display the value with serialization offset as well.
-[source,xml] 
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema ...>

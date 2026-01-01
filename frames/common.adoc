@@ -1,12 +1,12 @@
 [[frames-common]]
 === Common Properties of Layers ===
 Every layer is different, and defines its own properties and/or other aspects.
-However, there are common properties, that are applicable to every layer. 
+However, there are common properties, that are applicable to every layer.
 They are summarized below.
 
 [[frames-layer-name]]
 ==== Name  ====
-Every layer must define it's <<intro-names, name>>, which is expected to be 
+Every layer must define it's <<intro-names, name>>, which is expected to be
 used by a code generator when defining a relevant class. The name is defined
 using **name** <<intro-properties, property>>.
 [source,xml]
@@ -36,7 +36,7 @@ generated class. The <<intro-properties, property>> is **description**.
                 Some long
                 multiline
                 description
-            </description>        
+            </description>
         </id>
         <payload name="Data" />
     </frame>
@@ -71,7 +71,7 @@ as XML child element.
 <schema ...>
     <frame name="ProtocolFrame">
         <id name="Id">
-            <int name="IdField" type="uint8" />  
+            <int name="IdField" type="uint8" />
         </id>
         <payload name="Data" />
     </frame>
@@ -79,7 +79,7 @@ as XML child element.
 ----
 
 If there is any other <<intro-properties, property>> defined as XML child
-of the layer, then the inner field must be wrapped in 
+of the layer, then the inner field must be wrapped in
 **&lt;field&gt;** XML element for separation.
 [source,xml]
 ----
@@ -89,7 +89,7 @@ of the layer, then the inner field must be wrapped in
         <id>
             <name value="Id" />
             <field>
-                <int name="IdField" type="uint8" />  
+                <int name="IdField" type="uint8" />
             </field>
         </id>
         <payload name="Data" />
@@ -108,7 +108,7 @@ be referenced using **field** property.
             <validValue name="Msg2" val="0x2" />
         </enum>
     </fields>
-    
+
     <frame name="ProtocolFrame">
         <id name="Id" field="MsgId" />
         <payload name="Data" />

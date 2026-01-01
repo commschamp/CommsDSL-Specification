@@ -52,7 +52,6 @@ The tables below contain lists of available units.
 |Kilometers Per Hour|"km/h", "kmph", "kph", "kilometer/hour", "kilometre/hour", "kilometers/hour", "kilometres/hour"
 |===
 
-
 ==== Frequency Units ====
 [cols="^.^30,70", options="header"]
 |===

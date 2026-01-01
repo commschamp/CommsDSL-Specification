@@ -3,7 +3,7 @@
 === Properties of &lt;string&gt; Field ===
 The **&lt;string&gt;** field has all the <<appendix-fields, common>> properties as
 well as ones listed below. Refer to <<fields-string, &lt;string&gt; Field>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===
@@ -16,5 +16,4 @@ for detailed description.
 |**validValue**|string|7|no||Valid value.
 |**zeroTermSuffix**|<<intro-boolean, bool>>|1|no|false|Terminate string with **0**. Cannot be used tegether with **length** or **lengthPrefix**.
 |===
-
 

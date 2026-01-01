@@ -23,8 +23,8 @@ letter.
 </schema>
 ----
 
-The names of the elements must be unique in their scope. It is allowed to 
-use the same name in different <<intro-namespaces, namespaces>> or different 
+The names of the elements must be unique in their scope. It is allowed to
+use the same name in different <<intro-namespaces, namespaces>> or different
 <<messages-messages, messages>>.
 [source,xml]
 ----

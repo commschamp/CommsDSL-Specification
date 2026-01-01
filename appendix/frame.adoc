@@ -2,7 +2,7 @@
 [[appendix-frame]]
 === Properties of &lt;frame&gt; ===
 Refer to <<frames-frames, Frames>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===

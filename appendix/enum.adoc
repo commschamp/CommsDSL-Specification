@@ -3,7 +3,7 @@
 === Properties of &lt;enum&gt; Field ===
 The **&lt;enum&gt;** field has all the <<appendix-fields, common>> properties as
 well as ones listed below. Refer to <<fields-enum, &lt;enum&gt; Field>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===
