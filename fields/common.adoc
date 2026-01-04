@@ -1,12 +1,12 @@
 [[fields-common]]
 === Common Properties of Fields ===
 Every field is different, and defines its own properties and/or other aspects.
-However, there are common properties, that are applicable to every field. 
+However, there are common properties, that are applicable to every field.
 They are summarized below.
 
 [[fields-common-name]]
 ==== Name ====
-Every field must define it's <<intro-names, name>>, which is expected to be 
+Every field must define it's <<intro-names, name>>, which is expected to be
 used by a code generator when defining a relevant class. The name is defined
 using **name** <<intro-properties, property>>.
 [source,xml]
@@ -147,10 +147,10 @@ removed from being serialized.
 of the <<schema-schema, schema>>. Also value of **sinceVersion** must be
 **less** than value of **deprecated**.
 
-The version information on the field in global **&lt;fields&gt;** area or 
-inside some <<intro-namespaces, namespace>> does **NOT** make sense and 
+The version information on the field in global **&lt;fields&gt;** area or
+inside some <<intro-namespaces, namespace>> does **NOT** make sense and
 should be ignored by the code generator. It is allowed when field is a member
-of a <<messages-messages, &lt;message&gt; >> or a 
+of a <<messages-messages, &lt;message&gt; >> or a
 <<fields-bundle, &lt;bundle&gt; >> field.
 
 [[fields-common-failing-read-of-the-field-on-invalid-value]]
@@ -161,7 +161,7 @@ be a need to fail the **read** operation in case the received value is invalid.
 To achieve this **failOnInvalid** property with <<intro-boolean, boolean>>
 value can be used. There are two main scenarios that may require usage of this
 property. One is the protocol being implemented requires such behavior in its
-specification. The second is when there are multiple forms of the same message 
+specification. The second is when there are multiple forms of the same message
 which are differentiated by the value of some specific field in its payload.
 For example:
 [source,xml]
@@ -185,8 +185,8 @@ For example:
 </schema>
 ----
 The example above defined 3 variants of the message with numeric ID equals to **1**.
-When new message with this ID comes in, the <<frames-frames, framing>> code 
-is expected to try reading all of the variants and choose one, on which **read** 
+When new message with this ID comes in, the <<frames-frames, framing>> code
+is expected to try reading all of the variants and choose one, on which **read**
 operation doesn't fail. The **order** property of the message specifies in
 what order the messages with the same ID must be read. It described in more
 detail in <<messages-messages, Messages>> chapter.
@@ -229,7 +229,7 @@ after its construction. The field's value can still be updated by the **read** o
 
 [[fields-common-customizable-fields]]
 ==== Customizable Fields ====
-The code generator is expected to allow some level of compile time customization of the 
+The code generator is expected to allow some level of compile time customization of the
 generated code, such as choosing different data structures and/or adding/replacing
 some runtime logic. The code generator is also expected to provide command line
 options to choose required level of customization. Sometimes it may be required
@@ -251,11 +251,11 @@ customizable at compile time.
 ==== Semantic Type ====
 Sometimes code generator may generate a bit different (or better) code for fields that are
 used for some particular purpose. To specify such purpose use **semanticType**
-property. 
+property.
 
 Available semantic types are:
 
-* **messageId** - Used to specify what type/field is used for holding numeric 
+* **messageId** - Used to specify what type/field is used for holding numeric
 message ID. Applicable to <<fields-enum, &lt;enum&gt; >> fields.
 
 [source,xml]
@@ -290,13 +290,13 @@ an <<fields-int, &lt;int&gt; >>).
 * **length** - Used to specify that the field holds total serialization length
 of the **subsequent** fields (excluding the length of the field itself).
 Usually applicable to <<fields-int, &lt;int&gt; >> field
-(or  <<fields-ref, &lt;ref&gt; >> referencing an <<fields-int, &lt;int&gt; >>). 
+(or  <<fields-ref, &lt;ref&gt; >> referencing an <<fields-int, &lt;int&gt; >>).
 Since **v5.0** of **CommsDSL**, the **length** semantic type can be set for other
 complex fields, such as <<fields-bundle, &lt;bundle&gt; >> or <<fields-bitfield, &lt;bitfield&gt; >>.
 However, in such case the code generator may expect injection of custom code
 (see <<fields-common-ensuring-overriding-code-injection, Ensuring Overriding Code Injection>> section below)
 to override the value retrieval to make sure that the value is numeric.
-In most cases the **length** semantic type is expected to be used for 
+In most cases the **length** semantic type is expected to be used for
 a member of <<fields-bundle, &lt;bundle&gt; >> field to limit the serialization length
 of the member fields that follow.
 
@@ -318,22 +318,22 @@ of the member fields that follow.
 ==== Ensuring Overriding Code Injection ====
 In some cases the **CommsDSL** may be insufficient to express the the protocol definition in correct way.
 To handle such cases the code generator is expected to allow injection of the custom / overriding code
-to fix / replace the default implementation produced by the code generator. 
+to fix / replace the default implementation produced by the code generator.
 
 The code generator is expected to generate the default code for the following operations:
 
 * **value** - Set/Get field's value functionality.
 * **read** - Reading the field's value from the input buffer.
 * **write** - Writing the field's value to the output buffer.
-* **refresh** - Update the field's value to a consistent state. Note, that in some composite fields 
-like <<fields-bundle, &lt;bundle&gt; >>, values of internal members may depend on the values of other 
-members creating the situation where the whole state may be inconsistent / incorrect. Invoking the **refresh** operation is 
+* **refresh** - Update the field's value to a consistent state. Note, that in some composite fields
+like <<fields-bundle, &lt;bundle&gt; >>, values of internal members may depend on the values of other
+members creating the situation where the whole state may be inconsistent / incorrect. Invoking the **refresh** operation is
 expected to update the values of inner fields to bring the field into a consistent / correct state.
 * **length** - Returning the serialization length of the field.
 * **valid** - Returning whether the field's value is valid.
 * **name** - Returning the name of the field.
 
-To ensure visibility and/or help with forcing the injection of the correcting code, 
+To ensure visibility and/or help with forcing the injection of the correcting code,
 the **CommsDSL** provides the following <<intro-properties, properties>>.
 
 * **valueOverride** - Control the overriding code injection for the **value** operation(s).
@@ -349,16 +349,16 @@ The value of the <<intro-properties, properties>> above can be one of the follow
 * **any** (default) - Inject the overriding code if available, use the code generated by default if not.
 * **replace** - The default code is incorrect, replace it with the provided one. The code generator is expected
 to report a failure in case the overriding code is unavailable.
-* **extend** - The default code is still incorrect, but the code generator is expected to 
+* **extend** - The default code is still incorrect, but the code generator is expected to
 produce it (with some minor renaming to avoid names clashing) to allow reuse and extension in the overriding code. The code generator is expected
 to report a failure in case the overriding code is unavailable.
-* **none** - The code generator is expected to ignore the overriding code if it's available and 
+* **none** - The code generator is expected to ignore the overriding code if it's available and
 produce the one generated by default instead.
 
 [[fields-common-copying-injected-code]]
 ==== Copying Injected Code ====
 In some cases different fields may have the **same** overriding or any other extra code that needs to be injected. In
-order to minimize the copy-paste of the code, the CommsDSL introduces the 
+order to minimize the copy-paste of the code, the CommsDSL introduces the
 **copyCodeFrom** property with a <<intro-references, reference>> value indicating
 another field, overriding code of which needs to be applied to the field being defined.
 [source,xml]
@@ -369,7 +369,7 @@ another field, overriding code of which needs to be applied to the field being d
         <bundle name="CompositeField" readOverride="replace" refreshOverride="replace">
             ...
         </bundle>
-        
+
         <bundle name="AnotherCompositeField" copyCodeFrom="CompositeField">
             ...
         </bundle>
@@ -388,7 +388,7 @@ It means that some portion of copied code can be cleared.
         <bundle name="CompositeField" ... nameOverride="replace">
             ...
         </bundle>
-        
+
         <bundle name="AnotherCompositeField" copyCodeFrom="CompositeField" nameOverride="none">
             ...
         </bundle>

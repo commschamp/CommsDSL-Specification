@@ -3,7 +3,7 @@
 === Properties of &lt;data&gt; Field ===
 The **&lt;data&gt;** field has all the <<appendix-fields, common>> properties as
 well as ones listed below. Refer to <<fields-data, &lt;data&gt; Field>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===
@@ -15,6 +15,4 @@ for detailed description.
 |**lengthPrefix**|<<fields-fields, field>> or <<intro-references, reference>>|1|no||Prefix field containing length of the data. Cannot be used tegether with **length**.
 |**validValue**|string|7|no||Valid value. Case-insensitive hexadecimal string.
 |===
-
-
 

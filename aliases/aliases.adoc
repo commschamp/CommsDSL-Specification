@@ -18,11 +18,11 @@ For example let's assume there is some message definition like the one below:
         <int name="SomeField" type="uint32" />
         ...
     </message>
-</schema> 
+</schema>
 ----
 In case there is a need to rename the **SomeField** name to be **SomeOtherField**,
 then the message definition can add an **&lt;alias&gt;** with the old name to
-the renamed field in order to keep the old client code compiling. 
+the renamed field in order to keep the old client code compiling.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,7 +34,7 @@ the renamed field in order to keep the old client code compiling.
         </fields>
         <alias name="SomeField" field="$SomeOtherField" />
     </message>
-</schema> 
+</schema>
 ----
 In such case the code generator must allow access of the renamed field by
 both old and new names.
@@ -63,7 +63,7 @@ there was an enum field with limited number of valid values:
         </enum>
         ...
     </message>
-</schema> 
+</schema>
 ----
 When need arises to introduce new value the developer may decide to save I/O
 traffic reuse the same byte occupied by the `SomeEnum` field, like below.
@@ -82,10 +82,10 @@ traffic reuse the same byte occupied by the `SomeEnum` field, like below.
         </bitfield>
         ...
     </message>
-</schema> 
+</schema>
 ----
 In order to keep old client code compiling it is possible to introduce
-alias to the `SomeEnum` member of the <<fields-bitfield, &lt;bitfield&gt; >> 
+alias to the `SomeEnum` member of the <<fields-bitfield, &lt;bitfield&gt; >>
 like this:
 [source,xml]
 ----
@@ -103,7 +103,7 @@ like this:
         </fields>
         <alias name="SomeEnum" field="$F1.SomeEnum" />
     </message>
-</schema> 
+</schema>
 ----
 There can be any number of different **&lt;alias&gt;** nodes. The elements
 that are allowed to have **&lt;alias&gt;**-es are <<messages-messages, &lt;message&gt; >>,
@@ -111,7 +111,7 @@ that are allowed to have **&lt;alias&gt;**-es are <<messages-messages, &lt;messa
 
 [[aliases-description]]
 === Description ===
-The **&lt;alias&gt;** node may also have **description** 
+The **&lt;alias&gt;** node may also have **description**
 <<intro-properties, property>> which is expected to find its way into
 the generated code as a comment for the relevant access functions.
 [source,xml]
@@ -160,7 +160,7 @@ When a new <<messages-messages, &lt;message&gt; >> or <<interfaces-interfaces, &
 copy all the fields from other already defined <<messages-messages, &lt;message&gt; >>, <<interfaces-interfaces, &lt;interface&gt; >>, or <<fields-bundle, &lt;bundle&gt; >>
 (using **copyFieldsFrom** <<intro-properties, property>>).
 By default all the <<aliases-aliases, &lt;alias&gt; >> definitions are also copied.
-It is possible to modify this default behavior by using **copyFieldsAliases** 
+It is possible to modify this default behavior by using **copyFieldsAliases**
 <<intro-properties, property>> with <<intro-boolean, boolean>> value.
 [source,xml]
 ----
@@ -173,10 +173,9 @@ It is possible to modify this default behavior by using **copyFieldsAliases**
     <message name="Msg2" id="2" copyFieldsAliases="false">
         ...
     </message>
-    
+
 </schema>
 ----
 
 Use <<appendix-alias, properties table>> for future references.
-
 

@@ -1,6 +1,6 @@
 [[fields-data]]
 === &lt;data&gt; Field ===
-This field stores and abstracts away value of a raw bytes data. 
+This field stores and abstracts away value of a raw bytes data.
 The **&lt;data&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 [source,xml]
@@ -13,9 +13,9 @@ as well as extra properties and elements described below.
 </schema>
 ----
 Such definition of the **&lt;data&gt;** does **NOT** have any limit on
-the length of the data, and will consume all the __available__ bytes in the 
-input buffer. Note, that the __available__ bytes may be bound by the 
-<<frames-size, &lt;size&gt; >> layer of the <<frames-frames, &lt;frame&gt; >> or 
+the length of the data, and will consume all the __available__ bytes in the
+input buffer. Note, that the __available__ bytes may be bound by the
+<<frames-size, &lt;size&gt; >> layer of the <<frames-frames, &lt;frame&gt; >> or
 other means. It does NOT necessarily mean that all the bytes received from the I/O link
 will be consumed.
 
@@ -23,7 +23,7 @@ will be consumed.
 ==== Default Value ====
 The default value of the **&lt;data&gt;** field when constructed can be specified
 using **defaultValue** <<intro-properties, property>>. The value of the
-property must be case-insestive string of hexadecimal values with even number 
+property must be case-insestive string of hexadecimal values with even number
 of characters. The allowed ranges of the characters are: [`0' - `9'], and [`a' - `f'].
 The ' ' (space) character is also allowed for convenient separation of the bytes.
 If not specified, defaults to empty data.
@@ -36,7 +36,7 @@ If not specified, defaults to empty data.
     </fields>
 </schema>
 ----
-The example above is expected to create approprate raw data abstracting field, 
+The example above is expected to create approprate raw data abstracting field,
 containing 8 bytes: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef] when
 default constructed.
 
@@ -99,7 +99,7 @@ several other fields in the <<messages-messages, &lt;message&gt; >> or in the
             <data name="SomeDataFieldMember" lengthPrefix="$DataLengthPrefixMember" />
         </bundle>
     </fields>
-    
+
     <message name="Msg1" id="1">
         <int name="DataLengthPrefix" type="uint16" />
         <int name="SomeOtherField" type="uint16" />
@@ -118,7 +118,6 @@ into account and generate correct code for various field operations
 
 **NOTE**, that **length** and **lengthPrefix** properties
 are mutually exclusive, i.e. cannot be used together.
-
 
 [[fields-data-valid-values]]
 ==== Valid Values ====

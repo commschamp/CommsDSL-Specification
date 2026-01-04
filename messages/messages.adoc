@@ -15,7 +15,7 @@ Every message definition must specify its <<intro-names, name>> using
     <message name="Msg1" ...>
         ...
     </message>
-</schema> 
+</schema>
 ----
 
 [[messages-numeric-id]]
@@ -29,7 +29,7 @@ Every message definition must specify its <<intro-numeric, numeric>> ID using
     <message name="Msg1" id="0x1">
         ...
     </message>
-</schema> 
+</schema>
 ----
 
 It is highly recommended to define "message ID" numeric values as external
@@ -44,17 +44,17 @@ It is highly recommended to define "message ID" numeric values as external
             <validValue name="Msg2" val="0x2" />
         </enum>
     </fields>
-    
+
     <message name="Msg1" id="MsgId.Msg1">
         ...
     </message>
-    
+
     <message name="Msg2" id="MsgId.Msg2">
         ...
     </message>
-</schema> 
+</schema>
 ----
-**NOTE**, that **&lt;enum&gt;** `MsgId` is marked to contain numeric IDs of the 
+**NOTE**, that **&lt;enum&gt;** `MsgId` is marked to contain numeric IDs of the
 messages by having `semanticType="messageId"` property assigned.
 
 [[messages-description]]
@@ -80,7 +80,7 @@ generated class. The <<intro-properties, property>> is **description**.
 
 [[messages-display-name]]
 === Display Name ===
-When various analysis tools display message details, the preference is to 
+When various analysis tools display message details, the preference is to
 display proper human readable and space separated name (which is defined using **displayName**
 <<intro-properties, property>>) rather than using a <<intro-names, name>>.
 [source,xml]
@@ -104,16 +104,16 @@ of **&lt;enum&gt;** that lists numeric IDs of the messages:
     <fields>
         <string name="Msg1Name" defaultValue="Message 1" />
         <string name="Msg2Name" defaultValue="Message 2" />
-        
+
         <enum name="MsgId" type="uint8" semanticType="messageId">
             <validValue name="Msg1" val="1" displayName="^Msg1Name" />
             <validValue name="Msg2" val="2" displayName="^Msg2Name" />
         </enum>
-        
+
         <message name="Msg1" id="MsgId.Msg1" displayName="^Msg1Name">
             ...
         </message>
-        
+
         <message name="Msg2" id="MsgId.Msg2" displayName="^Msg2Name">
             ...
         </message>
@@ -123,7 +123,7 @@ of **&lt;enum&gt;** that lists numeric IDs of the messages:
 
 [[messages-fields]]
 === Fields ===
-Every **&lt;message&gt;** has zero or more <<fields-fields, fields>> that 
+Every **&lt;message&gt;** has zero or more <<fields-fields, fields>> that
 can be specified as child XML elements.
 [source,xml]
 ----
@@ -132,7 +132,7 @@ can be specified as child XML elements.
     <fields>
         <int name="SomeCommonField" type="uint16" defaultValue="10" />
     </fields>
-    
+
     <message name="Msg1" id="1">
         <int name="F1" type="uint8" />
         <enum name="F2" type="uint8">
@@ -145,7 +145,7 @@ can be specified as child XML elements.
 </schema>
 ----
 If there is any other <<intro-properties, property>> defined as XML child
-of the **&lt;message&gt;**, then all the fields must be wrapped in 
+of the **&lt;message&gt;**, then all the fields must be wrapped in
 **&lt;fields&gt;** XML element for separation.
 [source,xml]
 ----
@@ -169,11 +169,11 @@ use **copyFieldsFrom** property to specify original message.
     <message name="Msg1" id="1">
         <int name="F1" type="uint32" />
     </message>
-    
+
     <message name="Msg2" id="2" copyFieldsFrom="Msg1" />
 </schema>
 ----
-In the example above *Msg2* will have the same fields as *Msg1*. 
+In the example above *Msg2* will have the same fields as *Msg1*.
 
 After copying fields from other message, all other defined fields will be
 appended to copied ones.
@@ -184,7 +184,7 @@ appended to copied ones.
     <message name="Msg1" id="1">
         <int name="F1" type="uint32" />
     </message>
-    
+
     <message name="Msg2" id="2" copyFieldsFrom="Msg1">
         <float name="F2" type="float" />
     </message>
@@ -204,7 +204,7 @@ fields from the global **&lt;bundle&gt;** field as well.
             <int name="F2" type="uint16" />
         </bundle>
     </fields>
-    
+
     <message name="Msg1" id="1" copyFieldsFrom="B1">
         <int name="F3" type="uint16" />
     </message>
@@ -212,7 +212,7 @@ fields from the global **&lt;bundle&gt;** field as well.
 ----
 In the example above *Msg1* will have 3 fields: *F1*, *F2*, and *F3*.
 
-It is also possible to replace some of the fields after copying using 
+It is also possible to replace some of the fields after copying using
 **&lt;replace&gt;** child node.
 [source,xml]
 ----
@@ -222,7 +222,7 @@ It is also possible to replace some of the fields after copying using
         <int name="F1" type="uint32" />
         <int name="F2" type="uint8" />
     </message>
-    
+
     <message name="Msg2" id="2" copyFieldsFrom="Msg1">
         <replace>
             <enum name="F2" type="uint8">
@@ -236,12 +236,12 @@ It is also possible to replace some of the fields after copying using
 The replacing field must have the same name as the copied member field it is
 replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
 the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
-is not important, the order of the fields is determined by the original 
+is not important, the order of the fields is determined by the original
 **&lt;message&gt;** or **&lt;bundle&gt;** field, member fields of which were
 copied.
 
 It is possible to combine **&lt;replace&gt;**-ing copied fields and extending
-the **&lt;message&gt;** with new fields. 
+the **&lt;message&gt;** with new fields.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -250,7 +250,7 @@ the **&lt;message&gt;** with new fields.
         <int name="F1" type="uint32" />
         <int name="F2" type="uint8" />
     </message>
-    
+
     <message name="Msg2" id="2" copyFieldsFrom="Msg1">
         <replace>
             <enum name="F2" type="uint8">
@@ -273,7 +273,7 @@ in the following way.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol" endian="big">
     <message name="Msg2" id="2">
-        <int name="F1" type="uint32" />    
+        <int name="F1" type="uint32" />
         <enum name="F2" type="uint8">
             <validValue name="V0" val="0" />
             <validValue name="V1" val="1" />
@@ -285,12 +285,12 @@ in the following way.
 
 [[messages-ordering]]
 === Ordering ===
-There are protocols that may define various forms of the same message, 
-which share the same numeric ID, but are differentiated by a serialization 
+There are protocols that may define various forms of the same message,
+which share the same numeric ID, but are differentiated by a serialization
 length or value of some particular
 field inside the message. It can be convenient to define such variants as separate
 classes. In case there are multiple **&lt;message&gt;**-es with the same
-<<messages-numeric-id, numeric ID>>, it is required to specify order 
+<<messages-numeric-id, numeric ID>>, it is required to specify order
 in which they are expected to be processed (read). The ordering is specified
 using **order** <<intro-properties, property>> with unsigned <<intro-numeric, numeric>>
 value. The message object with lower **order** value gets created and its
@@ -302,10 +302,10 @@ value. The message object with lower **order** value gets created and its
     <message name="Msg1Form1" id="1" order="0" >
         ...
     </message>
-    
+
     <message name="Msg1Form2" id="1" order="1">
         ...
-    </message>    
+    </message>
 </schema>
 ----
 **NOTE** that there is a need to set **nonUniqueMsgIdAllowed** property of
@@ -336,10 +336,10 @@ use **removed** property in addition to **deprecated**.
     <message name="SomeOtherMessage" id="101" sinceVersion="3" deprecated="4" removed="true">
         ...
     </message>
-    
+
 </schema>
 ----
-In the example above *SomeMessage* was introduced in version *2*, and 
+In the example above *SomeMessage* was introduced in version *2*, and
 *SomeOtherMessage* was introduced in version *3*, but deprecated and removed in
 version *4*.
 
@@ -351,14 +351,14 @@ The code generator is expected to be able to generate support for specific versi
 and include / exclude support for some messages based on their version information.
 
 === Platforms ===
-Some protocols may be used in multiple independent platforms, while having 
+Some protocols may be used in multiple independent platforms, while having
 some platform-specific messages. The **CommsDSL** allows listing of the
 supported platforms using <<intro-platforms, &lt;platform&gt; >> XML nodes.
 Every message may list platforms in which it must be supported using **platforms**
 <<intro-properties, property>>. In case the property's value is empty (default),
 the message is supported in **all** the available platforms (if any defined).
 The **platforms** property value is coma-separated list of platform names with
-preceding **+** if the listed platforms are the one supported, or **-** if 
+preceding **+** if the listed platforms are the one supported, or **-** if
 the listed platforms need to be **excluded** from all available ones.
 [source,xml]
 ----
@@ -368,21 +368,21 @@ the listed platforms need to be **excluded** from all available ones.
     <platform name="Plat2" />
     <platform name="Plat3" />
     <platform name="Plat4" />
-    
+
     <message name="Msg1" id="1" platforms="+Plat1,Plat4">
         ...
     </message>
-    
+
     <message name="Msg2" id="2" platforms="-Plat1, Plat2">
         ...
     </message>
-</schema> 
+</schema>
 ----
 In the example above *Msg1* is supported only for platforms *Plat1* and *Plat4*,
 while *Msg2* is **NOT** supported in *Plat1*, and *Plat2* (i.e. supported in
 *Plat3* and *Plat4*).
 
-The main consideration for what format to choose should be whether the platforms 
+The main consideration for what format to choose should be whether the platforms
 support for the message should or should **NOT** be added automatically when
 new **&lt;platform&gt;** is defined.
 
@@ -400,7 +400,7 @@ and/or data structures to be used for *client* and/or *server* implementation.
     <message name="Msg1" id="1" sender="client">
         ...
     </message>
-    
+
     <message name="Msg2" id="2" sender="server">
         ...
     </message>
@@ -408,7 +408,7 @@ and/or data structures to be used for *client* and/or *server* implementation.
     <message name="Msg3" id="2">
         ...
     </message>
-</schema> 
+</schema>
 ----
 In the example above *Msg1* and *Msg2* are uni-directional messages, while
 *Msg3* is bi-directional.
@@ -416,8 +416,8 @@ In the example above *Msg1* and *Msg2* are uni-directional messages, while
 [[messages-message-length-validation]]
 === Message Length Validation ===
 Many protocol specifications provide expected serialization length of the message. In order to
-prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to 
-validate the specified message length during the schema file parsing. To perform such a 
+prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to
+validate the specified message length during the schema file parsing. To perform such a
 check use **validateMinLength** <<intro-properties, property>> with <<intro-numeric, unsigned>> value.
 It can help to avoid some copy-paste or typo errors
 at the time of schema parsing rather than debugging generated incorrect code.
@@ -429,13 +429,13 @@ at the time of schema parsing rather than debugging generated incorrect code.
         <int name="F1" type="uint32" />
         <int name="F2" type="uint16" />
     </message>
-</schema> 
+</schema>
 ----
 
 [[messages-customization]]
 === Customization ===
-The code generator is expected to allow some level of compile time customization of the 
-generated code, such as enable/disable generation of particular virtual functions. 
+The code generator is expected to allow some level of compile time customization of the
+generated code, such as enable/disable generation of particular virtual functions.
 The code generator is also expected to provide command line
 options to choose required level of customization. Sometimes it may be required
 to allow generated message class to be customizable regardless of the customization
@@ -470,17 +470,17 @@ and work. Please refer to <<aliases-aliases, Aliases>> chapter for more details.
 [[messages-ensuring-overriding-code-injection]]
 === Ensuring Overriding Code Injection  ===
 Similar to <<fields-common-ensuring-overriding-code-injection, fields>> the default code
-generation for the <<messages-messages, &lt;message&gt; >> definition may be incomplete or incorrect. The code generator 
-is expected to allow injection of the overriding code to allow replacing or extension of 
+generation for the <<messages-messages, &lt;message&gt; >> definition may be incomplete or incorrect. The code generator
+is expected to allow injection of the overriding code to allow replacing or extension of
 the default one.
 
 The code generator is expected to produce the same operations / functionality as with fields (excluding **value**).
 
 * **read** - Reading all the message fields from the input buffer.
 * **write** - Writing all the message fields to the output buffer.
-* **refresh** - Bringing message fields to a consistent state. Note, that values of some member fields 
-may depend on the values of other ones creating the situation where the whole state may be inconsistent / incorrect. 
-Invoking the **refresh** operation is 
+* **refresh** - Bringing message fields to a consistent state. Note, that values of some member fields
+may depend on the values of other ones creating the situation where the whole state may be inconsistent / incorrect.
+Invoking the **refresh** operation is
 expected to update the values of member fields to bring the message contents into a consistent / correct state.
 * **length** - Returning the serialization length of the message fields.
 * **valid** - Returning whether values of all the message fields are valid.
@@ -494,7 +494,7 @@ and **nameOverride**) with the same values (**any**, **replace**, **extend**, **
 [[messages-copying-injected-code]]
 === Copying Injected Code ===
 In some cases different messages may have the **same** overriding or other extra code that needs to be injected. In
-order to minimize the copy-paste of the code, the CommsDSL introduces the 
+order to minimize the copy-paste of the code, the CommsDSL introduces the
 **copyCodeFrom** property with a <<intro-references, reference>> value indicating
 another message, overriding code of which needs to be applied to the message being defined.
 [source,xml]
@@ -504,7 +504,7 @@ another message, overriding code of which needs to be applied to the message bei
     <message name="Msg1" readOverride="replace" refreshOverride="replace">
         ...
     </message>
-        
+
     <message name="Msg2" copyCodeFrom="Msg1">
             ...
     </message>
@@ -521,7 +521,7 @@ It means that some portion of copied code can be cleared.
     <message name="Msg1" ... nameOverride="replace">
         ...
     </message>
-        
+
     <message name="Msg2" copyCodeFrom="Msg1" nameOverride="none">
             ...
     </message>
@@ -790,7 +790,6 @@ the same as with the <<fields-optional, &lt;optional&gt; >> field's
         </bitfield>
     </interface>
 
-
     <message name="Msg1" ... validCond="!%Flags.Bits.B1">
         ...
     </message>
@@ -816,7 +815,6 @@ The only difference is that the inner child nodes must be named `validCond` inst
             <int name="Extra" type="uint8" bitLength="4" />
         </bitfield>
     </interface>
-
 
     <message name="Msg1" ... >
         <fields>
@@ -915,7 +913,6 @@ fail in case the message contents are invalid. To support such case the
 
 The **failOnInvalid** property for the `<message>` can also be used to fail the **read** operation in
 case any of the member fields has an invalid value.
-
 
 [source,xml]
 ----

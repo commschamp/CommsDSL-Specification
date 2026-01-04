@@ -1,14 +1,14 @@
 
 <<<
-[[schema-schema]] 
+[[schema-schema]]
 == Schema ==
-Schema definition may contain various global (protocol-wide) 
+Schema definition may contain various global (protocol-wide)
 <<intro-properties, properties>>.
 
 [[schema-name]]
 === Protocol Name ===
 The protocol name is defined using **name** property. It may contain any
-alphanumeric character, but mustn't start with a number. 
+alphanumeric character, but mustn't start with a number.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -36,7 +36,7 @@ values are either **big** or **little** (case insensitive). Defaults to **little
 ----
 The **endian** property of any subsequently defined <<fields-fields, field>>
 will default to the specified value, but can be overridden using
-its own **endian** property. 
+its own **endian** property.
 
 [[schema-description]]
 === Description ===
@@ -49,8 +49,8 @@ long multiline description it is recommended to define it as a text child elemen
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="MyProtocol">
-    <description> 
-        Some 
+    <description>
+        Some
         multiline
         description
     </description>
@@ -102,7 +102,7 @@ As this specification evolves over time it can introduce new properties or
 other elements. It is possible to pin the version of the **DSL** as the schema's
 property. It is a <<intro-version, major version>> of this specification.
 If code generator expects earlier version of the schema it should
-report an error (or at least a warning). 
+report an error (or at least a warning).
 
 The DSL version is specified using **dslVersion** property with unsigned integral
 value. When **dslVersion** value is **0** (default), it means "any version".
@@ -118,12 +118,12 @@ property or other construct.
 ----
 
 === Allowing Non-Unique Message IDs ===
-By default every defined <<messages-messages, message>> must have unique 
+By default every defined <<messages-messages, message>> must have unique
 numeric message ID. If this is not the case, the code generator must report an
 error in case message definition with repeating ID number is encountered.
-It is done as protection against various copy/paste or typo errors. 
+It is done as protection against various copy/paste or typo errors.
 
-However, there are protocols that may define various forms of the same message, 
+However, there are protocols that may define various forms of the same message,
 which are differentiated by a serialization length or value of some particular
 field inside the message. It can be convenient to define such variants as separate
 classes. **CommsDSL** allows doing so by setting **nonUniqueMsgIdAllowed** property
@@ -136,10 +136,10 @@ different messages with the same numeric ID.
     <message name="SomeMessageForm1" id="1">
         ...
     </message>
-    
+
     <message name="SomeMessageForm2" id="1">
         ...
-    </message>    
+    </message>
 </schema>
 ----
 

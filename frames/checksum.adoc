@@ -1,20 +1,17 @@
 [[frames-checksum]]
 === &lt;checksum&gt; Layer ===
-The **&lt;checksum&gt;** layer represents checksum bytes, usually (but not always) 
-present at the end of the <<frames-frames, frame>>. 
+The **&lt;checksum&gt;** layer represents checksum bytes, usually (but not always)
+present at the end of the <<frames-frames, frame>>.
 [source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
         <checksum name="Checksum" ...>
@@ -58,7 +55,7 @@ code generator, so it can copy it to the generated code.
 </schema>
 ----
 
-When **custom** algorithm is selected, its name must be provided using 
+When **custom** algorithm is selected, its name must be provided using
 **algName** property.
 [source, xml]
 ----
@@ -74,7 +71,7 @@ When **custom** algorithm is selected, its name must be provided using
 </schema>
 ----
 The provided name of the custom algorithm can be used by the code generator
-to locate the required external implementation file and use appropriate 
+to locate the required external implementation file and use appropriate
 class / function name when the calculation functionality needs to be invoked.
 
 [[frames-checksum-calculation-area]]
@@ -87,14 +84,11 @@ expected to specify name of the layer where checksum calculation starts.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
         <checksum name="Checksum" alg="crc-16" from="Size">
@@ -103,7 +97,7 @@ expected to specify name of the layer where checksum calculation starts.
     </frame>
 </schema>
 ----
-The example above defines `SYNC | SIZE | ID | PAYLOAD | CHECKSUM` frame where
+The example above defines `SIZE | ID | PAYLOAD | CHECKSUM` frame where
 the checksum is calculated on `SIZE` + `ID` + `PAYLOAD` bytes.
 
 Some protocols may put checksum value as prefix to the area on which the
@@ -114,14 +108,11 @@ of **from**) to specify layers for checksum calculation.
 <?xml version="1.0" encoding="UTF-8"?>
 <schema endian="big" ...>
     <frame name="ProtocolFrame">
-        <sync name="Sync">
-            ...
-        </sync>
         <size name="Size">
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <checksum name="Checksum" alg="crc-16" until="Data">
             <int name="ChecksumField" type="uint16" />
@@ -139,7 +130,7 @@ processed. However, it is possible to
 force the checksum verification right away (without reading fields of other layers
 and/or message payload).
 It is usually possible to do when value of the <<frames-size, &lt;size&gt; >> field
-is already processed, so the right location of checksum value is known, 
+is already processed, so the right location of checksum value is known,
 and it is not included in checksum calculation. To force immediate checksum
 verification use **verifyBeforeRead** <<intro-properties, property>> with
 <<intro-boolean, boolean>> value.
@@ -155,7 +146,7 @@ verification use **verifyBeforeRead** <<intro-properties, property>> with
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <checksum name="Checksum" alg="crc-16" until="Data" verifyBeforeRead="true">
             <int name="ChecksumField" type="uint16" />
@@ -165,10 +156,10 @@ verification use **verifyBeforeRead** <<intro-properties, property>> with
 </schema>
 ----
 **WARNING**: Incorrect use of **verifyBeforeRead** <<intro-properties, property>> can be dangerous especially
-for the cases when the **&lt;checksum&gt;** follows **&lt;payload&gt;**. The 
+for the cases when the **&lt;checksum&gt;** follows **&lt;payload&gt;**. The
 order of framing layers processing is NOT pre-determined, it's up to the code generator to choose. In cases when
 **&lt;checksum&gt;** covers the **&lt;size&gt;** in its checksum calculation area and the **verifyBeforeRead** property
-value is set to **true**, the checksum calculation happens right away assuming that the checksum value is located 
+value is set to **true**, the checksum calculation happens right away assuming that the checksum value is located
 __at the end of the input buffer__ rather than bound by the value of the **&lt;size&gt;** layer field.
 [source, xml]
 ----
@@ -182,24 +173,24 @@ __at the end of the input buffer__ rather than bound by the value of the **&lt;s
             ...
         </size>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
-        
+
         <!-- Incorrect and dangerous -->
         <checksum name="Checksum" alg="crc-16" from="Size" verifyBeforeRead="true">
             <int name="ChecksumField" type="uint16" />
-        </checksum>        
+        </checksum>
     </frame>
 </schema>
 ----
-Such assumption is obviously incorrect when stream communication I/O link is used (like RS-232 or TCP/IP) and multiple 
+Such assumption is obviously incorrect when stream communication I/O link is used (like RS-232 or TCP/IP) and multiple
 as well as partial messages can reside in the input buffer at the same time. However, in cases like
 datagram communication I/O link (like UDP/IP) when the messages are received in full and processed one by one,
 the assumption of having checksum value location at the end of the input
 buffer may be correct.
 
-The bottom line, set the **verifyBeforeRead** property value only when you know what you're doing. 
+The bottom line, set the **verifyBeforeRead** property value only when you know what you're doing.
 It's an optimization feature in vast majority of cases.
 Make the code work correctly without it first and only add it to improve runtime performance.
 

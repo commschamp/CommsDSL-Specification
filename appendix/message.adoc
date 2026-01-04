@@ -2,7 +2,7 @@
 [[appendix-message]]
 === Properties of &lt;message&gt; ===
 Refer to <<messages-messages, Messages>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^27,^.^11,^.^8,^.^8,^.^10,36", options="header"]
 |===

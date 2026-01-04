@@ -2,7 +2,7 @@
 === Namespaces ===
 In addition to splitting into <<intro-multiple-files, multiple files>>, **CommsDSL**
 provides namespaces to help in definition of big protocols. It is possible to
-define <<fields-fields, fields>>, <<messages-messages, messages>>, 
+define <<fields-fields, fields>>, <<messages-messages, messages>>,
 <<interfaces-interfaces, interfaces>>, and <<frames-frames, frames>> in
 a separate namespace. The code generator must use this information to define
 relevant classes in a separate namespace(s) (if such feature is provided by the
@@ -26,18 +26,18 @@ It can contain all the mentioned <<schema-schema, previously>> nodes.
             <message ... />
             <message ... />
         </messages>
-        
+
         <interface ...>
         </interface>
-        
+
         <interfaces>
             <interface ... />
             <interface ... />
         </interfaces>
-        
+
         <frame ...>
         </frame>
-        
+
         <frames>
             <frame ... />
             <frame ... />
@@ -56,7 +56,7 @@ The namespace (**&lt;ns&gt;**) can also contain other namespaces:
                 ...
             </fields>
         </ns>
-        
+
         <ns name="subns2">
             <message ... />
             <message ... />

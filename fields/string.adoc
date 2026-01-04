@@ -1,6 +1,6 @@
 [[fields-string]]
 === &lt;string&gt; Field ===
-This field stores and abstracts away value of a text string. 
+This field stores and abstracts away value of a text string.
 The **&lt;string&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 [source,xml]
@@ -13,9 +13,9 @@ as well as extra properties and elements described below.
 </schema>
 ----
 Such definition of the **&lt;string&gt;** does **NOT** have any limit on
-the length of the string, and will consume all the __available__ bytes in the 
-input buffer. Note, that the __available__ bytes may be bound by the 
-<<frames-size, &lt;size&gt; >> layer of the <<frames-frames, &lt;frame&gt; >> or 
+the length of the string, and will consume all the __available__ bytes in the
+input buffer. Note, that the __available__ bytes may be bound by the
+<<frames-size, &lt;size&gt; >> layer of the <<frames-frames, &lt;frame&gt; >> or
 other means. It does NOT necessarily mean that all the bytes received from the I/O link
 will be consumed.
 
@@ -92,7 +92,7 @@ several other fields in the <<messages-messages, &lt;message&gt; >> or in the
             <string name="SomeStringFieldMember" lengthPrefix="$StringLengthPrefixMember" />
         </bundle>
     </fields>
-    
+
     <message name="Msg1" id="1">
         <int name="StringLengthPrefix" type="uint8" />
         <int name="SomeOtherField" type="uint8" />

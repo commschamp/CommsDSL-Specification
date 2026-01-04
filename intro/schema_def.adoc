@@ -13,7 +13,7 @@ information header as well as **single** root node called **&lt;schema&gt;**:
 </schema>
 ----
 
-The schema node may define its properties (described in detail in 
+The schema node may define its properties (described in detail in
 <<schema-schema, Schema>> chapter).
 
 [source,xml]
@@ -53,7 +53,7 @@ in detail in <<messages-messages, Messages>> chapter).
     <message name="SomeMessage" id="1">
         ...
     </message>
-    
+
     <message name="SomeOtherMessage" id="2">
         ...
     </message>
@@ -68,7 +68,7 @@ Multiple messages can (but don't have to) be bundled together as children of **&
         <message name="SomeMessage" id="1">
             ...
         </message>
-        
+
         <message name="SomeOtherMessage" id="2">
             ...
         </message>
@@ -89,7 +89,7 @@ Transport framing is defined using **&lt;frame&gt;** node (described in detail i
         <id ... />
         <payload ... />
     </frame>
-</schema> 
+</schema>
 ----
 Multiple frames can (but don't have to) be bundled together as children of **&lt;frames&gt;** node.
 [source,xml]
@@ -100,24 +100,24 @@ Multiple frames can (but don't have to) be bundled together as children of **&lt
         <frame name="SomeFrame">
             ...
         </frame>
-        
+
         <frame name="SomeOtherFrame">
             ...
-        </frame>        
+        </frame>
     </frames>
-</schema> 
+</schema>
 ----
 
 [[intro-schema-def-interface]]
 ==== Interface ====
-There are protocols that put some information, common to all the messages, such as 
+There are protocols that put some information, common to all the messages, such as
 protocol version and/or extra flags, into the framing information instead of message payload.
 This information needs to be accessible when message payload is being read or
-message object is being handled by the application. The 
+message object is being handled by the application. The
 https://github.com/commschamp/comms[COMMS Library]
 handles these cases by having a common interface class for all the messages, which
-contains this extra information. In order to support such cases, the **CommsDSL** 
-introduces optional node **&lt;interface&gt;** (described in detail in 
+contains this extra information. In order to support such cases, the **CommsDSL**
+introduces optional node **&lt;interface&gt;** (described in detail in
 <<interfaces-interfaces, Interfaces>> chapter) for description of such common
 interfaces.
 [source,xml]
@@ -127,7 +127,7 @@ interfaces.
     <interface name="CommonInterface">
         <int name="version" type="uint16" semanticType="version" />
     </interface>
-</schema> 
+</schema>
 ----
 Multiple interfaces can (but don't have to) be bundled together as children of **&lt;interfaces&gt;** node.
 [source,xml]
@@ -138,12 +138,12 @@ Multiple interfaces can (but don't have to) be bundled together as children of *
         <interface name="CommonInterface">
             ...
         </interface>
-        
+
         <interface name="SomeOtherInterface">
             ...
-        </interface>        
+        </interface>
     </interfaces>
-</schema> 
+</schema>
 ----
 
 All the nodes described above are allowed to appear in any order.

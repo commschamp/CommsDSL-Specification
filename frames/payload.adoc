@@ -1,6 +1,6 @@
 [[frames-payload]]
 === &lt;payload&gt; Layer ===
-The **&lt;payload&gt;** layer represents message payload. It is the only 
+The **&lt;payload&gt;** layer represents message payload. It is the only
 **must-have** layer in the <<frames-frames, frame>> definition. It doesn't have
 any extra properties in addition to <<frames-common, common>> ones.
 [source, xml]

@@ -1,14 +1,14 @@
 [[fields-float]]
 === &lt;float&gt; Field ===
-This field stores and abstracts away value of floating poing type with 
-https://en.wikipedia.org/wiki/IEEE_754[IEEE 754] encoding. 
+This field stores and abstracts away value of floating poing type with
+https://en.wikipedia.org/wiki/IEEE_754[IEEE 754] encoding.
 The **&lt;float&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
 
 [[fields-float-underlying-type]]
 ==== Underlying Type ====
-Every **&lt;float&gt;** field must provide its underlying storage type using 
-**type** <<intro-properties, property>>. Available 
+Every **&lt;float&gt;** field must provide its underlying storage type using
+**type** <<intro-properties, property>>. Available
 values are:
 
 * **float** - 4 byte floating point representation.
@@ -27,8 +27,8 @@ values are:
 
 [[fields-float-special-values]]
 ==== Special Values ====
-Some protocol may set a special meaning for some values. 
-Such values (if exist) must be listed as **&lt;special&gt;** child of the 
+Some protocol may set a special meaning for some values.
+Such values (if exist) must be listed as **&lt;special&gt;** child of the
 **&lt;float&gt;** XML element.
 [source,xml]
 ----
@@ -42,14 +42,14 @@ Such values (if exist) must be listed as **&lt;special&gt;** child of the
     </fields>
 </schema>
 ----
-The code generator is expected to generate extra convenience functions that 
+The code generator is expected to generate extra convenience functions that
 check whether field has special value as well as updating the stored value
 with special one.
 
-Every **&lt;special&gt;** must define a valid <<intro-names, name>> 
-(using **name** <<intro-properties, property>>) as 
-well as floating point value (using **val** 
-<<intro-properties, property>>), that fits chosen 
+Every **&lt;special&gt;** must define a valid <<intro-names, name>>
+(using **name** <<intro-properties, property>>) as
+well as floating point value (using **val**
+<<intro-properties, property>>), that fits chosen
 <<fields-float-underlying-type, underlying type>>. The **&lt;special&gt;**-s may be listed
 in any order, not necessarily sorted.
 
@@ -79,14 +79,14 @@ Every **&lt;special&gt;** has extra optional properties:
 * **deprecated** - Version of the protocol when the special name / meaning was deprecated.
 * **displayName** - Human readable name of the value.
 
-All these extra properties are described in detail in 
+All these extra properties are described in detail in
 <<fields-common, Common Properties of Fields>>.
 
-By default, non-unqiue special values (different name for the same value) are 
+By default, non-unqiue special values (different name for the same value) are
 not allowed, the code generator must report
 an error if two different **&lt;special&gt;**-es use the same value of the **val**
 property. It is done as protection against copy-paste errors. However,
-**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed** 
+**CommsDSL** allows usage of non-unique values in case **nonUniqueSpecialsAllowed**
 <<intro-properties, property>> has been set to **true**.
 [source,xml]
 ----
@@ -113,7 +113,7 @@ using **defaultValue** property. If not specified, defaults to **0.0**.
     </fields>
 </schema>
 ----
-The default value can also be specified using the name of one of the 
+The default value can also be specified using the name of one of the
 **&lt;special&gt;**-s:
 [source,xml]
 ----
@@ -127,8 +127,8 @@ The default value can also be specified using the name of one of the
     </fields>
 </schema>
 ----
-Just like with <<fields-float-special-values, special values>>, the value of the 
-**defaultValue** <<intro-properties, property>> can also be either **nan**, 
+Just like with <<fields-float-special-values, special values>>, the value of the
+**defaultValue** <<intro-properties, property>> can also be either **nan**,
 **inf** or **-inf**.
 [source,xml]
 ----
@@ -157,8 +157,8 @@ default endian value with extra **endian** property.
 ==== Units ====
 Protocols quite often specify what units are being transfered. The **CommsDSL**
 provides **units** <<intro-properties, property>> to specify this information.
-The code generator may use this information to generate a functionality that allows 
-retrieval of proper value for requested units, while doing all the conversion 
+The code generator may use this information to generate a functionality that allows
+retrieval of proper value for requested units, while doing all the conversion
 math internally. Such behavior will allow developers, that use generated
 protocol code, to focus on their business logic without getting into details
 on how value was transfered.
@@ -181,7 +181,7 @@ generator is expected to generate code that checks whether field's value
 is valid. The **CommsDSL** provides multiple properties to help with such
 task.
 
-One of such properties is **validRange**. The format of it's value is 
+One of such properties is **validRange**. The format of it's value is
 "[*min_value*, *max_value*]".
 [source,xml]
 ----
@@ -208,7 +208,7 @@ elements.
     </fields>
 </schema>
 ----
-Another property is **validValue**, which adds single value (not range) to 
+Another property is **validValue**, which adds single value (not range) to
 already defined valid ranges / values. Just like with **validRange**, multiple
 values need to be added as XML children elements.
 [source,xml]
@@ -222,10 +222,10 @@ values need to be added as XML children elements.
     </fields>
 </schema>
 ----
-The **validValue** property allows adding special values (**nan**, **inf**, 
+The **validValue** property allows adding special values (**nan**, **inf**,
 and **-inf**) to available valid values / ranges.
 
-There are also **validMin** and **validMax**, which specify single 
+There are also **validMin** and **validMax**, which specify single
 floating point value and are equivalent to having +
 `validRange="[provided_min_value, max_value_allowed_by_type]"` and +
 `validRange="[min_value_allowed_by_type, provided_max_value]"` respectively.
@@ -240,7 +240,7 @@ floating point value and are equivalent to having +
     </fields>
 </schema>
 ----
-The specified valid ranges and values are allowed to intersect. The code 
+The specified valid ranges and values are allowed to intersect. The code
 generator may warn about such cases and/or unify them to limit number of
 **if** conditions in the generated code for better performance.
 
@@ -264,7 +264,7 @@ then **validFullRange** <<intro-properties, property>> with
 
 All the validity related <<intro-properties, properties>> mentioned in this
 section (**validRange**, **validValue**, **validMin**, **validMax**) may
-also add information about version they were introduced / deprecated in. 
+also add information about version they were introduced / deprecated in.
 Adding such information is possible only when the property is defined as
 XML child element.
 [source,xml]
@@ -280,12 +280,12 @@ XML child element.
     </fields>
 </schema>
 ----
-The **sinceVersion** and **deprecated** properties are described in detail as 
+The **sinceVersion** and **deprecated** properties are described in detail as
 <<fields-common, Common Properties of Fields>>.
 
 ==== Version Based Validity ====
-The code generator is expected to generate functionality checking that 
-**&lt;float&gt;** field contains a valid value. By default if the field's value 
+The code generator is expected to generate functionality checking that
+**&lt;float&gt;** field contains a valid value. By default if the field's value
 is within any of the specified ranges / values, then the it is considered to be valid
 regardless of version the containing range was
 introduced and/or deprecated. However, it is possible to force code generator to
@@ -309,7 +309,7 @@ is set to **true**.
 ==== Extra Display Properties ====
 When displaying the floating point value, held by the **&lt;float&gt;** field,
 it may be required to specify amount of digits after decimal point
-need to be displayed. To provide this information, use **displayDecimals** <<intro-properties, property>> 
+need to be displayed. To provide this information, use **displayDecimals** <<intro-properties, property>>
 with numeric value.
 [source,xml]
 ----

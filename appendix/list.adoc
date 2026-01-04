@@ -3,7 +3,7 @@
 === Properties of &lt;list&gt; Field ===
 The **&lt;list&gt;** field has all the <<appendix-fields, common>> properties as
 well as ones listed below. Refer to <<fields-list, &lt;list&gt; Field>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^28,^.^10,^.^8,^.^8,^.^10,36", options="header"]
 |===

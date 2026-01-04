@@ -7,7 +7,7 @@ to be parsed and used by https://github.com/commschamp/commsdsl[commsdsl] librar
 generation application(s).
 
 The PDF can be downloaded from https://github.com/commschamp/CommsDSL-Specification/releases[release]
-artifacts of from https://github.com/commschamp/CommsDSL-Specification[CommsDSL-Specification] project. 
+artifacts of from https://github.com/commschamp/CommsDSL-Specification[CommsDSL-Specification] project.
 The online HTML documentation is hosted on
 https://commschamp.github.io/commsdsl_spec[github pages].
 

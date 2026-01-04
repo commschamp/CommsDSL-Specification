@@ -1,14 +1,14 @@
 [[fields-bitfield]]
 === &lt;bitfield&gt; Field ===
 The **&lt;bitfield&gt;** is a container field, which allows wrapped member fields
-to be serialized using limited number of bits (instead of bytes). 
+to be serialized using limited number of bits (instead of bytes).
 The supported fields, that can be members of the **&lt;bitfield&gt;**, are:
 
 * <<fields-enum, &lt;enum&gt; >>
 * <<fields-int, &lt;int&gt; >>
 * <<fields-set, &lt;set&gt; >>
 
-Since **v2** of the specification it is also allowed to use 
+Since **v2** of the specification it is also allowed to use
 <<fields-ref, &lt;ref&gt; >> field, which references one of the field types above.
 
 The **&lt;bitfield&gt;** field has all the <<fields-common, common>> properties
@@ -38,7 +38,7 @@ is calculated automatically as length **in bytes** multiplied by **8**.
 </schema>
 ----
 **NOTE** that summary of all the lengths in bits of all the members must be
-divisible by **8** and mustn't exceed **64** bits, otherwise the code generator 
+divisible by **8** and mustn't exceed **64** bits, otherwise the code generator
 must report an error.
 
 The members of **&lt;bitfield&gt;** must be listed in order starting from the
@@ -47,7 +47,7 @@ The members of **&lt;bitfield&gt;** must be listed in order starting from the
 bits [6 -7].
 
 If there is any other <<intro-properties, property>> defined as XML child
-of the **&lt;bitfield&gt;**, then all the members must be wrapped in 
+of the **&lt;bitfield&gt;**, then all the members must be wrapped in
 **&lt;members&gt;** XML element for separation.
 [source,xml]
 ----
@@ -91,7 +91,7 @@ is overridden using extra **endian** property of the **&lt;bitfield&gt;** field.
 
 [[fields-bitfield-replacing-member-fields]]
 ==== Replacing Member Fields ====
-It is possible to replace some of the copied member fields after 
+It is possible to replace some of the copied member fields after
 <<fields-common-reusing-other-fields, reuse>> using **&lt;replace&gt;**
 child node, which wraps the replacing fields.
 [source,xml]
@@ -106,7 +106,7 @@ child node, which wraps the replacing fields.
                 <validValue name="V1" val="1" />
             </enum>
         </bitfield>
-        
+
         <bitfield name="SomeOtherBitfield" reuse="SomeBitfield">
             <replace>
                 <set name="Mem2" type="uint8" bitLength="4">
@@ -121,7 +121,7 @@ child node, which wraps the replacing fields.
 The replacing field must have the same name as the reused member field it is
 replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
 the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
-is not important, the order of the fields is determined by the original 
+is not important, the order of the fields is determined by the original
 **&lt;bitfield&gt;** field, which was <<fields-common-reusing-other-fields, reused>>.
 
 The example above is equivalent to defining `SomeOtherBitfield` **&lt;bitfield&gt;** field

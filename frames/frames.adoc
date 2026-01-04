@@ -1,9 +1,9 @@
 <<<
 [[frames-frames]]
 == Frames ==
-Every communication protocol must ensure that the message is successfully 
-delivered over the I/O link to the other side. The serialised message payload 
-must be wrapped in some kind of transport information prior to being sent and 
+Every communication protocol must ensure that the message is successfully
+delivered over the I/O link to the other side. The serialised message payload
+must be wrapped in some kind of transport information prior to being sent and
 unwrapped on the other side when received. The **CommsDSL** allows specification
 of such transport wraping using **&lt;frame&gt;** XML node.
 [source,xml]
@@ -13,7 +13,7 @@ of such transport wraping using **&lt;frame&gt;** XML node.
     <frame ...>
         ...
     </frame>
-</schema> 
+</schema>
 ----
 
 [[frames-name]]
@@ -27,7 +27,7 @@ Every frame definition must specify its <<intro-names, name>> using
     <frame name="ProtocolFrame">
         ...
     </frame>
-</schema> 
+</schema>
 ----
 
 [[frames-description]]
@@ -81,14 +81,14 @@ has a specific purpose. For example:
             <validValue name="Msg2" val="0x2" />
         </enum>
     </fields>
-    
+
     <frame name="ProtocolFrame">
         <id name="Id" field="MsgId" />
         <payload name="Data" />
     </frame>
 </schema>
 ----
-The example above defines simple protocol framing where 1 byte of numeric message 
+The example above defines simple protocol framing where 1 byte of numeric message
 ID precedes the message payload.
 ----
 ID (1 byte) | PAYLOAD
@@ -99,14 +99,14 @@ Available layers are:
 * <<frames-payload, &lt;payload&gt; >> - Message payload.
 * <<frames-id, &lt;id&gt; >> - Numeric message ID.
 * <<frames-size, &lt;size&gt; >> - Remaining size (length).
-* <<frames-sync, &lt;sync&gt; >> - Synchronization bytes.
 * <<frames-checksum, &lt;checksum&gt; >> - Checksum.
+* <<frames-sync, &lt;sync&gt; >> - Synchronization bytes.
 * <<frames-value, &lt;value&gt; >> - Extra value, usually to be assigned to one of the
 <<interfaces-interfaces, &lt;interface&gt; >> fields.
-* <<frames-custom, &lt;custom&gt; >> - Any other custom layer, not defined by **CommsDSL**. 
+* <<frames-custom, &lt;custom&gt; >> - Any other custom layer, not defined by **CommsDSL**.
 
 If there is any other <<intro-properties, property>> defined as XML child
-of the **&lt;frame&gt;**, then all the layers must be wrapped in 
+of the **&lt;frame&gt;**, then all the layers must be wrapped in
 **&lt;layers&gt;** XML element for separation.
 [source,xml]
 ----
@@ -122,7 +122,7 @@ of the **&lt;frame&gt;**, then all the layers must be wrapped in
 </schema>
 ----
 
-All these layers have <<frames-common, common>> as well as their own specific set of 
+All these layers have <<frames-common, common>> as well as their own specific set of
 properties.
 
 Use <<appendix-frame, properties table>> for future references.
@@ -131,8 +131,8 @@ include::common.adoc[]
 include::payload.adoc[]
 include::id.adoc[]
 include::size.adoc[]
-include::sync.adoc[]
 include::checksum.adoc[]
+include::sync.adoc[]
 include::value.adoc[]
 include::custom.adoc[]
 

@@ -1,6 +1,6 @@
 [[fields-variant]]
 === &lt;variant&gt; Field ===
-This field is basically a *union* of other <<fields-fields, fields>>. 
+This field is basically a *union* of other <<fields-fields, fields>>.
 It can hold only one field at a time out of the provided list of supported
 <<fields-fields, fields>>. The **&lt;variant&gt;** field has all the <<fields-common, common>> properties
 as well as extra properties and elements described below.
@@ -28,7 +28,7 @@ field, member fields need to be listed as children XML elements of the **&lt;var
                 <string name="Value" length="16" />
             </bundle>
         </variant>
-        
+
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
@@ -41,7 +41,7 @@ adds its default construction value as well as what value considered to be valid
 <<fields-common-failing-read-of-the-field-on-invalid-value, failOnInvalid>> property to **true**.
 The code generator is expected to generate code that attempts *read* operation
 of every defined member field in the order of their definition. Once the *read*
-operation is successful, the right member has been found and the *read* operation 
+operation is successful, the right member has been found and the *read* operation
 needs to terminate. The *in-order* read is high level logic, the code generator
 is allowed to introduce optimizations as long as the outcome of detecting the
 right member is the same.
@@ -51,7 +51,7 @@ is set to **true** to prevent the application from explicitly updating the **Key
 after the element is constructed.
 
 If there is any other <<intro-properties, property>> defined as XML child
-of the **&lt;variant&gt;**, then all the members must be wrapped in 
+of the **&lt;variant&gt;**, then all the members must be wrapped in
 **&lt;members&gt;** XML element for separation.
 [source,xml]
 ----
@@ -71,7 +71,7 @@ of the **&lt;variant&gt;**, then all the members must be wrapped in
 </schema>
 ----
 
-Another quite popular example is to have a heterogeneous list of 
+Another quite popular example is to have a heterogeneous list of
 TLV (type / length / value) triplets.
 [source,xml]
 ----
@@ -91,9 +91,9 @@ TLV (type / length / value) triplets.
                 <int name="Length" type="uint16" semanticType="length" />
                 <string name="Value" />
             </bundle>
-            ... 
+            ...
         </variant>
-        
+
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
@@ -121,9 +121,9 @@ preserving forward / backward compatibility of the protocol. For example:
                 <int name="Value" type="uint32" />
                 <int name="Value2" type="int16" sinceVersion="2"/>
             </bundle>
-            ... 
+            ...
         </variant>
-        
+
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
@@ -132,7 +132,7 @@ The old version of the protocol code, that is not aware of extra field being
 added in the new version, will be able to skip over unknown data and read
 the next property from the correct location.
 
-It also allows safe reception and handling of unexpected (or unknown) properties that could be 
+It also allows safe reception and handling of unexpected (or unknown) properties that could be
 introduced in the future versions of the protocol while still operating correctly.
 [source,xml]
 ----
@@ -149,7 +149,7 @@ introduced in the future versions of the protocol while still operating correctl
                 <data name="Value" />
             </bundle>
         </variant>
-        
+
         <list name="PropertiesList" element="Property" />
     </fields>
 </schema>
@@ -177,22 +177,22 @@ to all the properties. Any new defined member field gets **appended** to the cop
                 <int name="Length" type="uint16" semanticType="length" />
                 <int name="Value" type="uint32" />
             </bundle>
-            
+
             <bundle name="Prop2">
                 <int reuse="Type" defaultValue="1" validValue="1" />
                 <int name="Length" type="uint16" semanticType="length" />
                 <int name="Value" type="uint64" />
             </bundle>
         </variant>
-        
+
         <variant name="Property2" reuse="Property">
             <bundle name="Prop3">
                 <int reuse="Type" defaultValue="0" validValue="0" />
                 <int name="Length" type="uint16" semanticType="length" />
                 <string name="Value" />
             </bundle>
-        </variant>        
-        
+        </variant>
+
     </fields>
 </schema>
 ----
@@ -200,7 +200,7 @@ In the example above *Property2* has **3** member fields: *Prop1*, *Prop2*, and 
 
 [[fields-variant-replacing-member-fields]]
 ==== Replacing Member Fields ====
-It is possible to replace some of the copied member fields after 
+It is possible to replace some of the copied member fields after
 <<fields-common-reusing-other-fields, reuse>> using **&lt;replace&gt;**
 child node, which wraps the replacing fields.
 [source,xml]
@@ -216,14 +216,14 @@ child node, which wraps the replacing fields.
                 <int name="Length" type="uint16" semanticType="length" />
                 <int name="Value" type="uint32" />
             </bundle>
-            
+
             <bundle name="Prop2">
                 <int reuse="Type" defaultValue="1" validValue="1" />
                 <int name="Length" type="uint16" semanticType="length" />
                 <int name="Value" type="uint64" />
             </bundle>
         </variant>
-        
+
         <variant name="Property2" reuse="Property">
             <replace>
                 <bundle name="Prop2">
@@ -232,7 +232,7 @@ child node, which wraps the replacing fields.
                     <enum name="Value" type="uint8">
                         ...
                     </enum>
-                </bundle>            
+                </bundle>
             </replace>
             </members>
                 <bundle name="Prop3">
@@ -241,7 +241,7 @@ child node, which wraps the replacing fields.
                     <string name="Value" />
                 </bundle>
             </members>
-        </variant>  
+        </variant>
     </fields>
 </schema>
 ----
@@ -249,13 +249,13 @@ child node, which wraps the replacing fields.
 The replacing field must have the same name as the reused member field it is
 replacing. The **&lt;replace&gt;** child node may have multiple member fields replacing
 the copied ones. The order of the fields inside the **&lt;replace&gt;** child node
-is not important, the order of the fields is determined by the original 
+is not important, the order of the fields is determined by the original
 **&lt;variant&gt;** field, which was <<fields-common-reusing-other-fields, reused>>.
 
 [[fields-variant-default-member]]
 ==== Default Member ====
 When **&lt;variant&gt;** field is constructed, it should not hold any
-field and when serialized, it mustn't produce any output. 
+field and when serialized, it mustn't produce any output.
 However, it is possible to specify default member to which
 the **&lt;variant&gt;** field should be initialized when constructed.
 To specify such member use **defaultMember** <<intro-properties, property>>.
@@ -273,7 +273,7 @@ To specify such member use **defaultMember** <<intro-properties, property>>.
     </fields>
 </schema>
 ----
-The **defaultMember** property may also specify index instead of the member 
+The **defaultMember** property may also specify index instead of the member
 name.
 [source,xml]
 ----
@@ -289,7 +289,7 @@ name.
     </fields>
 </schema>
 ----
-Negative number as value of **defaultMember** property will force the 
+Negative number as value of **defaultMember** property will force the
 **&lt;variant&gt;** field not to have a default member.
 
 Use <<appendix-variant, properties table>> for future references.

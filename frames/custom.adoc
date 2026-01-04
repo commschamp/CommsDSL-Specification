@@ -1,9 +1,9 @@
 [[frames-custom]]
 === &lt;custom&gt; Layer ===
-The **&lt;custom&gt;** layer represent any other protocol specific layer, 
+The **&lt;custom&gt;** layer represent any other protocol specific layer,
 functionality of which cannot be implemented using other provided layers.
 The code generator must allow injection of the externally implemented code
-of the layer functionality when generating code relevant to the 
+of the layer functionality when generating code relevant to the
 transport <<frames-frames, framing>>.
 [source, xml]
 ----
@@ -17,7 +17,7 @@ transport <<frames-frames, framing>>.
             <int name="SomeField" type="uint8" />
         </custom>
         <id name="Id">
-            ...  
+            ...
         </id>
         <payload name="Data" />
     </frame>
@@ -56,18 +56,18 @@ the **&lt;custom&gt;** layer use **semanticLayerType** property.
 ----
 
 The value of the **semanticLayerType** property is one of the supported layers
-covered in this chapter: **payload**, **id**, **size**, **sync**, **checksum**, 
+covered in this chapter: **payload**, **id**, **size**, **sync**, **checksum**,
 **value**, and **custom** (default).
 
-Such meta-information may help with the correct code generation and reduce amount of 
+Such meta-information may help with the correct code generation and reduce amount of
 custom code injection (or eliminate it altogether).
 
 [[frames-custom-replacing-checksum-layer]]
 ==== Replacing &lt;checksum&gt; Layer ====
 The <<frames-checksum, &lt;checksum&gt; >> layer requires specification of the
-<<frames-checksum-calculation-area, area>> on which the checksum is calculated. 
+<<frames-checksum-calculation-area, area>> on which the checksum is calculated.
 It is performed using **from** or **until** properties. When **&lt;custom&gt;**
-layer replaces **&lt;checksum&gt;** (by using `semanticLayerType="checksum"`), 
+layer replaces **&lt;checksum&gt;** (by using `semanticLayerType="checksum"`),
 such area is specified using **checksumFrom** or **checksumUntil** properties.
 
 [source, xml]
@@ -87,6 +87,5 @@ such area is specified using **checksumFrom** or **checksumUntil** properties.
     </frame>
 </schema>
 ----
-
 
 Use <<appendix-custom, properties table>> for future references.

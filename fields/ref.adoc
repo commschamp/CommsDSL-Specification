@@ -1,6 +1,6 @@
 [[fields-ref]]
 === &lt;ref&gt; Field ===
-This field serves as reference (alias) to other fields. It can be used 
+This field serves as reference (alias) to other fields. It can be used
 to avoid duplication of field definition for multiple messages.
 [source,xml]
 ----
@@ -13,12 +13,12 @@ to avoid duplication of field definition for multiple messages.
             <special name="Special2" val="0xff" />
         </int>
     </fields>
-    
+
     <message name="Msg1" id="1">
         <ref field="SomeIntField" />
         ...
     </message>
-    
+
     <message name="Msg2" id="2">
         <ref field="SomeIntField" name="RenamedIntField" />
     </message>
@@ -32,7 +32,7 @@ Note, that in the example above **&lt;ref&gt;** field defined as a member of
 it has taken a name of the referenced field (*SomeIntField*).
 
 ==== Referencing the Field ====
-The only extra property the **&lt;ref&gt;** field has is **field** to 
+The only extra property the **&lt;ref&gt;** field has is **field** to
 specify a <<intro-references, reference>> to other field.
 
 ==== Length in Bits ====
@@ -50,7 +50,7 @@ property to specify length in bits.
             <validValue name="V2" val="1" />
             <validValue name="V3" val="2" />
         </enum>
-        
+
         <bitfield name="SomeBitfield">
             <int name="SomeIntMember" type="uint8" bitLength="3" />
             <set name="SomeSetMember" bitLength="3">
@@ -61,6 +61,5 @@ property to specify length in bits.
     </fields>
 </schema>
 ----
-
 
 Use <<appendix-ref, properties table>> for future references.

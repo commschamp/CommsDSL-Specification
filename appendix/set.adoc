@@ -3,7 +3,7 @@
 === Properties of &lt;set&gt; Field ===
 The **&lt;set&gt;** field has all the <<appendix-fields, common>> properties as
 well as ones listed below. Refer to <<fields-set, &lt;set&gt; Field>> chapter
-for detailed description. 
+for detailed description.
 
 [cols="^.^24,^.^10,^.^10,^.^10,^.^10,36", options="header"]
 |===
