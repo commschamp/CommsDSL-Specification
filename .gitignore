@@ -1,5 +1,8 @@
 build*
+vendor
 .vscode
+.bundle
 *.pdf
 *.html
 *.css
+Gemfile*
