@@ -11,18 +11,18 @@ if (NOT ASCIIDOCTOR_PDF_EXE)
     message(FATAL_ERROR "asciidoctor-pdf is not found")
 endif ()
 
-set (MAIN_FILE "${PROJECT_SOURCE_DIR}/commsdsl_spec.adoc")
+set (MAIN_FILE "${PROJECT_SOURCE_DIR}/doc/commsdsl_spec.adoc")
 file (READ "${MAIN_FILE}" main_file_contents)
 string (REGEX MATCH "v([0-9\.]*)\," _ ${main_file_contents})
 set (VERSION "v${CMAKE_MATCH_1}")
 
 add_custom_target("pdf" ALL
     COMMAND ${ASCIIDOCTOR_PDF_EXE} ${MAIN_FILE}
-    COMMAND ${CMAKE_COMMAND} -E rename "${PROJECT_SOURCE_DIR}/commsdsl_spec.pdf" "${CMAKE_CURRENT_BINARY_DIR}/commsdsl_spec_${VERSION}.pdf"
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+    COMMAND ${CMAKE_COMMAND} -E rename "${PROJECT_SOURCE_DIR}/doc/commsdsl_spec.pdf" "${CMAKE_CURRENT_BINARY_DIR}/commsdsl_spec_${VERSION}.pdf"
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc)
 
 add_custom_target("site" ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/site/images
     COMMAND ${ASCIIDOCTOR_EXE} -D ${CMAKE_CURRENT_BINARY_DIR}/site -o index.html ${MAIN_FILE}
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/images ${CMAKE_CURRENT_BINARY_DIR}/site/images/
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/doc/images ${CMAKE_CURRENT_BINARY_DIR}/site/images/
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})

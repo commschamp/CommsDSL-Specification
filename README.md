@@ -17,8 +17,6 @@ using [CMake](https://cmake.org/)
 For a more detailed version go to [https://asciidoctor.org/#installation](https://asciidoctor.org/#installation)
 
 ## Newest asciidoctor version
-For asciidoctor the ruby version 2.7 is necessary.
-
 Head over to the ruby install [instructions](https://www.ruby-lang.org/en/documentation/installation/). Note for windows: If you already have [chocolatey](https://chocolatey.org/) installed, you simply can run `choco install ruby`
 
 Install asciidoctor, asciidoctor-pdf and the syntax highlighter with:
