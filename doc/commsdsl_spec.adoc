@@ -9,7 +9,6 @@ v8.1, 2026-11
 :sectnums!:
 :revinfo!:
 
-
 include::intro/intro.adoc[]
 include::schema/schema.adoc[]
 include::fields/fields.adoc[]

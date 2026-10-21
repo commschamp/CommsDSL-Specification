@@ -98,7 +98,7 @@ using **cond** <<intro-properties, property>>.
     </message>
 </schema>
 ----
-**NOTE**, that **cond** property can be used only for **&lt;optional&gt;** field
+Usually the **cond** property is used for **&lt;optional&gt;** field
 that is a member of a <<fields-bundle, &lt;bundle&gt; >> or a
 <<messages-messages, &lt;message&gt; >>. The **cond** expression
 specifies condition when the **&lt;optional&gt;** field exists, and is expected to
@@ -106,7 +106,7 @@ reference other **sibling** field. Such reference is always prefixed with `$` ch
 to indicate that the field is a **sibling** of the **&lt;optional&gt;** and
 not some external field.
 
-The allowed **cond** expressions are:
+The basic **cond** expressions are:
 
 * $_set_field_name.bit_name_ - The wrapped field exists if specified bit is set to **true** (**1**).
 * !$_set_field_name.bit_name_ - The wrapped field exists if specified bit is set to **false** (**0**).
@@ -241,7 +241,7 @@ by the usage of the `#` character after the one indicating sibling (`$`) or inte
 In the example above the `F2` field exists if `F1` is not empty, i.e. its size is not `0`.
 
 Also since **v6.1** of this specification check whether the previously encountered **&lt;optional&gt;** field
-exists is also supporting in another **&lt;optional&gt;** field condition. Such check is determined by the
+exists is also supported in another **&lt;optional&gt;** field condition. Such check is determined by the
 usage of the `?` character after the one indicating sibling (`$`) or interface (`%`) reference.
 
 [source,xml]
@@ -266,6 +266,32 @@ usage of the `?` character after the one indicating sibling (`$`) or interface (
 </schema>
 ----
 In the example above `F3` exists when `F2` is missing.
+
+The **v8.1** of this specification introduced support for the **&lt;mask&gt;** nodes inside <<fields-set, &lt;set&gt; >> fields.
+They can be used in optional existence conditions in the same way as bits.
+
+* $_set_field_name.mask_name_ - The wrapped field exists if **all** bits in the specified mask are set to **true** (**1**).
+* !$_set_field_name.mask_name_ - The wrapped field exists if NOT **all** bits in the specified mask are set to **true**, meaning SOME of them are set to **false** (**0**).
+  If there is a need to check that **all** required bits in the mask are set to **false** (**0**) use <<fields-optional-multiple-existence-conditions>> (explained below) for
+  multiple per-bit checks.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema ...>
+    <message name="Msg1" id="1">
+        <set name="F1">
+            <bit name="B0" idx="0" />
+            <bit name="B1" idx="1" />
+            <mask name="M0" bits="B0 | B1" />
+        </set>
+        <optional name="F2" defaultMode="missing" cond="$F1.M0">
+            <int name="ActF2" type="uint32" />
+        </optional>
+    </fields>
+</schema>
+----
+
 
 [[fields-optional-multiple-existence-conditions]]
 ==== Multiple Existence Conditions ====

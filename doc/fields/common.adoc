@@ -426,7 +426,7 @@ boolean value can be used in addition to **reuse** one.
 ----
 
 [[fields-common-length-validation]]
-=== Field Length Validation ===
+==== Field Length Validation ====
 Many protocol specifications provide expected serialization length of the message or selected fields. In order to
 prevent various typos or copy-paste errors, the **CommsDSL** provides an ability to
 validate the specified field (minimal) length during the schema file parsing. It can be quite useful for the
